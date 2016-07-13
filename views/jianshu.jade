@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1= title
+  div
+    table
+      thead
+        tr
+          td 文章标题
+      tbody
+        each article in articleTitle
+          tr
+            td #{article.articleTitle}
+
