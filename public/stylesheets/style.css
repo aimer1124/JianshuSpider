@@ -4,10 +4,15 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #76d04b;
 }
 
 thead {
-  color: #00B7FF;
+  color: #F097F0;
+  font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.nav {
+  color: #4F4D3F;
   font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
