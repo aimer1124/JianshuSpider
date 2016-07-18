@@ -1,5 +1,95 @@
 # 简书爬虫
 
+## **20160718**
+
+### 获取每位作者的**粉丝**及**关注**
+- `有时`会出现获取不到**粉丝**和**关注**,应该是由于简书官网做了`并发访问`限制
+- 使用`eventproxy`获取首页信息后,再获取每位作者的信息链接页面数据
+
+```
+var ep = new eventProxy();
+ep.after('authorInfo_html',articleTitle.length,function (userInfors) {
+    articleInfors = userInfors.map(function (userInfo) {
+        var articleTitle = userInfo[0];
+        var articleUrl = userInfo[1];
+        var authorHtml = userInfo[2];
+        var authorUrl = userInfo[3];
+        var $ = cheerio.load(authorHtml);
+        var author = $('.basic-info').find('h3').text();
+        var following = $('.clearfix').find('b').eq(0).text();
+        var follower = $('.clearfix').find('b').eq(1).text();
+        return ({
+            articleTitle: articleTitle,
+            articleUrl: articleUrl,
+            author: author,
+            authorUrl: authorUrl,
+            following: following,
+            follower: follower
+        });
+    });
+
+    res.render('jianshu', { title: '简书',articleTitle: articleTitle,showPage:0,articleInfors: articleInfors });
+});
+
+articleTitle.forEach(function (article) {
+    console.log('获取:' + article.authorLink + '中');
+    request.get(article.authorLink)
+        .end(function (err, res) {
+            console.log('获取:' + article.authorLink + '完成');
+            var $ = cheerio.load(res.text);
+            console.log('Init following is :' + $('.clearfix li b').eq(0).text());
+            ep.emit('authorInfo_html',[article.articleTitle,article.href,res.text,article.authorLink]);
+        });
+});
+});
+```
+
+- 调整前端展示及添加作者信息页面的链接功能
+
+```
+  div
+    table
+      thead
+        tr
+          td 文章标题
+          td 作者
+          td 关注
+          td 粉丝
+      tbody
+        each info in articleInfors
+          tr
+            td
+              a(href='#{info.articleUrl}') #{info.articleTitle}
+            td
+              a(href='#{info.authorUrl}') #{info.author}
+            td #{info.following}
+            td #{info.follower}
+
+```
+
+### 添加文章列表中作者的信息链接
+- 获取作者的信息链接
+
+```
+articleTitle.push({
+    articleTitle: $article.find('.title a').text(),
+    author: $article.find('.author-name').text(),
+    authorLink: 'http://www.jianshu.com' + $article.find('.author-name').attr('href'),
+    href: 'http://www.jianshu.com' + $article.find('.title a').attr('href')
+})
+```
+
+- 添加到前端展示的信息中
+
+```
+  tr
+    td #{article.articleTitle}
+    td
+      a(href='#{article.authorLink}') #{article.author}
+    td
+      a(href='#{article.href}') #{article.href}
+```
+
 ## **20160714** 
 
 ###获取首页文章的作者名及文章链接

@@ -10,23 +10,14 @@ block content
         tr
           td 文章标题
           td 作者
-          td 链接
+          td 关注
+          td 粉丝
       tbody
-        case showPage
-          when 0
-            each article in articleTitle
-              tr
-                td #{article.articleTitle}
-                td #{article.author}
-                td
-                  a(href='#{article.href}') #{article.href}
-          when 1
-            tr
-              td 1
-              td 2
-              td 3
-          default
-            tr
-              td 0
-              td 0
-              td 0
+        each info in articleInfors
+          tr
+            td
+              a(href='#{info.articleUrl}') #{info.articleTitle}
+            td
+              a(href='#{info.authorUrl}') #{info.author}
+            td #{info.following}
+            td #{info.follower}
