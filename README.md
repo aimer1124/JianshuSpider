@@ -1,5 +1,50 @@
 # 简书爬虫
 
+## **20160719**
+
+### 使用`async`获取数据的并发数,确保每次均可完整获取数据
+- `async.mapLimit`异常的执行最大的执行数,从1开始
+- 将所有的返回数据全部存放至`results`中,便于在前端展示
+
+```
+var conCurrencyCount = 0;
+var fetchUrl = function (article, callback) {
+    var delay = parseInt((Math.random() * 10000000) % 2000,10);
+    conCurrencyCount++;
+    console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorLink + ',控制的延迟:' + delay);
+    request.get(article.authorLink)
+        .end(function (err, res) {
+            if (err){
+                return next(err);
+            }
+            var $ = cheerio.load(res.text);
+            var author = $('.basic-info').find('h3').text();
+            var following = $('.clearfix').find('b').eq(0).text();
+            var follower = $('.clearfix').find('b').eq(1).text();
+            results.push({
+                articleTitle: article.articleTitle,
+                articleUrl: article.href,
+                author: author,
+                authorUrl: article.authorLink,
+                following: following,
+                follower: follower
+            })
+        });
+    setTimeout(function () {
+        conCurrencyCount--;
+        callback(null,article + ' html content');
+    },delay);
+};
+
+async.mapLimit(articleTitles,5,function (article, callback) {
+    fetchUrl(article,callback);
+},function (err, result) {
+    console.log('获取数据结束');
+    res.render('jianshu', { title: '简书', results: results});
+});
+
+```
+
 ## **20160718**
 
 ### 获取每位作者的**粉丝**及**关注**

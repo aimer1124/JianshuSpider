@@ -13,11 +13,11 @@ block content
           td 关注
           td 粉丝
       tbody
-        each info in articleInfors
+        each result in results
           tr
             td
-              a(href='#{info.articleUrl}') #{info.articleTitle}
+              a(href='#{result.articleUrl}') #{result.articleTitle}
             td
-              a(href='#{info.authorUrl}') #{info.author}
-            td #{info.following}
-            td #{info.follower}
+              a(href='#{result.authorUrl}') #{result.author}
+            td #{result.following}
+            td #{result.follower}
