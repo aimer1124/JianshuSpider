@@ -4,7 +4,7 @@ var request = require('superagent');
 var cheerio = require('cheerio');
 // var eventProxy = require('eventproxy');
 var async = require('async');
-
+var articleScheme = require('../model/article');
 
 /* GET Jinshu home page.
 * */
@@ -50,7 +50,13 @@ router.get('/', function(req, res, next) {
                             authorUrl: article.authorLink,
                             following: following,
                             follower: follower
-                        })
+                        });
+                        articleScheme.create({
+                            title: article.articleTitle,
+                            href: article.href
+                        },function(err, result) {
+                            if (err) return next(err);
+                        });
                     });
                 setTimeout(function () {
                     conCurrencyCount--;
@@ -62,6 +68,7 @@ router.get('/', function(req, res, next) {
                 fetchUrl(article,callback);
             },function (err, result) {
                 console.log('获取数据结束');
+
                 res.render('jianshu', { title: '简书', results: results});
             });
 

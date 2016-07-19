@@ -2,6 +2,36 @@
 
 ## **20160719**
 
+### 使用`mongodb`数据库存储获取的数据:首页文章、文章链接
+- 使用`mongoose`来操作和维护`mongodb`
+- 使用`collection` `article`来存储数据
+
+```
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/jianshu');
+
+var Schema = mongoose.Schema;
+
+var articleScheme = new Schema({
+    title: String,
+    href: String
+});
+
+module.exports = mongoose.model('article', articleScheme);
+
+```
+
+- 向数据库中插入每次查询的结果
+
+```
+articleScheme.create({
+    title: article.articleTitle,
+    href: article.href
+},function(err, result) {
+    if (err) return next(err);
+});
+```
+
 ### 使用`async`获取数据的并发数,确保每次均可完整获取数据
 - `async.mapLimit`异常的执行最大的执行数,从1开始
 - 将所有的返回数据全部存放至`results`中,便于在前端展示
