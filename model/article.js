@@ -5,7 +5,9 @@ var Schema = mongoose.Schema;
 
 var articleScheme = new Schema({
     title: String,
-    href: String
+    articleHref: String,
+    author: String,
+    authorHref: String
 });
 
 module.exports = mongoose.model('article', articleScheme);

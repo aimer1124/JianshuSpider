@@ -24,8 +24,8 @@ router.get('/', function(req, res, next) {
                 articleTitles.push({
                     articleTitle: $article.find('.title a').text(),
                     author: $article.find('.author-name').text(),
-                    authorLink: 'http://www.jianshu.com' + $article.find('.author-name').attr('href'),
-                    href: 'http://www.jianshu.com' + $article.find('.title a').attr('href')
+                    authorHref: 'http://www.jianshu.com' + $article.find('.author-name').attr('href'),
+                    articleHref: 'http://www.jianshu.com' + $article.find('.title a').attr('href')
                 })
             });
 
@@ -33,8 +33,8 @@ router.get('/', function(req, res, next) {
             var fetchUrl = function (article, callback) {
                 var delay = parseInt((Math.random() * 10000000) % 2000,10);
                 conCurrencyCount++;
-                console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorLink + ',控制的延迟:' + delay);
-                request.get(article.authorLink)
+                console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorHref + ',控制的延迟:' + delay);
+                request.get(article.authorHref)
                     .end(function (err, res) {
                         if (err){
                             return next(err);
@@ -45,15 +45,17 @@ router.get('/', function(req, res, next) {
                         var follower = $('.clearfix').find('b').eq(1).text();
                         results.push({
                             articleTitle: article.articleTitle,
-                            articleUrl: article.href,
+                            articleUrl: article.articleHref,
                             author: author,
-                            authorUrl: article.authorLink,
+                            authorUrl: article.authorHref,
                             following: following,
                             follower: follower
                         });
                         articleScheme.create({
                             title: article.articleTitle,
-                            href: article.href
+                            articleHref: article.articleHref,
+                            author: article.author,
+                            authorHref: article.authorHref
                         },function(err, result) {
                             if (err) return next(err);
                         });
@@ -68,7 +70,6 @@ router.get('/', function(req, res, next) {
                 fetchUrl(article,callback);
             },function (err, result) {
                 console.log('获取数据结束');
-
                 res.render('jianshu', { title: '简书', results: results});
             });
 

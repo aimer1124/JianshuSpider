@@ -1,5 +1,61 @@
 # 简书爬虫
 
+---
+
+_此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
+
+**需求列表**
+
+- 获取简书的首页文章,并将**文章标题**、**文章链接**、**作者**、**作者信息链接**存入数据库 100%
+- 文章数据存入`article`,作者数据存入`author`
+- 记录每天自己的`粉丝`、`收获喜欢`数量,存入数据库`myInfo`中
+
+**源代码地址** [https://github.com/aimer1124/JianshuSpider](https://github.com/aimer1124/JianshuSpider)
+
+---
+
+## **20160720**
+
+### 添加数据库中存储数据**作者**、**作者信息链接**
+- 添加`scheme`配制
+
+```
+var articleScheme = new Schema({
+    title: String,
+    articleHref: String,
+    author: String,
+    authorHref: String
+});
+```
+
+- 将获取的数据一并保存至数据库中
+
+```
+articleScheme.create({
+    title: article.articleTitle,
+    articleHref: article.articleHref,
+    author: article.author,
+    authorHref: article.authorHref
+},function(err, result) {
+    if (err) return next(err);
+});
+```
+
+- 在mongo中查询插入的数据。使用mongo链接查询时,建议使用`pretty()`方法来将返回的数据展示的更易读
+
+```
+> db.articles.find({'_id': ObjectId('578f07f5bf9d4937b7c9f0a9')}).pretty()
+{
+        "_id" : ObjectId("578f07f5bf9d4937b7c9f0a9"),
+        "title" : "就Excel而言，掌握这些就足以应付大部分工作了",
+        "articleHref" : "http://www.jianshu.com/p/aab3f09f015b",
+        "author" : "北大小笨",
+        "authorHref" : "http://www.jianshu.com/users/2528bd080aa8",
+        "__v" : 0
+}
+
+```
+
 ## **20160719**
 
 ### 使用`mongodb`数据库存储获取的数据:首页文章、文章链接
