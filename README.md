@@ -60,7 +60,7 @@ articleScheme.create({
 
 ### 使用`mongodb`数据库存储获取的数据:首页文章、文章链接
 - 使用`mongoose`来操作和维护`mongodb`
-- 使用`collection` `article`来存储数据
+- 使用`article`collection来存储数据
 
 ```
 var mongoose = require('mongoose');
