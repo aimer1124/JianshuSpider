@@ -14,6 +14,29 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 ---
 
+## **20160726**
+
+### 针对存入的文章进行去重
+- 针对`mongo`的链接使用`createConnection`。若使用`connect`多次操作`schema`时,会出现`Error: Trying to open unclosed connection.`
+- 依据文章链接进行判断是否已存入,标题有可能相同
+
+```
+articleSchema.find({articleHref:article.articleHref},function (err, findArticle) {
+    console.log(findArticle);
+    if (findArticle.length == 0) {
+        articleSchema.create({
+            title: article.articleTitle,
+            articleHref: article.articleHref,
+            author: article.author,
+            authorHref: article.authorHref
+        },function(err, result) {
+            if (err) return next(err);
+        });
+    }
+});
+```
+
+
 ## **20160720**
 
 ### 添加数据库中存储数据**作者**、**作者信息链接**

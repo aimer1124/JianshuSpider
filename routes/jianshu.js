@@ -4,7 +4,8 @@ var request = require('superagent');
 var cheerio = require('cheerio');
 // var eventProxy = require('eventproxy');
 var async = require('async');
-var articleScheme = require('../model/article');
+var articleSchema = require('../model/article');
+var authorSchema = require('../model/author');
 
 /* GET Jinshu home page.
 * */
@@ -51,13 +52,18 @@ router.get('/', function(req, res, next) {
                             following: following,
                             follower: follower
                         });
-                        articleScheme.create({
-                            title: article.articleTitle,
-                            articleHref: article.articleHref,
-                            author: article.author,
-                            authorHref: article.authorHref
-                        },function(err, result) {
-                            if (err) return next(err);
+                        articleSchema.find({articleHref:article.articleHref},function (err, findArticle) {
+                            console.log(findArticle);
+                            if (findArticle.length == 0) {
+                                articleSchema.create({
+                                    title: article.articleTitle,
+                                    articleHref: article.articleHref,
+                                    author: article.author,
+                                    authorHref: article.authorHref
+                                },function(err, result) {
+                                    if (err) return next(err);
+                                });
+                            }
                         });
                     });
                 setTimeout(function () {
