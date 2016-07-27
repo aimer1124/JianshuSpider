@@ -16,8 +16,8 @@ block content
         each result in results
           tr
             td
-              a(href='#{result.articleUrl}') #{result.articleTitle}
+              a(href='http://www.jianshu.com' + '#{result.articleUrl}') #{result.articleTitle}
             td
-              a(href='#{result.authorUrl}') #{result.author}
+              a(href='http://www.jianshu.com' + '#{result.authorUrl}') #{result.author}
             td #{result.following}
             td #{result.follower}

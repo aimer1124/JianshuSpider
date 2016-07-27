@@ -7,18 +7,99 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 **需求列表**
 
 - 获取简书的首页文章,并将**文章标题**、**文章链接**、**作者**、**作者信息链接**存入数据库 100%
-- 文章数据存入`article`,作者数据存入`author`
+- 文章数据存入`article`,作者数据存入`author` 90%-未完成数据关系
 - 记录每天自己的`粉丝`、`收获喜欢`数量,存入数据库`myInfo`中
 
 **源代码地址** [https://github.com/aimer1124/JianshuSpider](https://github.com/aimer1124/JianshuSpider)
 
 ---
 
+
+
+## **20160727**
+### mongoose中`createConnection`与`connection`的用法区别
+
+`createConnectoin`用法
+
+```
+var mongoose = require('mongoose');
+var db = mongoose.createConnection('mongodb://localhost/jianshu');
+
+var Schema = mongoose.Schema;
+
+var articleScheme = new Schema({
+    title: String,
+    articleHref: String,
+    author: String,
+    authorHref: String
+});
+
+module.exports = db.model('article', articleScheme);
+
+```
+
+`connection`用法
+
+```
+var mongoose = require('mongoose');
+mongoose.createConnection('mongodb://localhost/jianshu');
+
+var Schema = mongoose.Schema;
+
+var articleScheme = new Schema({
+    title: String,
+    articleHref: String,
+    author: String,
+    authorHref: String
+});
+
+module.exports = mongoose.model('article', articleScheme);
+
+```
+
+### 作者数据存入`author`中,存入数据:authorHref/author/following/follower
+- `model`:author.js`
+
+```
+var mongoose = require('mongoose');
+var db = mongoose.createConnection('mongodb://localhost/jianshu');
+
+var Schema = mongoose.Schema;
+
+var authorScheme = new Schema({
+    id: String,
+    author: String,
+    following: Number,
+    follower: Number
+});
+
+module.exports = db.model('author', authorScheme);
+
+```
+
+- 插入数据`routes/jianshu.js`
+
+```
+authorSchema.find({id:article.authorHref},function (err, findAuthor) {
+    console.log(findAuthor);
+    if (findAuthor.length == 0) {
+        authorSchema.create({
+            id: article.authorHref,
+            author: article.author,
+            following: following,
+            follower: follower
+        },function(err, result) {
+            if (err) return next(err);
+        });
+    }
+});
+```
+
+
 ## **20160726**
 
 ### 针对存入的文章进行去重
 - 针对`mongo`的链接使用`createConnection`。若使用`connect`多次操作`schema`时,会出现`Error: Trying to open unclosed connection.`。参考:[http://mongoosejs.com/docs/api.html#index_Mongoose-createConnection](http://mongoosejs.com/docs/api.html#index_Mongoose-createConnection)
-
 - 依据文章链接进行判断是否已存入,标题有可能相同
 
 ```

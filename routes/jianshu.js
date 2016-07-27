@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var request = require('superagent');
 var cheerio = require('cheerio');
-// var eventProxy = require('eventproxy');
 var async = require('async');
 var articleSchema = require('../model/article');
 var authorSchema = require('../model/author');
@@ -25,8 +24,8 @@ router.get('/', function(req, res, next) {
                 articleTitles.push({
                     articleTitle: $article.find('.title a').text(),
                     author: $article.find('.author-name').text(),
-                    authorHref: 'http://www.jianshu.com' + $article.find('.author-name').attr('href'),
-                    articleHref: 'http://www.jianshu.com' + $article.find('.title a').attr('href')
+                    authorHref: $article.find('.author-name').attr('href'),
+                    articleHref: $article.find('.title a').attr('href')
                 })
             });
 
@@ -35,7 +34,7 @@ router.get('/', function(req, res, next) {
                 var delay = parseInt((Math.random() * 10000000) % 2000,10);
                 conCurrencyCount++;
                 console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorHref + ',控制的延迟:' + delay);
-                request.get(article.authorHref)
+                request.get('http://www.jianshu.com' + article.authorHref)
                     .end(function (err, res) {
                         if (err){
                             return next(err);
@@ -60,6 +59,19 @@ router.get('/', function(req, res, next) {
                                     articleHref: article.articleHref,
                                     author: article.author,
                                     authorHref: article.authorHref
+                                },function(err, result) {
+                                    if (err) return next(err);
+                                });
+                            }
+                        });
+                        authorSchema.find({id:article.authorHref},function (err, findAuthor) {
+                            console.log(findAuthor);
+                            if (findAuthor.length == 0) {
+                                authorSchema.create({
+                                    id: article.authorHref,
+                                    author: article.author,
+                                    following: following,
+                                    follower: follower
                                 },function(err, result) {
                                     if (err) return next(err);
                                 });

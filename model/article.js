@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/jianshu');
+var db = mongoose.createConnection('mongodb://localhost/jianshu');
 
 var Schema = mongoose.Schema;
 
@@ -10,4 +10,4 @@ var articleScheme = new Schema({
     authorHref: String
 });
 
-module.exports = mongoose.model('article', articleScheme);
+module.exports = db.model('article', articleScheme);
