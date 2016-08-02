@@ -45,14 +45,13 @@ router.get('/', function(req, res, next) {
                         var follower = $('.clearfix').find('b').eq(1).text();
                         results.push({
                             articleTitle: article.articleTitle,
-                            articleUrl: article.articleHref,
+                            articleHref: article.articleHref,
                             author: author,
-                            authorUrl: article.authorHref,
+                            authorHref: article.authorHref,
                             following: following,
                             follower: follower
                         });
                         articleSchema.find({articleHref:article.articleHref},function (err, findArticle) {
-                            console.log(findArticle);
                             if (findArticle.length == 0) {
                                 articleSchema.create({
                                     title: article.articleTitle,
@@ -65,7 +64,6 @@ router.get('/', function(req, res, next) {
                             }
                         });
                         authorSchema.find({id:article.authorHref},function (err, findAuthor) {
-                            console.log(findAuthor);
                             if (findAuthor.length == 0) {
                                 authorSchema.create({
                                     id: article.authorHref,

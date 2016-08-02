@@ -3,3 +3,16 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  a(href='/jianshu') 简书
+  div
+    table
+      thead
+        tr
+          td 关注
+          td 粉丝
+      tbody
+        each result in info
+          tr
+            td #{result.following}
+            td #{result.follower}
+

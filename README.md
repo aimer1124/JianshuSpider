@@ -6,14 +6,105 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 **需求列表**
 
-- 获取简书的首页文章,并将**文章标题**、**文章链接**、**作者**、**作者信息链接**存入数据库 100%
-- 文章数据存入`article`,作者数据存入`author` 90%-未完成数据关系
-- 记录每天自己的`粉丝`、`收获喜欢`数量,存入数据库`myInfo`中
-
+- 【Done】获取简书的首页文章,并将**文章标题**、**文章链接**、**作者**、**作者信息链接**存入数据库
+- 【Done】文章数据存入`article`,作者数据存入`author`  
+- 【Done】记录每天自己的`粉丝`、`收获喜欢`数量,存入数据库`myInfo`中 
+- 将每天自己的数据展示默认展示在首页
 **源代码地址** [https://github.com/aimer1124/JianshuSpider](https://github.com/aimer1124/JianshuSpider)
 
 ---
 
+## **20160802**
+
+### 在首页中添加每天自己的`粉丝`、`收获喜欢`数量,并存入数据库中
+- `myInfo`模型
+
+```
+var myInfoScheme = new Schema({
+    userHref: String,
+    date: String,
+    following: Number,
+    follower: Number
+});
+
+```
+
+- 插入数据库
+
+```
+request.get('http://www.jianshu.com' + myPageHref).end(function (err, res) {
+    var $ = cheerio.load(res.text);
+    var following = $('.clearfix').find('b').eq(0).text();
+    var follower = $('.clearfix').find('b').eq(1).text();
+    myInfoSchema.create({
+      userHref: myPageHref,
+      date: new Date().toDateString(),
+      following: following,
+      follower: follower
+    },function (err, result) {
+      if (err) return next(err);
+    });
+});
+```
+
+- 日期存入格式为: `new Date().toDateString()`,使用字符串进行判断是否已经存入
+
+```
+  myInfoSchema.find({'date': new Date().toDateString()},function (err, result) {
+    if (result.length == 0){
+      request.get('http://www.jianshu.com' + myPageHref).end(function (err, res) {
+        var $ = cheerio.load(res.text);
+        var following = $('.clearfix').find('b').eq(0).text();
+        var follower = $('.clearfix').find('b').eq(1).text();
+        myInfoSchema.create({
+          userHref: myPageHref,
+          date: new Date().toDateString(),
+          following: following,
+          follower: follower
+        },function (err, result) {
+          if (err) return next(err);
+        });
+      });
+    }
+  });
+```
+
+### 更新`mongo`数据库中`myInfo`数据
+
+```
+db.myinfos.update({'userHref':'/users/552f687b314b'},{$set:{'date':'Tue Aug 01 2016'}})
+
+```
+
+### 存入文章时,一并存入作者数据。并需要对文章及作者数据进行去重
+
+```
+articleSchema.find({articleHref:article.articleHref},function (err, findArticle) {
+    console.log(findArticle);
+    if (findArticle.length == 0) {
+        articleSchema.create({
+            title: article.articleTitle,
+            articleHref: article.articleHref,
+            author: article.author,
+            authorHref: article.authorHref
+        },function(err, result) {
+            if (err) return next(err);
+        });
+    }
+});
+authorSchema.find({id:article.authorHref},function (err, findAuthor) {
+    if (findAuthor.length == 0) {
+        authorSchema.create({
+            id: article.authorHref,
+            author: article.author,
+            following: following,
+            follower: follower
+        },function(err, result) {
+            if (err) return next(err);
+        });
+    }
+});
+```
 
 
 ## **20160727**
