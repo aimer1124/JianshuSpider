@@ -1,14 +1,13 @@
 # 简书爬虫
 
----
-
 _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 **源代码**: [https://github.com/aimer1124/JianshuSpider](https://github.com/aimer1124/JianshuSpider)
 
 **需求**: [Teambition-简书爬虫](https://www.teambition.com/project/57a1802f767c4b360c918e49/tasks/scrum/57a1802f767c4b360c918e4c)
 
----
+**效果图**: [HomePage](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
+
 
 ## **20160803**
 
