@@ -8,7 +8,24 @@ var authorSchema = require('../model/author');
 
 /* GET Jinshu home page.
 * */
-router.get('/', function(req, res, next) {
+
+router.get('/',function (req, res,next){
+    var results = [];
+    articleSchema.find({},function (err, result) {
+        if (err) return next(err);
+        result.forEach(function (article) {
+            results.push({
+                articleTitle: article.title,
+                articleHref: article.articleHref,
+                author: article.author,
+                authorHref: article.authorHref
+            });
+        });
+        res.render('jianshu', {results: results});
+    })
+});
+
+router.get('/sync', function(req, res, next) {
     var articleTitles = [];
     var results = [];
 

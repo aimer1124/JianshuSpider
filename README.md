@@ -4,14 +4,9 @@
 
 _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
-**源代码地址** [https://github.com/aimer1124/JianshuSpider](https://github.com/aimer1124/JianshuSpider)
+**源代码**: [https://github.com/aimer1124/JianshuSpider](https://github.com/aimer1124/JianshuSpider)
 
-**需求列表**
-
-- 【Done】获取简书的首页文章,并将**文章标题**、**文章链接**、**作者**、**作者信息链接**存入数据库
-- 【Done】文章数据存入`article`,作者数据存入`author`  
-- 【Done】记录每天自己的`粉丝`、`收获喜欢`数量,存入数据库`myInfo`中 
-- 【Done】将每天自己的数据展示默认展示在首页
+**需求**: [Teambition-简书爬虫](https://www.teambition.com/project/57a1802f767c4b360c918e49/tasks/scrum/57a1802f767c4b360c918e4c)
 
 ---
 

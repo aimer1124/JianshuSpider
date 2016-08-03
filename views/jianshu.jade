@@ -2,16 +2,13 @@ extends layout
 
 block content
   div
-    a(class='nav' href='') 热门
-    a(class='nav' href='') 新上榜
-  div
     table
       thead
         tr
           td 文章标题
           td 作者
-          td 关注
-          td 粉丝
+          //td 关注
+          //td 粉丝
       tbody
         each result in results
           tr
@@ -19,5 +16,5 @@ block content
               a(href='http://www.jianshu.com' + '#{result.articleHref}') #{result.articleTitle}
             td
               a(href='http://www.jianshu.com' + '#{result.authorHref}') #{result.author}
-            td #{result.following}
-            td #{result.follower}
+            //td #{result.following}
+            //td #{result.follower}
