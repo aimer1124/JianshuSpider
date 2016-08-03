@@ -4,15 +4,55 @@
 
 _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
+**源代码地址** [https://github.com/aimer1124/JianshuSpider](https://github.com/aimer1124/JianshuSpider)
+
 **需求列表**
 
 - 【Done】获取简书的首页文章,并将**文章标题**、**文章链接**、**作者**、**作者信息链接**存入数据库
 - 【Done】文章数据存入`article`,作者数据存入`author`  
 - 【Done】记录每天自己的`粉丝`、`收获喜欢`数量,存入数据库`myInfo`中 
-- 将每天自己的数据展示默认展示在首页
-**源代码地址** [https://github.com/aimer1124/JianshuSpider](https://github.com/aimer1124/JianshuSpider)
+- 【Done】将每天自己的数据展示默认展示在首页
 
 ---
+
+## **20160803**
+
+### `index`页面显示自己的数据following/follower
+
+```
+  div
+    table
+      thead
+        tr
+          td 日期
+          td 关注
+          td 粉丝
+      tbody
+        each result in info
+          tr
+            td #{result.date}
+            td #{result.following}
+            td #{result.follower}
+
+```
+
+### 每次刷新页面时,会验证是否已经有今天的数据,如果没有则插入
+
+```
+  myInfoSchema.find({'userHref': '/users/552f687b314b'},function (err, result) {
+    var myInfo = [];
+    result.forEach(function (info) {
+      console.log('Date:' + info.date);
+      myInfo.push({
+        date: info.date,
+        following: info.following,
+        follower: info.follower
+      });
+    });
+    res.render('index', { title: 'Express' ,info: myInfo});
+  });
+
+```
 
 ## **20160802**
 

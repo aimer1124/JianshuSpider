@@ -5,7 +5,7 @@ var request = require('superagent');
 var cheerio = require('cheerio');
 var myPageHref = '/users/552f687b314b';
 var myInfoSchema = require('../model/myInfo');
-var myInfo = [];
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   myInfoSchema.find({'date': new Date().toDateString()},function (err, result) {
@@ -25,16 +25,20 @@ router.get('/', function(req, res, next) {
       });
     }
   });
-  // myInfoSchema.find({'userHref': '/users/552f687b314b'},function (err, result) {
-  //   result.each(function (idx, info) {
-  //     myInfo.push({
-  //       date: info.date,
-  //       following: info.following,
-  //       follower: info.follower
-  //     });
-  //   });
-  // });
-  res.render('index', { title: 'Express' ,info: myInfo});
+  myInfoSchema.find({'userHref': '/users/552f687b314b'},function (err, result) {
+    var myInfo = [];
+    result.forEach(function (info) {
+      console.log('Date:' + info.date);
+      myInfo.push({
+        date: info.date,
+        following: info.following,
+        follower: info.follower
+      });
+    });
+    res.render('index', { title: 'Express' ,info: myInfo});
+  });
+
+
 });
 
 module.exports = router;
