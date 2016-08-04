@@ -6,6 +6,8 @@ var async = require('async');
 var articleSchema = require('../model/article');
 var authorSchema = require('../model/author');
 
+var article = require('../proxy/article');
+
 /* GET Jinshu home page.
 * */
 
@@ -22,7 +24,7 @@ router.get('/',function (req, res,next){
             });
         });
         res.render('jianshu', {results: results});
-    })
+    });
 });
 
 router.get('/sync', function(req, res, next) {
@@ -103,7 +105,19 @@ router.get('/sync', function(req, res, next) {
                 fetchUrl(article,callback);
             },function (err, result) {
                 console.log('获取数据结束');
-                res.render('jianshu', { title: '简书', results: results});
+                var resultsAllArticles = [];
+                articleSchema.find({},function (err, result) {
+                    if (err) return next(err);
+                    result.forEach(function (article) {
+                        resultsAllArticles.push({
+                            articleTitle: article.title,
+                            articleHref: article.articleHref,
+                            author: article.author,
+                            authorHref: article.authorHref
+                        });
+                    });
+                    res.render('jianshu', {results: resultsAllArticles});
+                });
             });
 
         });

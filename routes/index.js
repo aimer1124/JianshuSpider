@@ -28,14 +28,14 @@ router.get('/', function(req, res, next) {
   myInfoSchema.find({'userHref': '/users/552f687b314b'},function (err, result) {
     var myInfo = [];
     result.forEach(function (info) {
-      console.log('Date:' + info.date);
+      // console.log('Date:' + info.date);
       myInfo.push({
         date: info.date,
         following: info.following,
         follower: info.follower
       });
     });
-    res.render('index', { title: 'Express' ,info: myInfo});
+    res.render('index', { title: '简书爬虫' ,info: myInfo});
   });
 
 
