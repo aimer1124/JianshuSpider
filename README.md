@@ -6,8 +6,48 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 **需求**: [Teambition-简书爬虫](https://www.teambition.com/project/57a1802f767c4b360c918e49/tasks/scrum/57a1802f767c4b360c918e4c)
 
-**效果图**: [HomePage](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
+**效果图**
+- [HomePage](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
+- [Article](https://www.processon.com/view/link/57a2d0f1e4b0358f8ad7f03b)
 
+## **20160811**
+
+### 删除重复的myinfo数据
+
+```
+db.myinfos.remove({"_id" : ObjectId("57a810b87a33b27050c8529f")})
+```
+
+## **20160808**
+
+### 重构：提取获取文章列表的公共方法 -- Block
+
+
+## **20160804**
+
+### 完成同步文章列表的功能
+- 在获取新文章后,再使用`render`到到文章列表模板
+
+```
+async.mapLimit(articleTitles,5,function (article, callback) {
+    fetchUrl(article,callback);
+},function (err, result) {
+    console.log('获取数据结束');
+    var resultsAllArticles = [];
+    articleSchema.find({},function (err, result) {
+        if (err) return next(err);
+        result.forEach(function (article) {
+            resultsAllArticles.push({
+                articleTitle: article.title,
+                articleHref: article.articleHref,
+                author: article.author,
+                authorHref: article.authorHref
+            });
+        });
+        res.render('jianshu', {results: resultsAllArticles});
+    });
+});
+```
 
 ## **20160803**
 

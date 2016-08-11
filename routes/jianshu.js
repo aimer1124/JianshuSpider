@@ -25,6 +25,8 @@ router.get('/',function (req, res,next){
         });
         res.render('jianshu', {results: results});
     });
+    // var articles = new article();
+    // res.render('jianshu', {results: articles.getAllArticles()});
 });
 
 router.get('/sync', function(req, res, next) {
