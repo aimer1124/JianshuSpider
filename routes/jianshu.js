@@ -6,8 +6,6 @@ var async = require('async');
 var articleSchema = require('../model/article');
 var authorSchema = require('../model/author');
 
-var article = require('../proxy/article');
-
 /* GET Jinshu home page.
 * */
 

@@ -19,5 +19,12 @@
     "nodemon": "^1.9.2",
     "serve-favicon": "~2.3.0",
     "superagent": "^2.0.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-mocha": "^3.0.0",
+    "minimist": "^1.2.0",
+    "should": "^11.0.0",
+    "supertest": "^2.0.0"
   }
 }
