@@ -10,6 +10,12 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 - [HomePage](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
 - [Article](https://www.processon.com/view/link/57a2d0f1e4b0358f8ad7f03b)
 
+## **2016015**
+
+### 添加服务器自动构建
+- 添加`gulp-nodemon`,`browser-sync`至`devDependencies`
+- 调整`gulpfile.js`:添加自动监听client和server端的代码变化,并及时重新构建
+
 ## **20160811**
 
 ### 删除重复的`myinfo`数据
@@ -20,6 +26,18 @@ db.myinfos.remove({"_id" : ObjectId("57a810b87a33b27050c8529f")})
 
 ### 添加测试框架`supertest`,构建工具`gulp`
 
+```
+gulp.task('test', function() {
+    gulp.src(['test/**.js'], { read: false})
+        .pipe(mocha({
+            reporter: 'spec',
+            globals: {
+                should: require('should')
+            }
+        }));
+});
+
+```
 
 ## **20160808**
 

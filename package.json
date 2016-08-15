@@ -21,8 +21,10 @@
     "superagent": "^2.0.0"
   },
   "devDependencies": {
+    "browser-sync": "^2.14.0",
     "gulp": "^3.9.1",
     "gulp-mocha": "^3.0.0",
+    "gulp-nodemon": "^2.1.0",
     "minimist": "^1.2.0",
     "should": "^11.0.0",
     "supertest": "^2.0.0"
