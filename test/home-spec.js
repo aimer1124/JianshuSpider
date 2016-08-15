@@ -1,4 +1,5 @@
-var request = require('supertest')('http://localhost:3000/');
+var config = require('./config');
+var request = require('supertest')(config.baseUrl);
 
 describe('Home Page',function () {
     it('Verify Content',function (done) {

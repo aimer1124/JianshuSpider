@@ -12,9 +12,13 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 ## **2016015**
 
+## 重构测试代码: 抽取URL
+
 ### 添加服务器自动构建
 - 添加`gulp-nodemon`,`browser-sync`至`devDependencies`
 - 调整`gulpfile.js`:添加自动监听client和server端的代码变化,并及时重新构建
+[http://localhost:4000](http://localhost:4000):为Browser-sync同步监听客户端,并自动刷新前端页面
+[http://localhost:3000](http://localhost:3000):为无browser-sync效果
 
 ## **20160811**
 
