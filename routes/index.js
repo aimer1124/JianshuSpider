@@ -35,9 +35,8 @@ router.get('/', function(req, res, next) {
         follower: info.follower
       });
     });
-    res.render('index', { title: '简书爬虫' ,info: myInfo});
+    res.render('index', {info: myInfo});
   });
-
 
 });
 
