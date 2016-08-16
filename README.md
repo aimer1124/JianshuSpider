@@ -12,6 +12,21 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 ## **20160816**
 
+### 添加文章列表、同步文章测试:存在`同步最新文章`、`文章标题`、`作者`,两个页面内容一样,测试`验证项`也一样。
+
+```
+it('Verify page content',function (done) {
+    request.get('/jianshu')
+        .expect(200)
+        .expect(function (res) {
+            if (!(res.text.indexOf("同步最新文章"))) throw new Error("missing sync latest article link");
+            if (!(res.text.indexOf("文章标题"))) throw new Error("missing article content about title");
+            if (!(res.text.indexOf("作者"))) throw new Error("missing article content about author");
+        })
+        .end(done);
+});
+```
+
 ### 添加首页测试:存在`文章列表`、`日期`、`关注`、`粉丝`,及`2016`数据,__测试不太严谨,但可测试功能__
 
 ```
@@ -29,7 +44,7 @@ it('Exist:go to articles content',function (done) {
 });
 ```
 
-### 添加测试超时时间为5S,[gulp-mocha](https://github.com/sindresorhus/gulp-mocha)
+### 调整测试超时时间为10S,同步使用文章时,使用时间较长, [gulp-mocha](https://github.com/sindresorhus/gulp-mocha)
 
 ```
 gulp.src(['test/**.js'], { read: false})
@@ -38,7 +53,7 @@ gulp.src(['test/**.js'], { read: false})
         globals: {
             should: require('should')
         },
-        timeout: 5000
+        timeout: 10000
     }));
 ```
 

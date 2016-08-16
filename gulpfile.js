@@ -65,6 +65,6 @@ gulp.task('test', function() {
             globals: {
                 should: require('should')
             },
-            timeout: 5000
+            timeout: 10000
         }));
 });

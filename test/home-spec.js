@@ -2,7 +2,7 @@ var config = require('./config');
 var request = require('supertest')(config.baseUrl);
 
 describe('Home Page',function () {
-    it('Exist:go to articles content',function (done) {
+    it('Verify page content',function (done) {
         request.get('')
             .expect(200)
             .expect(function (res) {
