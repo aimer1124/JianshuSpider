@@ -12,6 +12,23 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 ## **20160816**
 
+### 添加首页测试:存在`文章列表`、`日期`、`关注`、`粉丝`,及`2016`数据,__测试不太严谨,但可测试功能__
+
+```
+it('Exist:go to articles content',function (done) {
+    request.get('')
+        .expect(200)
+        .expect(function (res) {
+            if (!(res.text.indexOf("文章列表"))) throw new Error("missing go to article content");
+            if (!(res.text.indexOf("日期"))) throw new Error("missing myinfo content about date");
+            if (!(res.text.indexOf("关注"))) throw new Error("missing myinfo content about following");
+            if (!(res.text.indexOf("粉丝"))) throw new Error("missing myinfo content about follower");
+            if (!(res.text.indexOf("2016"))) throw new Error("missing myinfo data");
+        })
+        .end(done);
+});
+```
+
 ### 添加测试超时时间为5S,[gulp-mocha](https://github.com/sindresorhus/gulp-mocha)
 
 ```
