@@ -64,6 +64,7 @@ gulp.task('test', function() {
             reporter: 'spec',
             globals: {
                 should: require('should')
-            }
+            },
+            timeout: 5000
         }));
 });

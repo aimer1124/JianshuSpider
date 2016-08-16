@@ -10,11 +10,26 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 - [HomePage](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
 - [Article](https://www.processon.com/view/link/57a2d0f1e4b0358f8ad7f03b)
 
+## **20160816**
+
+### 添加测试超时时间为5S,[gulp-mocha](https://github.com/sindresorhus/gulp-mocha)
+
+```
+gulp.src(['test/**.js'], { read: false})
+    .pipe(mocha({
+        reporter: 'spec',
+        globals: {
+            should: require('should')
+        },
+        timeout: 5000
+    }));
+```
+
 ## **2016015**
 
-## 重构测试代码: 抽取URL
+### 重构测试代码: 抽取URL
 
-### 添加服务器自动构建
+#### 添加服务器自动构建
 - 添加`gulp-nodemon`,`browser-sync`至`devDependencies`
 - 调整`gulpfile.js`:添加自动监听client和server端的代码变化,并及时重新构建
 [http://localhost:4000](http://localhost:4000):为Browser-sync同步监听客户端,并自动刷新前端页面
