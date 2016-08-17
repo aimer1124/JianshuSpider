@@ -8,8 +8,6 @@ block content
         tr
           td 文章标题
           td 作者
-          //td 关注
-          //td 粉丝
       tbody
         each result in results
           tr
@@ -17,5 +15,3 @@ block content
               a(href='http://www.jianshu.com' + '#{result.articleHref}') #{result.articleTitle}
             td
               a(href='http://www.jianshu.com' + '#{result.authorHref}') #{result.author}
-            //td #{result.following}
-            //td #{result.follower}

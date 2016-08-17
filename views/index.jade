@@ -3,16 +3,33 @@ extends layout
 block content
   a(href='/jianshu') 文章列表
   div
-    table
-      thead
-        tr
-          td 日期
-          td 关注
-          td 粉丝
-      tbody
-        each result in info
+    div
+      table
+        thead
           tr
-            td #{result.date}
-            td #{result.following}
-            td #{result.follower}
-
+            td 日期
+            td 关注
+            td 粉丝
+        tbody
+          each result in info
+            tr
+              td #{result.date}
+              td #{result.following}
+              td #{result.follower}
+    div
+      table
+        thead
+          tr
+            td 文章标题
+            td 发布时间
+            td 阅读量
+            td 评论
+            td 喜欢
+          tbody
+            each article in myArticle
+              tr
+                td #{article.article}
+                td #{article.publishDate}
+                td #{article.reading}
+                td #{article.comment}
+                td #{article.favorite}

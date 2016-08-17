@@ -10,6 +10,40 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 - [HomePage](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
 - [Article](https://www.processon.com/view/link/57a2d0f1e4b0358f8ad7f03b)
 
+## **20160817**
+
+### 删除文章列表页面中已注释的代码
+
+### 添加获取自己文件的数据,及返回至前端-未完成链接获取
+
+```
+    result.forEach(function (info) {
+      // console.log('Date:' + info.date);
+      myInfo.push({
+        date: info.date,
+        following: info.following,
+        follower: info.follower
+      });
+    });
+    request.get('http://www.jianshu.com' + myPageHref)
+        .end(function (err, resT) {
+          var $ = cheerio.load(resT.text);
+          $('.article-list li').each(function (idx, article) {
+            var $article = $(article);
+            myArticle.push({
+                article: $article.find('.title a').text(),
+                publishDate: $article.find('.time').attr('data-shared-at'),
+                articleHref: $article.find('.title a').attr('href'),
+                reading: $article.find('.list-footer a').eq(0).text(),
+                comment: $article.find('.list-footer a').eq(1).text(),
+                favorite: $article.find('.list-footer a').eq(2).text()
+            })
+          });
+          res.render('index', {info: myInfo,myArticle: myArticle});
+        });
+
+```
+
 ## **20160816**
 
 ### 添加文章列表、同步文章测试:存在`同步最新文章`、`文章标题`、`作者`,两个页面内容一样,测试`验证项`也一样。
