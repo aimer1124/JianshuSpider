@@ -7,8 +7,23 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 **需求**: [Teambition-简书爬虫](https://www.teambition.com/project/57a1802f767c4b360c918e49/tasks/scrum/57a1802f767c4b360c918e4c)
 
 **效果图**
+
 - [HomePage](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
 - [Article](https://www.processon.com/view/link/57a2d0f1e4b0358f8ad7f03b)
+
+
+**启动**
+
+- DB: `sudo mongod`
+- 服务: `gulp`
+- 测试: `gulp test`
+
+
+## **20160919**
+
+### 完善首页中的个人文章的链接拼接
+
+
 
 ## **20160817**
 

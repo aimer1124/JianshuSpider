@@ -10,7 +10,9 @@ describe('Home Page',function () {
                 if (!(res.text.indexOf("日期"))) throw new Error("missing myinfo content about date");
                 if (!(res.text.indexOf("关注"))) throw new Error("missing myinfo content about following");
                 if (!(res.text.indexOf("粉丝"))) throw new Error("missing myinfo content about follower");
-                if (!(res.text.indexOf("2016"))) throw new Error("missing myinfo data");
+
+                if (!(res.text.indexOf("文章标题"))) throw new Error("missing article-title");
+                if (!(res.text.indexOf("UI自动化测试之Protractor"))) throw new Error("missing article:UI自动化测试之Protractor");
             })
             .end(done);
     });
