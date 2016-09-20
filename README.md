@@ -21,15 +21,15 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 ## **20160919**
 
-### 完善首页中的个人文章的链接拼接
+- 完善首页中的个人文章的链接拼接
 
-### 添加首页个人文章内容测试代码
+- 添加首页个人文章内容测试代码
 
 ## **20160817**
 
-### 删除文章列表页面中已注释的代码
+- 删除文章列表页面中已注释的代码
 
-### 添加获取自己文件的数据,及返回至前端-未完成链接获取
+- 添加获取自己文件的数据,及返回至前端-未完成链接获取
 
 ```
     result.forEach(function (info) {
@@ -61,7 +61,7 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 ## **20160816**
 
-### 添加文章列表、同步文章测试:存在`同步最新文章`、`文章标题`、`作者`,两个页面内容一样,测试`验证项`也一样。
+- 添加文章列表、同步文章测试:存在`同步最新文章`、`文章标题`、`作者`,两个页面内容一样,测试`验证项`也一样。
 
 ```
 it('Verify page content',function (done) {
@@ -76,7 +76,7 @@ it('Verify page content',function (done) {
 });
 ```
 
-### 添加首页测试:存在`文章列表`、`日期`、`关注`、`粉丝`,及`2016`数据,__测试不太严谨,但可测试功能__
+- 添加首页测试:存在`文章列表`、`日期`、`关注`、`粉丝`,及`2016`数据,__测试不太严谨,但可测试功能__
 
 ```
 it('Exist:go to articles content',function (done) {
@@ -93,7 +93,7 @@ it('Exist:go to articles content',function (done) {
 });
 ```
 
-### 调整测试超时时间为10S,同步使用文章时,使用时间较长, [gulp-mocha](https://github.com/sindresorhus/gulp-mocha)
+- 调整测试超时时间为10S,同步使用文章时,使用时间较长, [gulp-mocha](https://github.com/sindresorhus/gulp-mocha)
 
 ```
 gulp.src(['test/**.js'], { read: false})
@@ -106,25 +106,25 @@ gulp.src(['test/**.js'], { read: false})
     }));
 ```
 
-## **2016015**
+## **20160815**
 
-### 重构测试代码: 抽取URL
+- 重构测试代码: 抽取URL
 
-#### 添加服务器自动构建
-- 添加`gulp-nodemon`,`browser-sync`至`devDependencies`
-- 调整`gulpfile.js`:添加自动监听client和server端的代码变化,并及时重新构建
-[http://localhost:4000](http://localhost:4000):为Browser-sync同步监听客户端,并自动刷新前端页面
-[http://localhost:3000](http://localhost:3000):为无browser-sync效果
+    - 添加服务器自动构建
+        - 添加`gulp-nodemon`,`browser-sync`至`devDependencies`
+        - 调整`gulpfile.js`:添加自动监听client和server端的代码变化,并及时重新构建
+        [http://localhost:4000](http://localhost:4000):为Browser-sync同步监听客户端,并自动刷新前端页面
+        [http://localhost:3000](http://localhost:3000):为无browser-sync效果
 
 ## **20160811**
 
-### 删除重复的`myinfo`数据
+- 删除重复的`myinfo`数据
 
 ```
 db.myinfos.remove({"_id" : ObjectId("57a810b87a33b27050c8529f")})
 ```
 
-### 添加测试框架`supertest`,构建工具`gulp`
+- 添加测试框架`supertest`,构建工具`gulp`
 
 ```
 gulp.task('test', function() {
@@ -141,13 +141,13 @@ gulp.task('test', function() {
 
 ## **20160808**
 
-### 重构：提取获取文章列表的公共方法 -- Block
+- 重构：提取获取文章列表的公共方法 -- Block
 
 
 ## **20160804**
 
-### 完成同步文章列表的功能
-- 在获取新文章后,再使用`render`到到文章列表模板
+- 完成同步文章列表的功能
+    - 在获取新文章后,再使用`render`到到文章列表模板
 
 ```
 async.mapLimit(articleTitles,5,function (article, callback) {
@@ -172,7 +172,7 @@ async.mapLimit(articleTitles,5,function (article, callback) {
 
 ## **20160803**
 
-### `index`页面显示自己的数据following/follower
+- `index`页面显示自己的数据following/follower
 
 ```
   div
@@ -191,7 +191,7 @@ async.mapLimit(articleTitles,5,function (article, callback) {
 
 ```
 
-### 每次刷新页面时,会验证是否已经有今天的数据,如果没有则插入
+- 每次刷新页面时,会验证是否已经有今天的数据,如果没有则插入
 
 ```
   myInfoSchema.find({'userHref': '/users/552f687b314b'},function (err, result) {
@@ -211,8 +211,8 @@ async.mapLimit(articleTitles,5,function (article, callback) {
 
 ## **20160802**
 
-### 在首页中添加每天自己的`粉丝`、`收获喜欢`数量,并存入数据库中
-- `myInfo`模型
+- 在首页中添加每天自己的`粉丝`、`收获喜欢`数量,并存入数据库中
+    - `myInfo`模型
 
 ```
 var myInfoScheme = new Schema({
@@ -224,7 +224,7 @@ var myInfoScheme = new Schema({
 
 ```
 
-- 插入数据库
+    - 插入数据库
 
 ```
 request.get('http://www.jianshu.com' + myPageHref).end(function (err, res) {
@@ -242,7 +242,7 @@ request.get('http://www.jianshu.com' + myPageHref).end(function (err, res) {
 });
 ```
 
-- 日期存入格式为: `new Date().toDateString()`,使用字符串进行判断是否已经存入
+    - 日期存入格式为: `new Date().toDateString()`,使用字符串进行判断是否已经存入
 
 ```
   myInfoSchema.find({'date': new Date().toDateString()},function (err, result) {
@@ -264,14 +264,14 @@ request.get('http://www.jianshu.com' + myPageHref).end(function (err, res) {
   });
 ```
 
-### 更新`mongo`数据库中`myInfo`数据
+- 更新`mongo`数据库中`myInfo`数据
 
 ```
 db.myinfos.update({'userHref':'/users/552f687b314b'},{$set:{'date':'Tue Aug 01 2016'}})
 
 ```
 
-### 存入文章时,一并存入作者数据。并需要对文章及作者数据进行去重
+- 存入文章时,一并存入作者数据。并需要对文章及作者数据进行去重
 
 ```
 articleSchema.find({articleHref:article.articleHref},function (err, findArticle) {
@@ -303,9 +303,10 @@ authorSchema.find({id:article.authorHref},function (err, findAuthor) {
 
 
 ## **20160727**
-### mongoose中`createConnection`与`connection`的用法区别
 
-`createConnectoin`用法
+- mongoose中`createConnection`与`connection`的用法区别
+
+    - `createConnectoin`用法
 
 ```
 var mongoose = require('mongoose');
@@ -324,7 +325,7 @@ module.exports = db.model('article', articleScheme);
 
 ```
 
-`connection`用法
+    - `connection`用法
 
 ```
 var mongoose = require('mongoose');
@@ -343,8 +344,9 @@ module.exports = mongoose.model('article', articleScheme);
 
 ```
 
-### 作者数据存入`author`中,存入数据:authorHref/author/following/follower
-- `model`:author.js`
+- 作者数据存入`author`中,存入数据:authorHref/author/following/follower
+    
+    - `model`:author.js`
 
 ```
 var mongoose = require('mongoose');
@@ -363,7 +365,7 @@ module.exports = db.model('author', authorScheme);
 
 ```
 
-- 插入数据`routes/jianshu.js`
+    - 插入数据`routes/jianshu.js`
 
 ```
 authorSchema.find({id:article.authorHref},function (err, findAuthor) {
@@ -384,9 +386,11 @@ authorSchema.find({id:article.authorHref},function (err, findAuthor) {
 
 ## **20160726**
 
-### 针对存入的文章进行去重
-- 针对`mongo`的链接使用`createConnection`。若使用`connect`多次操作`schema`时,会出现`Error: Trying to open unclosed connection.`。参考:[http://mongoosejs.com/docs/api.html#index_Mongoose-createConnection](http://mongoosejs.com/docs/api.html#index_Mongoose-createConnection)
-- 依据文章链接进行判断是否已存入,标题有可能相同
+- 针对存入的文章进行去重
+
+    - 针对`mongo`的链接使用`createConnection`。若使用`connect`多次操作`schema`时,会出现`Error: Trying to open unclosed connection.`。参考:[http://mongoosejs.com/docs/api.html#index_Mongoose-createConnection](http://mongoosejs.com/docs/api.html#index_Mongoose-createConnection)
+
+    - 依据文章链接进行判断是否已存入,标题有可能相同
 
 ```
 articleSchema.find({articleHref:article.articleHref},function (err, findArticle) {
@@ -407,8 +411,9 @@ articleSchema.find({articleHref:article.articleHref},function (err, findArticle)
 
 ## **20160720**
 
-### 添加数据库中存储数据**作者**、**作者信息链接**
-- 添加`scheme`配制
+- 添加数据库中存储数据**作者**、**作者信息链接**
+    
+    - 添加`scheme`配制
 
 ```
 var articleScheme = new Schema({
@@ -419,7 +424,7 @@ var articleScheme = new Schema({
 });
 ```
 
-- 将获取的数据一并保存至数据库中
+    - 将获取的数据一并保存至数据库中
 
 ```
 articleScheme.create({
@@ -432,7 +437,7 @@ articleScheme.create({
 });
 ```
 
-- 在mongo中查询插入的数据。使用mongo链接查询时,建议使用`pretty()`方法来将返回的数据展示的更易读
+    - 在mongo中查询插入的数据。使用mongo链接查询时,建议使用`pretty()`方法来将返回的数据展示的更易读
 
 ```
 > db.articles.find({'_id': ObjectId('578f07f5bf9d4937b7c9f0a9')}).pretty()
@@ -449,9 +454,11 @@ articleScheme.create({
 
 ## **20160719**
 
-### 使用`mongodb`数据库存储获取的数据:首页文章、文章链接
-- 使用`mongoose`来操作和维护`mongodb`
-- 使用`article`collection来存储数据
+- 使用`mongodb`数据库存储获取的数据:首页文章、文章链接
+
+    - 使用`mongoose`来操作和维护`mongodb`
+
+    - 使用`article`collection来存储数据
 
 ```
 var mongoose = require('mongoose');
@@ -468,7 +475,7 @@ module.exports = mongoose.model('article', articleScheme);
 
 ```
 
-- 向数据库中插入每次查询的结果
+    - 向数据库中插入每次查询的结果
 
 ```
 articleScheme.create({
@@ -479,9 +486,11 @@ articleScheme.create({
 });
 ```
 
-### 使用`async`获取数据的并发数,确保每次均可完整获取数据
-- `async.mapLimit`异常的执行最大的执行数,从1开始
-- 将所有的返回数据全部存放至`results`中,便于在前端展示
+- 使用`async`获取数据的并发数,确保每次均可完整获取数据
+
+    - `async.mapLimit`异常的执行最大的执行数,从1开始
+
+    - 将所有的返回数据全部存放至`results`中,便于在前端展示
 
 ```
 var conCurrencyCount = 0;
@@ -524,9 +533,11 @@ async.mapLimit(articleTitles,5,function (article, callback) {
 
 ## **20160718**
 
-### 获取每位作者的**粉丝**及**关注**
-- `有时`会出现获取不到**粉丝**和**关注**,应该是由于简书官网做了`并发访问`限制
-- 使用`eventproxy`获取首页信息后,再获取每位作者的信息链接页面数据
+- 获取每位作者的**粉丝**及**关注**
+
+    - `有时`会出现获取不到**粉丝**和**关注**,应该是由于简书官网做了`并发访问`限制
+
+    - 使用`eventproxy`获取首页信息后,再获取每位作者的信息链接页面数据
 
 ```
 var ep = new eventProxy();
@@ -566,7 +577,7 @@ articleTitle.forEach(function (article) {
 });
 ```
 
-- 调整前端展示及添加作者信息页面的链接功能
+    - 调整前端展示及添加作者信息页面的链接功能
 
 ```
   div
@@ -589,8 +600,9 @@ articleTitle.forEach(function (article) {
 
 ```
 
-### 添加文章列表中作者的信息链接
-- 获取作者的信息链接
+- 添加文章列表中作者的信息链接
+    
+    - 获取作者的信息链接
 
 ```
 articleTitle.push({
@@ -601,7 +613,7 @@ articleTitle.push({
 })
 ```
 
-- 添加到前端展示的信息中
+    - 添加到前端展示的信息中
 
 ```
   tr
@@ -614,8 +626,9 @@ articleTitle.push({
 
 ## **20160714** 
 
-###获取首页文章的作者名及文章链接
-- 遍历每个文章块`.article-list li`,再从每个块中获取对应的文章标题、作者、链接地址
+- 获取首页文章的作者名及文章链接
+
+    - 遍历每个文章块`.article-list li`,再从每个块中获取对应的文章标题、作者、链接地址
 
 ```
 $('.article-list li').each(function (idx, article) {
@@ -628,7 +641,7 @@ $('.article-list li').each(function (idx, article) {
             });
 ```
 
-- 在`views`中再对获取的内容进行展示,同时修改`thead`与`a`的css样式
+    - 在`views`中再对获取的内容进行展示,同时修改`thead`与`a`的css样式
 
 ```
     table
@@ -647,7 +660,7 @@ $('.article-list li').each(function (idx, article) {
 
 ```
 
-- 尝试针对不同数据进行不同样式展示
+    - 尝试针对不同数据进行不同样式展示
 
 ```
 tbody
@@ -672,8 +685,8 @@ tbody
 ```
 
 ## **20160713** 
-### 实时爬取简书首页的文章列表
-[http://localhost:3000/jianshu](http://localhost:3000/jianshu)
+
+- 实时爬取简书首页的文章列表 [http://localhost:3000/jianshu](http://localhost:3000/jianshu)
 
 ```
     var articleTitle = [];
@@ -692,12 +705,15 @@ tbody
 
 ```
 
-- 获取文章标题,以列表的形式展示
-- `cheerio`:用来转换返回的res数据,并支持jQuery处理
-- `superagent`:模拟网络请求
-- `nodemon`:用来实际检测`Node`文件是否有变更,有变更则自动重新部署。便于开发调度。启动命令:`./node_modules/nodemon/bin/nodemon.js jianshu`
+    - 获取文章标题,以列表的形式展示
 
-- 添加`jianshu`的route和view模板,并将结果遍历出来
+    - `cheerio`:用来转换返回的res数据,并支持jQuery处理
+
+    - `superagent`:模拟网络请求
+
+    - `nodemon`:用来实际检测`Node`文件是否有变更,有变更则自动重新部署。便于开发调度。启动命令:`./node_modules/nodemon/bin/nodemon.js jianshu`
+    
+    - 添加`jianshu`的route和view模板,并将结果遍历出来
 
 ```
   div
@@ -712,7 +728,7 @@ tbody
 
 ```
 
-- 添加`thead`的css样式
+    - 添加`thead`的css样式
 
 ```
 
