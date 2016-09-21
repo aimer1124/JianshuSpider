@@ -10,9 +10,9 @@ block content
           td 文章标题
           td 作者
       tbody
-        each result in results
+        each article in articles
           tr
             td
-              a(href='http://www.jianshu.com' + '#{result.articleHref}') #{result.articleTitle}
+              a(href='http://www.jianshu.com' + '#{article.articleHref}') #{article.title}
             td
-              a(href='http://www.jianshu.com' + '#{result.authorHref}') #{result.author}
+              a(href='http://www.jianshu.com' + '#{article.authorHref}') #{article.author}
