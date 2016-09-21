@@ -15,7 +15,9 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 **启动**
 
 - DB: `sudo mongod`
-- 服务: `gulp`
+
+- 程序: `gulp`
+
 - 测试: `gulp test`
 
 ## **20160921**
@@ -42,6 +44,38 @@ function getLatestNumberWithSpace(string) {
 
 ```
     
+- 添加自动同步功能: **个人信息/新文章**,使用模块[node-schedule](https://github.com/node-schedule/node-schedule)
+
+```
+function myInfo(){
+    myInfoSchema.find({'date': today},function (err, result) {
+        if (result.length == 0){
+            request.get('http://www.jianshu.com' + myPageHref).end(function (err, res) {
+                var $ = cheerio.load(res.text);
+                var following = $('.clearfix').find('b').eq(0).text();
+                var follower = $('.clearfix').find('b').eq(1).text();
+                myInfoSchema.create({
+                    userHref: myPageHref,
+                    date: today,
+                    following: following,
+                    follower: follower
+                },function (err, result) {
+                    if (err) return next(err);
+                });
+            });
+        }
+    });
+}
+
+function syncData() {
+    var rule = new schedule.RecurrenceRule();
+    rule.second = 30;
+    schedule.scheduleJob(rule, function () {
+        myInfo();
+    });
+}
+```
+
 
 ## **20160919**
 

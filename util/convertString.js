@@ -3,4 +3,4 @@ function getLatestNumberWithSpace(string) {
     return splittedString[splittedString.length-1]
 }
 
-module.exports = getLatestNumberWithSpace;
+exports.getLatestNumberWithSpace = getLatestNumberWithSpace;

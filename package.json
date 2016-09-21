@@ -17,6 +17,7 @@
     "moment": "^2.15.0",
     "mongoose": "^4.5.5",
     "morgan": "~1.7.0",
+    "node-schedule": "^1.1.1",
     "nodemon": "^1.9.2",
     "serve-favicon": "~2.3.0",
     "superagent": "^2.0.0"

@@ -9,7 +9,7 @@ gulp.task('browser-sync', ['nodemon'], function() {
     bs.init(null, {
         proxy: "http://localhost:3000",
         browser: "chromium-browser",
-        port: 4000,
+        port: 4000
     });
 });
 
@@ -18,7 +18,7 @@ gulp.task('default', ['browser-sync'], function () {
     gulp.watch('./views/**/*.jade', bs.reload);
     gulp.watch('./public/**/*.js', bs.reload);
     gulp.watch('./public/**/*.css', bs.reload);
-    gulp.watch(['./routes/**/*.js', './app.js', './bin/www'], ['bs-delay']);
+    gulp.watch(['./routes/**/*.js', './util/**/*.js', './app.js', './bin/www'], ['bs-delay']);
 });
 
 // give nodemon time to restart
