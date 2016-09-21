@@ -18,6 +18,30 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 - 服务: `gulp`
 - 测试: `gulp test`
 
+## **20160921**
+
+- 时间处理方式统一
+
+    - 调整时间处理格式使用[moment](http://momentjs.com/)模块处理
+    
+    - 修复旧数据中时间格式统一将原数据格式调整为: `db.myinfos.update({'date':'Fri Aug 05 2016'},{$set:{'date':'2016-08-05'}})`
+
+- 调整首页中获取简书文章时的时间处理: 显示格式YYYY-MM-DD,将获取的时间进行`切割`
+    
+```
+$article.find('.time').attr('data-shared-at').split('T')[0]
+```    
+
+- 调整首页中个人文章列表中数据获取,提取`公共`模块`util/convertString.js`处理获取的数据: **评论数/喜欢数/阅读量** 
+
+```
+function getLatestNumberWithSpace(string) {
+    var splittedString = string.split(' ');
+    return splittedString[splittedString.length-1]
+}
+
+```
+    
 
 ## **20160919**
 

@@ -1,14 +1,17 @@
 var express = require('express');
 var router = express.Router();
-
+var moment = require('moment');
+var today = moment(new Date()).format("YYYY-MM-DD");
 var request = require('superagent');
 var cheerio = require('cheerio');
+
+var convertString = require('../util/convertString');
 var myPageHref = '/users/552f687b314b';
 var myInfoSchema = require('../model/myInfo');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  myInfoSchema.find({'date': new Date().toDateString()},function (err, result) {
+  myInfoSchema.find({'date': today},function (err, result) {
     if (result.length == 0){
       request.get('http://www.jianshu.com' + myPageHref).end(function (err, res) {
         var $ = cheerio.load(res.text);
@@ -16,7 +19,7 @@ router.get('/', function(req, res, next) {
         var follower = $('.clearfix').find('b').eq(1).text();
         myInfoSchema.create({
           userHref: myPageHref,
-          date: new Date().toDateString(),
+          date: today,
           following: following,
           follower: follower
         },function (err, result) {
@@ -25,7 +28,7 @@ router.get('/', function(req, res, next) {
       });
     }
   });
-  myInfoSchema.find({'userHref': '/users/552f687b314b'},function (err, result) {
+  myInfoSchema.find({'userHref': myPageHref},function (err, result) {
     var myInfo = [];
     var myArticle = [];
 
@@ -44,11 +47,11 @@ router.get('/', function(req, res, next) {
             var $article = $(article);
             myArticle.push({
                 article: $article.find('.title a').text(),
-                publishDate: $article.find('.time').attr('data-shared-at'),
-                articleHref: $article.find('.title a').attr('href'),
-                reading: $article.find('.list-footer a').eq(0).text(),
-                comment: $article.find('.list-footer a').eq(1).text(),
-                favorite: $article.find('.list-footer a').eq(2).text()
+                publishDate: $article.find('.time').attr('data-shared-at').split('T')[0],
+                articleHref: $article.find('.title a').attr('href').split(' '),
+                reading: convertString($article.find('.list-footer a').eq(0).text()),
+                comment: convertString($article.find('.list-footer a').eq(1).text()),
+                favorite: convertString($article.find('.list-footer span').text())
             })
           });
           res.render('index', {info: myInfo,myArticle: myArticle});
