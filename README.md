@@ -76,6 +76,29 @@ function syncData() {
 }
 ```
 
+- `重构`获取文章列表方法
+
+    
+    *   提取`proxy/article.js`文档操作方法，针对Mongoose中的Scheme进行操作
+    
+    ```
+    exports.getAllArticles = function (callback) {
+      article.find({},callback)
+    };
+
+    ```
+
+    *   调整获取文章列表数据`routes/jianshu.com`
+    
+    ```
+    article.getAllArticles(function (err, articles) {
+    
+        if (err) return next(err);  
+        res.render('jianshu', {articles: articles});
+    
+        });
+    
+    ```
 
 ## **20160919**
 
