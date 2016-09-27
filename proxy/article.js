@@ -1,7 +1,7 @@
 var article = require('../model/article');
 
 exports.getAllArticles = function (callback) {
-    article.find({},callback)
+    article.find({}).limit(20).sort({ _id: -1}).exec(callback);
 };
 
 exports.findByHref = function (articleHref, callback) {

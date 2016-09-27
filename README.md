@@ -30,6 +30,15 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
     
     - 调整`myInfoSchema.find({}).sort(date:-1).exec(cb)`添加`limit(7)`限制
 
+- 修改文章列表仅显示最新的20条
+    
+    - 修改`getAllArticles`方法
+    ```
+    exports.getAllArticles = function (callback) {
+        article.find({}).limit(20).sort({ _id: -1}).exec(callback);
+    };
+    ```
+
 ## **20160921**
 
 - 时间处理方式统一
