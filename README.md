@@ -32,7 +32,7 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 - 修改文章列表仅显示最新的20条
     
-    - 修改`getAllArticles`方法
+    - 修改`getAllArticles`方法,排序按`_id`号排序
     ```
     exports.getAllArticles = function (callback) {
         article.find({}).limit(20).sort({ _id: -1}).exec(callback);
