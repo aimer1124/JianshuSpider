@@ -20,6 +20,16 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 - 测试: `gulp test`
 
+## **20160927**
+
+- 个人信息中的排序修改为`倒序`
+
+    - 修改`myInfoSchema.find({},cb)`方法为`myInfoSchema.find({}).sort(date:-1).exec(cb)`
+
+- 修改个人信息中数据仅显示前`7`条
+    
+    - 调整`myInfoSchema.find({}).sort(date:-1).exec(cb)`添加`limit(7)`限制
+
 ## **20160921**
 
 - 时间处理方式统一

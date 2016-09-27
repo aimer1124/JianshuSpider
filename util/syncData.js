@@ -7,19 +7,19 @@ var today = moment(new Date()).format("YYYY-MM-DD");
 var request = require('superagent');
 var cheerio = require('cheerio');
 var async = require('async');
-var articleSchema = require('../model/article');
 var authorSchema = require('../model/author');
+
+var articleProxy = require('../proxy/article');
 
 function articleInfo() {
 
     var articleTitles = [];
-
+    console.log('获取数据开始');
     request.get('http://www.jianshu.com/')
         .end(function (err,gres) {
             if (err){
                 return next(err);
             }
-            console.log('首页获取结束');
             var $ = cheerio.load(gres.text);
             $('.article-list li').each(function (idx, article) {
                 var $article = $(article);
@@ -47,18 +47,13 @@ function articleInfo() {
                         var following = $('.clearfix').find('b').eq(0).text();
                         var follower = $('.clearfix').find('b').eq(1).text();
 
-                        articleSchema.find({articleHref:article.articleHref},function (err, findArticle) {
-                            if (findArticle.length == 0) {
-                                articleSchema.create({
-                                    title: article.articleTitle,
-                                    articleHref: article.articleHref,
-                                    author: article.author,
-                                    authorHref: article.authorHref
-                                },function(err, result) {
-                                    if (err) return next(err);
-                                });
+                        articleProxy.findByHref(article.articleHref,function (err, findArticle) {
+                            if ( findArticle.length == 0) {
+                                console.log("FindArticle: " + findArticle);
+                                articleProxy.save(article);
                             }
                         });
+
                         authorSchema.find({id:article.authorHref},function (err, findAuthor) {
                             if (findAuthor.length == 0) {
                                 authorSchema.create({
@@ -83,7 +78,6 @@ function articleInfo() {
             },function (err, result) {
                 console.log('获取数据结束');
             });
-
         });
 }
 

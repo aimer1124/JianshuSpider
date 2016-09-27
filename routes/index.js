@@ -15,12 +15,11 @@ var myInfoSchema = require('../model/myInfo');
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-  myInfoSchema.find({'userHref': myPageHref},function (err, result) {
+  myInfoSchema.find({'userHref': myPageHref}).limit(7).sort({ date: -1 }).exec(function (err, result) {
     var myInfo = [];
     var myArticle = [];
 
     result.forEach(function (info) {
-      // console.log('Date:' + info.date);
       myInfo.push({
         date: info.date,
         following: info.following,
