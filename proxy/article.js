@@ -5,14 +5,14 @@ exports.getAllArticles = function (callback) {
 };
 
 exports.findByHref = function (articleHref, callback) {
-    article.find({articleHref: articleHref}, callback)
+    article.find({ "articleHref": articleHref}, callback)
 };
 
-exports.save = function (articleInfo, callback) {
+exports.saveArticle = function (articleInfo, callback) {
     article.create({
         title: articleInfo.articleTitle,
         articleHref: articleInfo.articleHref,
         author: articleInfo.author,
         authorHref: articleInfo.authorHref
-    },callback);
+    }, callback);
 };

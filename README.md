@@ -20,6 +20,22 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 - 测试: `gulp test`
 
+## **20160928**
+
+- 修复: 获取文章数据时，会同时插入一条空数据
+
+    - 将`mongoose`的`model`的字段类型做限制,否则会在`每次`插入数据时,均会有一条空值(仅有`_id`和`__v`)插入。参考[Why does Mongoose add blank arrays?](http://stackoverflow.com/questions/12658152/why-does-mongoose-add-blank-arrays)
+    ```
+    var articleScheme = new Schema({
+        title: {type:String, required:true},
+        articleHref: {type:String, required:true},
+        author: {type:String, required:true},
+        authorHref: {type:String, required:true}
+    });
+    ```
+
+- 调整`myInfo` `author`的`model`添加字段约束
+
 ## **20160927**
 
 - 个人信息中的排序修改为`倒序`

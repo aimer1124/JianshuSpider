@@ -35,7 +35,7 @@ function articleInfo() {
             var fetchUrl = function (article, callback) {
                 var delay = parseInt((Math.random() * 10000000) % 2000,10);
                 conCurrencyCount++;
-                console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorHref + ',控制的延迟:' + delay);
+                // console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorHref + ',控制的延迟:' + delay);
                 request.get('http://www.jianshu.com' + article.authorHref)
                     .end(function (err, res) {
                         if (err){
@@ -43,14 +43,13 @@ function articleInfo() {
                         }
 
                         var $ = cheerio.load(res.text);
-                        var author = $('.basic-info').find('h3').text();
                         var following = $('.clearfix').find('b').eq(0).text();
                         var follower = $('.clearfix').find('b').eq(1).text();
 
+
                         articleProxy.findByHref(article.articleHref,function (err, findArticle) {
-                            if ( findArticle.length == 0) {
-                                console.log("FindArticle: " + findArticle);
-                                articleProxy.save(article);
+                            if (findArticle.length == 0) {
+                                articleProxy.saveArticle(article);
                             }
                         });
 
@@ -107,7 +106,7 @@ function myInfo(){
 function syncData() {
     var rule = new schedule.RecurrenceRule();
     //10AM every day
-    rule.hour = 10;
+    rule.second = 10;
 
     schedule.scheduleJob(rule, function () {
         myInfo();

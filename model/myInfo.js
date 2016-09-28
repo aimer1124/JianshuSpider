@@ -4,10 +4,10 @@ var db = mongoose.createConnection('mongodb://localhost/jianshu');
 var Schema = mongoose.Schema;
 
 var myInfoScheme = new Schema({
-    userHref: String,
-    date: String,
-    following: Number,
-    follower: Number
+    userHref: {type: String, required:true},
+    date: {type: String, required:true},
+    following: {type: Number, required:true},
+    follower: {type: Number, required:true}
 });
 
 module.exports = db.model('myInfo', myInfoScheme);
