@@ -37,7 +37,7 @@ function articleInfo() {
                 conCurrencyCount++;
                 // console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorHref + ',控制的延迟:' + delay);
                 request.get('http://www.jianshu.com' + article.authorHref)
-                    .end(function (err, res) {
+                    .end(function (err, res, next) {
                         if (err){
                             return next(err);
                         }

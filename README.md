@@ -36,6 +36,16 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 - 调整`myInfo` `author`的`model`添加字段约束
 
+- 完善测试`首页`的验证内容
+    
+    - 添加对`个人信息`中首个数据的年份验证
+    
+    - 添加对`自己文章`中首个数据的发布时间年份验证
+```
+if ($("#myInfo tbody tr td").eq(0).text().indexOf("2016")) throw new Error("MyInfo date is lost, because date is not 201*Year");
+if ($("#myArticle tbody tr td").eq(1).text().indexOf("2016")) throw new Error("MyArticle is lost, because publish-date is not 201*Year");
+```
+
 ## **20160927**
 
 - 个人信息中的排序修改为`倒序`

@@ -3,7 +3,7 @@ extends layout
 block content
   a(href='/jianshu') 文章列表
   div
-    div
+    div#myInfo
       table
         thead
           tr
@@ -16,7 +16,7 @@ block content
               td #{result.date}
               td #{result.following}
               td #{result.follower}
-    div
+    div#myArticle
       table
         thead
           tr
