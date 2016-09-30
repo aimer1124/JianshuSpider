@@ -9,6 +9,8 @@ describe('Home Page',function () {
             .expect(function (res) {
                 var $ = cheerio.load(res.text);
                 if ($("#myInfo tbody tr td").eq(0).text().indexOf("2016")) throw new Error("MyInfo date is lost, because date is not 201*Year");
+                if ($("#article tbody tr td").toArray().length == 7) throw new Error("There is not 7 information.");
+
                 if ($("#myArticle tbody tr td").eq(1).text().indexOf("2016")) throw new Error("MyArticle is lost, because publish-date is not 201*Year");
 
             })

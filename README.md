@@ -20,6 +20,22 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 - 测试: `gulp test`
 
+
+## **20160930**
+
+- 发布`V0.0.2`版本
+
+- 完善测试,添加内容验证: 首页/文章列表
+
+```
+if ($("#myInfo tbody tr td").eq(0).text().indexOf("2016")) throw new Error("MyInfo date is lost, because date is not 201*Year");
+if ($("#article tbody tr td").toArray().length == 7) throw new Error("There is not 7 information.");
+
+if ($("#myArticle tbody tr td").eq(1).text().indexOf("2016")) throw new Error("MyArticle is lost, because publish-date is not 201*Year");
+
+```
+
+
 ## **20160928**
 
 - 修复: 获取文章数据时，会同时插入一条空数据

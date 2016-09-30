@@ -16,7 +16,7 @@ function articleInfo() {
     var articleTitles = [];
     console.log('获取数据开始');
     request.get('http://www.jianshu.com/')
-        .end(function (err,gres) {
+        .end(function (err,gres, next) {
             if (err){
                 return next(err);
             }
@@ -88,8 +88,6 @@ function myInfo(){
                 var following = $('.clearfix').find('b').eq(0).text();
                 var follower = $('.clearfix').find('b').eq(1).text();
 
-                console.log('Sync myinfo : { data:' + today + ', following: ' + following + ', follower: ' + follower + '}');
-
                 myInfoSchema.create({
                     userHref: myPageHref,
                     date: today,
@@ -106,7 +104,7 @@ function myInfo(){
 function syncData() {
     var rule = new schedule.RecurrenceRule();
     //10AM every day
-    rule.second = 10;
+    rule.minute = 10;
 
     schedule.scheduleJob(rule, function () {
         myInfo();
