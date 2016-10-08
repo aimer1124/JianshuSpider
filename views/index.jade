@@ -34,3 +34,46 @@ block content
                 td #{article.reading}
                 td #{article.comment}
                 td #{article.favorite}
+    div#container(style="min-width: 500px; height: 500px; margin: 0 auto")
+      script.
+        $(function () {
+          $('#container').highcharts({
+            title: {
+              text: '个人信息时势图',
+              x: -20 //center
+            },
+            subtitle: {
+              text: '数据来源: jianshu.com',
+              x: -20
+            },
+            xAxis: {
+              categories: ['2016-09-22', '2016-09-26', '2016-09-27', '2016-09-28', '2016-09-29', '2016-09-30', '2016-10-08']
+            },
+            yAxis: {
+              title: {
+                text: '人数'
+              },
+              plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+              }]
+            },
+            tooltip: {
+              valueSuffix: '人'
+            },
+            legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+            },
+            series: [{
+              name: '关注',
+              data: [28, 28, 28, 29, 29, 29, 28]
+            }, {
+              name: '粉丝',
+              data: [69, 73, 78, 92, 95, 95, 97]
+            }]
+          });
+        });

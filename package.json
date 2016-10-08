@@ -13,6 +13,7 @@
     "debug": "~2.2.0",
     "eventproxy": "^0.3.4",
     "express": "~4.13.4",
+    "highcharts": "^5.0.0",
     "jade": "~1.11.0",
     "moment": "^2.15.0",
     "mongoose": "^4.5.5",

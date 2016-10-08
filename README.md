@@ -20,7 +20,74 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 
 - 测试: `gulp test`
 
+## **20161008**
 
+- 引用[Highcharts](http://www.highcharts.com/)图表控件: 
+```
+"highcharts": "^5.0.0"
+```
+
+- 配制假数据,前端可使用`highcharts`控件来显示数据
+
+    - `layout.jade`中添加`highcharts`引用
+    
+    ```
+      head
+        title 简书爬虫
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(type='text/javascript', src="http://code.jquery.com/jquery-1.9.1.min.js")
+        script(type='text/javascript', src="http://code.highcharts.com/highcharts.js")
+        script(type='text/javascript', src="http://code.highcharts.com/modules/exporting.js")
+    ```
+
+    - `index.jade`中添加静态数据展示
+    
+    ```
+    div#container(style="min-width: 500px; height: 500px; margin: 0 auto")
+      script.
+        $(function () {
+          $('#container').highcharts({
+            title: {
+              text: '个人信息时势图',
+              x: -20 //center
+            },
+            subtitle: {
+              text: '数据来源: jianshu.com',
+              x: -20
+            },
+            xAxis: {
+              categories: ['2016-09-22', '2016-09-26', '2016-09-27', '2016-09-28', '2016-09-29', '2016-09-30', '2016-10-08']
+            },
+            yAxis: {
+              title: {
+                text: '人数'
+              },
+              plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+              }]
+            },
+            tooltip: {
+              valueSuffix: '人'
+            },
+            legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'middle',
+              borderWidth: 0
+            },
+            series: [{
+              name: '关注',
+              data: [28, 28, 28, 29, 29, 29, 28]
+            }, {
+              name: '粉丝',
+              data: [69, 73, 78, 92, 95, 95, 97]
+            }]
+          });
+        });
+    ```
+    
 ## **20160930**
 
 - 发布`V0.0.2`版本
