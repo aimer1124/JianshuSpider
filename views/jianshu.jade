@@ -1,18 +1,18 @@
 extends layout
 
 block content
-  div
-    a(href='/') Home
-  div#article
-    table
-      thead
-        tr
-          td 文章标题
-          td 作者
-      tbody
-        each article in articles
-          tr
-            td
-              a(href='http://www.jianshu.com' + '#{article.articleHref}') #{article.title}
-            td
-              a(href='http://www.jianshu.com' + '#{article.authorHref}') #{article.author}
+    div
+        a(href='/') Home
+    div#article
+        table
+            thead
+                tr
+                    td 文章标题
+                    td 作者
+            tbody
+                each article in articles
+                    tr
+                        td(style="text-align: left;")
+                            a(href='http://www.jianshu.com' + '#{article.articleHref}') #{article.title}
+                        td
+                            a(href='http://www.jianshu.com' + '#{article.authorHref}') #{article.author}

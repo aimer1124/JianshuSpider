@@ -18,6 +18,9 @@ router.get('/', function(req, res, next) {
   myInfoSchema.find({'userHref': myPageHref}).limit(7).sort({ date: -1 }).exec(function (err, result) {
     var myInfo = [];
     var myArticle = [];
+    var followerList = [];
+    var followingList = [];
+    var dateList = [];
 
     result.forEach(function (info) {
       myInfo.push({
@@ -25,6 +28,9 @@ router.get('/', function(req, res, next) {
         following: info.following,
         follower: info.follower
       });
+        followerList.push(info.follower);
+        followingList.push(info.following);
+        dateList.push(info.date.replace(/-/g,''));
     });
     request.get('http://www.jianshu.com' + myPageHref)
         .end(function (err, resT) {
@@ -40,7 +46,7 @@ router.get('/', function(req, res, next) {
                 favorite: convertString.getLatestNumberWithSpace($article.find('.list-footer span').text())
             })
           });
-          res.render('index', {info: myInfo,myArticle: myArticle});
+          res.render('index', {info: myInfo, myArticle: myArticle, followerList: followerList.sort(), followingList: followingList.sort(), dateList: dateList.sort()});
         });
   });
 

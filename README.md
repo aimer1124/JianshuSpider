@@ -27,24 +27,96 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
 "highcharts": "^5.0.0"
 ```
 
-- 配制假数据,前端可使用`highcharts`控件来显示数据
-
-    - `layout.jade`中添加`highcharts`引用
+    - 配制假数据,前端可使用`highcharts`控件来显示数据
     
+        - `layout.jade`中添加`highcharts`引用
+        
+        ```
+          head
+            title 简书爬虫
+            link(rel='stylesheet', href='/stylesheets/style.css')
+            script(type='text/javascript', src="http://code.jquery.com/jquery-1.9.1.min.js")
+            script(type='text/javascript', src="http://code.highcharts.com/highcharts.js")
+            script(type='text/javascript', src="http://code.highcharts.com/modules/exporting.js")
+        ```
+    
+        - `index.jade`中添加静态数据展示
+        
+        ```
+        div#container(style="min-width: 500px; height: 500px; margin: 0 auto")
+          script.
+            $(function () {
+              $('#container').highcharts({
+                title: {
+                  text: '个人信息时势图',
+                  x: -20 //center
+                },
+                subtitle: {
+                  text: '数据来源: jianshu.com',
+                  x: -20
+                },
+                xAxis: {
+                  categories: ['2016-09-22', '2016-09-26', '2016-09-27', '2016-09-28', '2016-09-29', '2016-09-30', '2016-10-08']
+                },
+                yAxis: {
+                  title: {
+                    text: '人数'
+                  },
+                  plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                  }]
+                },
+                tooltip: {
+                  valueSuffix: '人'
+                },
+                legend: {
+                  layout: 'vertical',
+                  align: 'right',
+                  verticalAlign: 'middle',
+                  borderWidth: 0
+                },
+                series: [{
+                  name: '关注',
+                  data: [28, 28, 28, 29, 29, 29, 28]
+                }, {
+                  name: '粉丝',
+                  data: [69, 73, 78, 92, 95, 95, 97]
+                }]
+              });
+            });
+        ```
+     
+- 使用真数据替换
+
+    - 将获取的`三组`数据进行打包, 通过`render`传递给`jade`模块, 此时需要使用`sort`方法, 否则会被默认重新排序
     ```
-      head
-        title 简书爬虫
-        link(rel='stylesheet', href='/stylesheets/style.css')
-        script(type='text/javascript', src="http://code.jquery.com/jquery-1.9.1.min.js")
-        script(type='text/javascript', src="http://code.highcharts.com/highcharts.js")
-        script(type='text/javascript', src="http://code.highcharts.com/modules/exporting.js")
+    res.render('index', {info: myInfo, myArticle: myArticle, followerList: followerList.sort(), followingList: followingList.sort(), dateList: dateList.sort()});
+    ```
+    
+    - 由于时间格式原来采用`2016-09-30`,在`node`获取时,会自动进行计算。因此将获取过来的数据进行格式转化: `20160930`
+    ```
+    dateList.push(info.date.replace(/-/g,''));
     ```
 
-    - `index.jade`中添加静态数据展示
+    - 完整前端`index.jade`代码
     
     ```
     div#container(style="min-width: 500px; height: 500px; margin: 0 auto")
       script.
+        var arrToMultiArr = function (arr) {
+          var result = new Array()
+          for (var i = 0; i < arr.length; i++) {
+            var date = arr[i]
+            result.push([date])
+          }
+          return result
+        };
+        var followerList = arrToMultiArr([#{followerList}]);
+        var followingList = arrToMultiArr([#{followingList}]);
+        var dateList = arrToMultiArr([#{dateList}]);
+    
         $(function () {
           $('#container').highcharts({
             title: {
@@ -56,7 +128,8 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
               x: -20
             },
             xAxis: {
-              categories: ['2016-09-22', '2016-09-26', '2016-09-27', '2016-09-28', '2016-09-29', '2016-09-30', '2016-10-08']
+              categories: dateList
+              //categories: ['2016-09-22', '2016-09-26', '2016-09-27', '2016-09-28', '2016-09-29', '2016-09-30', '2016-10-08']
             },
             yAxis: {
               title: {
@@ -79,15 +152,23 @@ _此功能纯粹为个人**意想**一个功能,利用业余时间来完成。_
             },
             series: [{
               name: '关注',
-              data: [28, 28, 28, 29, 29, 29, 28]
+              data: followingList
             }, {
               name: '粉丝',
-              data: [69, 73, 78, 92, 95, 95, 97]
+              data: followerList
             }]
           });
         });
     ```
+
+- 样式调整
     
+    - 将个人数据及图表放在同一行,文章列表放在下一行
+    
+    - 所有表格数据内容均采用`局中`对齐,文件标题采用`左对齐`
+    
+- 格式化所有`jade`代码: 缩进调整
+
 ## **20160930**
 
 - 发布`V0.0.2`版本

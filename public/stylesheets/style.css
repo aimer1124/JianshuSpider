@@ -16,3 +16,7 @@ thead {
   color: #4F4D3F;
   font: 20px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
+td {
+    text-align: center;
+}
