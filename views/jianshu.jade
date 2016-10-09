@@ -1,8 +1,15 @@
 extends layout
 
 block content
-    div
-        a(href='/') Home
+    block header
+        table
+            th
+                tr
+                    td
+                        a(href='/') 首页
+                    td
+                        a(href='/jianshu') 文章列表
+        hr
     div#article
         table
             thead
