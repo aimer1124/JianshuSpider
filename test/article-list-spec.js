@@ -9,8 +9,11 @@ describe('Article List Page',function () {
             .expect(200)
             .expect(function (res) {
                 var $ = cheerio.load(res.text);
-                if ($("#article tbody tr td").eq(0).text() > 1) throw new Error("article title must exist.");
-                if ($("#article tbody tr td").toArray().length == 20) throw new Error("There is not 20 articles.");
+
+                if ($("#article tbody tr td").eq(0).text().length < 1) {
+                    throw new Error("article title must exist.");
+                }
+                if (!($("#article tbody tr").toArray().length == 20)) throw new Error("There is not 20 articles.");
             })
             .end(done);
     });

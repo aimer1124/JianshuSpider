@@ -8,10 +8,28 @@ describe('Home Page',function () {
             .expect(200)
             .expect(function (res) {
                 var $ = cheerio.load(res.text);
-                if ($("#myInfo tbody tr td").eq(0).text().indexOf("2016")) throw new Error("MyInfo date is lost, because date is not 201*Year");
-                if ($("#article tbody tr td").toArray().length == 7) throw new Error("There is not 7 information.");
 
-                if ($("#myArticle tbody tr td").eq(1).text().indexOf("2016")) throw new Error("MyArticle is lost, because publish-date is not 201*Year");
+                //myinfo
+                if (!($("#myInfo tbody tr td").eq(0).text().split('-')[0] == "2016")) {
+                    throw new Error("MyInfo date is lost, because date is not 201*Year");
+                }
+                if (!($("#myInfo tbody tr").toArray().length == 7)) {
+                    throw new Error("There is not 7 information.");
+                }
+
+                //charts
+
+                if(!$(".highcharts-subtitle").eq(0).text().indexOf("数据来源")) throw new Error("Chart source is mistake.");
+                if(!$(".highcharts-xaxis-labels").text().indexOf("2016")) throw new Error("XAxis is lost.");
+
+
+                //my_articles
+                if ($("#myArticle tbody tr").toArray().length != 9) {
+                    throw new Error("There is not 9 articles.");
+                }
+                if (!($("#myArticle tbody tr td").eq(1).text().split('-')[0] == "2016")) {
+                    throw new Error("MyArticle is lost, because publish-date is not 201*Year");
+                }
 
             })
             .end(done);
