@@ -5,7 +5,7 @@ var cheerio = require('cheerio');
 
 describe('Article List Page',function () {
     it('Verify page content',function (done) {
-        request.get('/jianshu')
+        request.get('/article')
             .expect(200)
             .expect(function (res) {
                 var $ = cheerio.load(res.text);
