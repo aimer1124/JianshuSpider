@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-var db = mongoose.createConnection('mongodb://localhost/jianshu');
+var dbConnect = require('./config');
+var db = mongoose.createConnection('mongodb://' + dbConnect.dbUrl);
 
 var Schema = mongoose.Schema;
 

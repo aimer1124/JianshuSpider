@@ -9,6 +9,14 @@
 
 - 重构`获取个人信息`和`个人文章`内容
 
+- 提取数据库公共链接配制`model/config.js`
+
+```
+module.exports = {
+    dbUrl: "localhost/jianshu"
+};
+```
+
 ## **20161008**
 
 - 引用[Highcharts](http://www.highcharts.com/)图表控件:
