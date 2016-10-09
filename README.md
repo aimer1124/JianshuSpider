@@ -24,6 +24,48 @@
     
     - 测试: `gulp test`
 
+- 引用包列表
+
+    - express: [http://expressjs.com/](http://expressjs.com/),node web框架
+        
+        - body-parser: 请求数据体的转换`中间件`
+        
+        - cookie-parser: 请求头的`cookie`管理
+        
+        - debug: 调试工具
+         
+        - morgan: 日志中间件
+        
+        - serve-favicon: favicon中间件
+         
+    - async: [https://github.com/caolan/async](https://github.com/caolan/async),异步框架
+    
+    - cheerio: [https://github.com/cheeriojs/cheerio](https://github.com/cheeriojs/cheerio),加载`html`元素,并可使用`jQuery`进行操作
+    
+    - browser-sync: [http://browsersync.io](http://browsersync.io)浏览器数据同步框架
+    
+    - gulp: [http://gulpjs.com](http://gulpjs.com)构建工具
+    
+        - gulp-mocha:  运行`mocha`测试
+        
+        - gulp-nodemon: gulp的`nodemon`工具,用于`监控` node文件变化
+        
+    - highcharts: [http://www.highcharts.com](http://www.highcharts.com),图表控件
+    
+    - jade: [http://jade-lang.com/](http://jade-lang.com/)模板引擎
+    
+    - moment: [http://momentjs.com](http://momentjs.com),轻量级的时间转换库
+    
+    - mongoose: [http://mongoosejs.com/](http://mongoosejs.com/),`mongo`的对象模型工具
+    
+    - node-schedule: [https://github.com/node-schedule/node-schedule](https://github.com/node-schedule/node-schedule),Node的任务调度
+    
+    - should: [https://github.com/shouldjs/should.js](https://github.com/shouldjs/should.js), 断言库
+    
+    - superagent: [http://visionmedia.github.io/superagent/](http://visionmedia.github.io/superagent/),模拟客户端`HTTP`请求
+    
+    - supertest: [https://github.com/visionmedia/supertest](https://github.com/visionmedia/supertest), 将`superagent-HTTP`测试简单化
+
 - 变更记录
 
     - [history](https://github.com/aimer1124/JianshuSpider/history.md)

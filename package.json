@@ -11,7 +11,6 @@
     "cheerio": "^0.20.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
-    "eventproxy": "^0.3.4",
     "express": "~4.13.4",
     "highcharts": "^5.0.0",
     "jade": "~1.11.0",
