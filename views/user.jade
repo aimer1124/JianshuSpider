@@ -12,16 +12,19 @@ block content
                     td
                         a(href='/user') 作者
         hr
-    div#article
+    div#user
         table
             thead
                 tr
-                    td 文章标题
                     td 作者
+                    td 关注
+                    td 粉丝
             tbody
-                each article in articles
+                each user in users
                     tr
-                        td(style="text-align: left;")
-                            a(href='http://www.jianshu.com' + '#{article.articleHref}') #{article.title}
                         td
-                            a(href='http://www.jianshu.com' + '#{article.authorHref}') #{article.author}
+                            a(href='http://www.jianshu.com' + '#{user.id}') #{user.author}
+                        td
+                            span #{user.following}
+                        td
+                            span #{user.follower}

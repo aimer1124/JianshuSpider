@@ -7,7 +7,7 @@ var today = moment(new Date()).format("YYYY-MM-DD");
 var request = require('superagent');
 var cheerio = require('cheerio');
 var async = require('async');
-var authorSchema = require('../model/author');
+var userSchema = require('../model/user');
 
 var articleProxy = require('../proxy/article');
 
@@ -53,14 +53,14 @@ function articleInfo() {
                             }
                         });
 
-                        authorSchema.find({id:article.authorHref},function (err, findAuthor) {
+                        userSchema.find({id:article.authorHref},function (err, findAuthor) {
                             if (findAuthor.length == 0) {
-                                authorSchema.create({
+                                userSchema.create({
                                     id: article.authorHref,
                                     author: article.author,
                                     following: following,
                                     follower: follower
-                                },function(err, result) {
+                                },function(err,result) {
                                     if (err) return next(err);
                                 });
                             }
@@ -104,7 +104,7 @@ function myInfo(){
 function syncData() {
     var rule = new schedule.RecurrenceRule();
     //10AM every day
-    rule.minute = 10;
+    rule.second = 10;
 
     schedule.scheduleJob(rule, function () {
         myInfo();
