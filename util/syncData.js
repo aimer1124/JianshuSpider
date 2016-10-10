@@ -7,9 +7,10 @@ var today = moment(new Date()).format("YYYY-MM-DD");
 var request = require('superagent');
 var cheerio = require('cheerio');
 var async = require('async');
-var userSchema = require('../model/user');
 
 var articleProxy = require('../proxy/article');
+var userProxy = require('../proxy/user');
+var myInfoProxy = require('../proxy/myInfo');
 
 function articleInfo() {
 
@@ -53,16 +54,15 @@ function articleInfo() {
                             }
                         });
 
-                        userSchema.find({id:article.authorHref},function (err, findAuthor) {
+                        userProxy.getUserById(article.authorHref,function (err, findAuthor) {
                             if (findAuthor.length == 0) {
-                                userSchema.create({
-                                    id: article.authorHref,
-                                    author: article.author,
-                                    following: following,
-                                    follower: follower
-                                },function(err,result) {
+                                userProxy.saveUser(article, following, follower, function (err) {
                                     if (err) return next(err);
                                 });
+                            } else {
+                                userProxy.updateUser(article, following, follower,function (err) {
+                                    if (err) return next(err);
+                                })
                             }
                         });
                     });
@@ -74,26 +74,21 @@ function articleInfo() {
 
             async.mapLimit(articleTitles,5,function (article, callback) {
                 fetchUrl(article,callback);
-            },function (err, result) {
+            },function (err) {
+                if (err) return next(err);
                 console.log('获取数据结束');
             });
         });
 }
 
 function myInfo(){
-    myInfoSchema.find({'date': today},function (err, result) {
+    myInfoProxy.getToday(today, function(err, result) {
         if (result.length == 0){
             request.get('http://www.jianshu.com' + myPageHref).end(function (err, res) {
                 var $ = cheerio.load(res.text);
                 var following = $('.clearfix').find('b').eq(0).text();
                 var follower = $('.clearfix').find('b').eq(1).text();
-
-                myInfoSchema.create({
-                    userHref: myPageHref,
-                    date: today,
-                    following: following,
-                    follower: follower
-                },function (err, result) {
+                myInfoProxy.saveInfo(today, following, follower, function (err) {
                     if (err) return next(err);
                 });
             });

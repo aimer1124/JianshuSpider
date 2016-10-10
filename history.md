@@ -9,6 +9,30 @@
     
     - 作者页面中,作者名支持可点击至`简书`官网作者的个人信息页面
 
+- 若`作者`数据已存在,则更新`作者`的`关注量`和`粉丝量`
+
+    - `proxy/user.js`
+    ```
+    exports.updateUser = function (article, following, follower, callback) {
+        user.update({id: article.authorHref}, {following: following, follower: follower},callback)
+    };
+    ```    
+    
+    - `util/syncData.js`
+    ```
+    userProxy.getUserById(article.authorHref,function (err, findAuthor) {
+        if (findAuthor.length == 0) {
+            userProxy.saveUser(article, following, follower, function (err) {
+                if (err) return next(err);
+            });
+        } else {
+            userProxy.updateUser(article, following, follower,function (err) {
+                if (err) return next(err);
+            })
+        }
+    });
+    ```
+    
 ## **20161009**
 
 - 将`变更记录`提取为单独的文件`history.md`
