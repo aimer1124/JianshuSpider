@@ -15,6 +15,16 @@
     - [HomePage](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
     - [Article](https://www.processon.com/view/link/57a2d0f1e4b0358f8ad7f03b)
 
+- ShowCase
+
+    - HomePage
+    ![HomePage](http://7xq729.com1.z0.glb.clouddn.com/Blog/V0.0.3-Homepage.png)
+    
+    - ArticlePage
+    ![Article](http://7xq729.com1.z0.glb.clouddn.com/Blog/V0.0.3-Article.png)
+    
+    - AuthorPage 
+    ![Author](http://7xq729.com1.z0.glb.clouddn.com/Blog/V0.0.3-Author.png)
 
 - 启动
 
@@ -70,14 +80,3 @@
 
     - [history](https://github.com/aimer1124/JianshuSpider/history.md)
     
-- ShowCase
-
-    - HomePage
-    ![HomePage](http://7xq729.com1.z0.glb.clouddn.com/Blog/V0.0.3-Homepage.png)
-    
-    - ArticlePage
-    ![Article](http://7xq729.com1.z0.glb.clouddn.com/Blog/V0.0.3-Article.png)
-    
-    - AuthorPage 
-    ![Author](http://7xq729.com1.z0.glb.clouddn.com/Blog/V0.0.3-Author.png)
-
