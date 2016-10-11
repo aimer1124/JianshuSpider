@@ -1,17 +1,7 @@
 extends layout
 
 block content
-    block header
-        table
-            th
-                tr
-                    td
-                        a(href='/') 首页
-                    td
-                        a(href='/article') 文章列表
-                    td
-                        a(href='/user') 作者
-        hr
+    include header
     table(style="width: 100%; margin: 0 auto")
         tr
             td

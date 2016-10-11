@@ -11,6 +11,10 @@ exports.updateInfo = function (today, following, follower, callback) {
 };
 ```
 
+- 提取页面头部`header`为公式的`jade`文件,使用`include`调用
+
+    - [block VS include](http://stackoverflow.com/questions/14170537/difference-between-include-and-block-in-jade)
+
 ## **20161010**
 
 - 添加`作者`页面: 默认展示`粉丝量`最高的前20位作者
