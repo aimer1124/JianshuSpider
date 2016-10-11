@@ -1,13 +1,12 @@
 var schedule = require('node-schedule');
 
-var myInfoSchema = require('../model/myInfo');
 var myPageHref = '/users/552f687b314b';
 var moment = require('moment');
 var today = moment(new Date()).format("YYYY-MM-DD");
-var request = require('superagent');
 var cheerio = require('cheerio');
 var async = require('async');
 
+var getURL = require('../proxy/getURL');
 var articleProxy = require('../proxy/article');
 var userProxy = require('../proxy/user');
 var myInfoProxy = require('../proxy/myInfo');
@@ -16,8 +15,7 @@ function articleInfo() {
 
     var articleTitles = [];
     console.log('获取数据开始');
-    request.get('http://www.jianshu.com/')
-        .end(function (err,gres, next) {
+    getURL.getPageContent('http://www.jianshu.com/', function (err, gres, next) {
             if (err){
                 return next(err);
             }
@@ -37,8 +35,7 @@ function articleInfo() {
                 var delay = parseInt((Math.random() * 10000000) % 2000,10);
                 conCurrencyCount++;
                 // console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorHref + ',控制的延迟:' + delay);
-                request.get('http://www.jianshu.com' + article.authorHref)
-                    .end(function (err, res, next) {
+                getURL.getPageContent('http://www.jianshu.com' + article.authorHref, function (err, res, next) {
                         if (err){
                             return next(err);
                         }
@@ -83,23 +80,29 @@ function articleInfo() {
 
 function myInfo(){
     myInfoProxy.getToday(today, function(err, result) {
-        if (result.length == 0){
-            request.get('http://www.jianshu.com' + myPageHref).end(function (err, res) {
-                var $ = cheerio.load(res.text);
-                var following = $('.clearfix').find('b').eq(0).text();
-                var follower = $('.clearfix').find('b').eq(1).text();
+        getURL.getPageContent('http://www.jianshu.com' + myPageHref, function (err, res) {
+            if (err) return next(err);
+            var $ = cheerio.load(res.text);
+            var following = $('.clearfix').find('b').eq(0).text();
+            var follower = $('.clearfix').find('b').eq(1).text();
+
+            if (result.length == 0){
                 myInfoProxy.saveInfo(today, following, follower, function (err) {
                     if (err) return next(err);
                 });
-            });
-        }
+            } else {
+                myInfoProxy.updateInfo(today, following, follower, function (err) {
+                    if (err) return next(err);
+                })
+            }
+        });
     });
 }
 
 function syncData() {
     var rule = new schedule.RecurrenceRule();
     //10AM every day
-    rule.second = 10;
+    rule.minute = 10;
 
     schedule.scheduleJob(rule, function () {
         myInfo();

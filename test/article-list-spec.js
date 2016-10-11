@@ -9,7 +9,6 @@ describe('Article List Page',function () {
             .expect(200)
             .expect(function (res) {
                 var $ = cheerio.load(res.text);
-
                 if ($("#article tbody tr td").eq(0).text().length < 1) {
                     throw new Error("article title must exist.");
                 }

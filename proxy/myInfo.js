@@ -17,3 +17,7 @@ exports.saveInfo = function (today, following, follower, callback) {
         follower: follower
     }, callback);
 };
+
+exports.updateInfo = function (today, following, follower, callback) {
+    myInfo.update({date: today}, {following: following, follower: follower}, callback);
+};

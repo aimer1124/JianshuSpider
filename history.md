@@ -1,6 +1,16 @@
 
 >每次修改时的变更记录。
 
+## **20161011**
+
+- 修改`个人数据`获取时,若数据已存在,则更新数据
+
+```
+exports.updateInfo = function (today, following, follower, callback) {
+    myInfo.update({date: today}, {following: following, follower: follower}, callback);
+};
+```
+
 ## **20161010**
 
 - 添加`作者`页面: 默认展示`粉丝量`最高的前20位作者
