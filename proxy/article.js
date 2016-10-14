@@ -8,6 +8,11 @@ exports.findByHref = function (articleHref, callback) {
     article.find({ "articleHref": articleHref}, callback)
 };
 
+exports.findByTitle = function (articleTitle, callback) {
+    var findContent = { 'title': { $regex:  articleTitle}};
+    article.find(findContent, callback);
+};
+
 exports.saveArticle = function (articleInfo, callback) {
     article.create({
         title: articleInfo.articleTitle,

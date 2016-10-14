@@ -1,6 +1,29 @@
 
 >每次修改时的变更记录。
 
+## **20161014**
+
+- 添加搜索文章功能,支持搜索结束后,将`搜索内容`回显给输入框
+
+    - 使用`form`表单提交搜索内容,`search.jade`
+    
+    ```
+    form(action='/search', method='post')
+        input(name='searchContent')
+        button(type='submit') 搜索
+    ```
+        
+    - 模糊查询标题名,`proxy/article.js`
+    
+    ```
+    exports.findByTitle = function (articleTitle, callback) {
+        var findContent = { 'title': { $regex:  articleTitle}};
+        article.find(findContent, callback);
+    };
+
+    ```
+    
+
 ## **20161011**
 
 - 修改`个人数据`获取时,若数据已存在,则更新数据

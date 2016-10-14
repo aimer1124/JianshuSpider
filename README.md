@@ -12,18 +12,19 @@
 
 - 效果图
 
-    - [HomePage](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
+    - [Home](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
     - [Article](https://www.processon.com/view/link/57a2d0f1e4b0358f8ad7f03b)
+    - [Author](https://www.processon.com/diagraming/57fc77cae4b0275a9a0ac3ff)
 
 - ShowCase
 
-    - HomePage
+    - Home
     ![HomePage](http://7xq729.com1.z0.glb.clouddn.com/Blog/V0.0.3-Homepage.png)
     
-    - ArticlePage
+    - Article
     ![Article](http://7xq729.com1.z0.glb.clouddn.com/Blog/V0.0.3-Article.png)
     
-    - AuthorPage 
+    - Author 
     ![Author](http://7xq729.com1.z0.glb.clouddn.com/Blog/V0.0.3-Author.png)
 
 - 启动
