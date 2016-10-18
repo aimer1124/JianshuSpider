@@ -3,7 +3,10 @@ extends layout
 block content
     include header
     form(action='/search', method='post')
-        input(name='searchContent', value='#{searchContent}')
+        if result == null
+            input(name='searchContent', value='', placeholder='请输入搜索内容')
+        else
+            input(name='searchContent', value='#{searchContent}')
         button(type='submit') 搜索
     if result==null
         p

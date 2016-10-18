@@ -1,6 +1,41 @@
 
 >每次修改时的变更记录。
 
+## **20161018**
+- 设置在未输入`搜索`内容时,搜索框内容为空
+
+    - 设置`搜索`输入框的`placeholder`
+    
+```
+if result == null
+    input(name='searchContent', value='', placeholder='请输入搜索内容')
+else
+    input(name='searchContent', value='#{searchContent}')
+```
+
+- 添加搜索测试内容
+    
+    - 默认页面
+    
+    ```
+    if ($("input").toArray().length < 1) throw new Error('There is not input_text!');
+    if (!$("button")) throw new Error('There is not search_button!');
+    ```
+        
+    - 搜索结果
+    ```
+    request.post('/search')
+        .send({'searchContent': '1'})
+        .expect(200)
+        .expect(function (res) {
+            var $ = cheerio.load(res.text);
+            if ($("#article tbody tr td").eq(0).text().length < 1) {
+                throw new Error("article title must exist.");
+            }
+        })
+        .end(done);
+    ```
+
 ## **20161014**
 
 - 添加搜索文章功能,支持搜索结束后,将`搜索内容`回显给输入框
