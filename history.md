@@ -36,6 +36,16 @@ else
         .end(done);
     ```
 
+- 提取文章内容展示公式模板文件`articleList.jade`
+
+- 添加`搜索`类型的`下拉列表`选项
+
+```
+select(name='searchType')
+    option(value='article') 文章
+    option(value='author') 作者
+```
+
 ## **20161014**
 
 - 添加搜索文章功能,支持搜索结束后,将`搜索内容`回显给输入框

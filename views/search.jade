@@ -3,6 +3,9 @@ extends layout
 block content
     include header
     form(action='/search', method='post')
+        select(name='searchType')
+            option(value='article') 文章
+            option(value='author') 作者
         if result == null
             input(name='searchContent', value='', placeholder='请输入搜索内容')
         else
@@ -12,16 +15,4 @@ block content
         p
     else
         p
-            div#article
-                table
-                    thead
-                        tr
-                            td 文章标题
-                            td 作者
-                    tbody
-                        each article in result
-                            tr
-                                td(style="text-align: left;")
-                                    a(href='http://www.jianshu.com' + '#{article.articleHref}') #{article.title}
-                                td
-                                    a(href='http://www.jianshu.com' + '#{article.authorHref}') #{article.author}
+            include articleList

@@ -35,8 +35,14 @@
     
     - 测试: `gulp test`
 
-- 引用包列表
+- 版本
+    
+    - Node: 4.4.3
+    
+    - Mongo: 3.0.3
 
+- 引用包列表
+    
     - express: [http://expressjs.com/](http://expressjs.com/),node web框架
         
         - body-parser: 请求数据体的转换`中间件`

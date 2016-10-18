@@ -16,7 +16,10 @@ describe('Search Page', function () {
 
     it('Search article', function (done) {
         request.post('/search')
-            .send({'searchContent': '1'})
+            .send({
+                'searchContent': '1',
+                'searchType': 'article'
+            })
             .expect(200)
             .expect(function (res) {
                 var $ = cheerio.load(res.text);

@@ -9,7 +9,7 @@ var article = require('../proxy/article');
 router.get('/',function (req, res,next){
     article.getAllArticles(function (err, articles) {
         if (err) return next(err);
-        res.render('article', {articles: articles});
+        res.render('article', {result: articles});
     });
 
 });
