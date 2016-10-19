@@ -49,9 +49,9 @@ router.get('/', function(req, res, next) {
                 res.render('index', {
                     info: myInfo,
                     myArticle: myArticle,
-                    followerList: followerList,
-                    followingList: followingList,
-                    dateList: dateList.sort()
+                    followerList: followerList.reverse(),
+                    followingList: followingList.reverse(),
+                    dateList: dateList.reverse()
                 });
             });
     });

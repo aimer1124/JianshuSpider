@@ -18,6 +18,15 @@ select(name='searchType')
 
 - 添加用户搜索的测试
 
+- 修复chart图表中,日期显示与实际数据不匹配
+
+    - 在给`highchart`插入数据时,先将从`mongo`中获取的数据进行`颠倒`,再返回给前端进行渲染
+    ```
+    followerList: followerList.reverse(),
+    followingList: followingList.reverse(),
+    dateList: dateList.reverse()
+    ```
+
 ## **20161018**
 - 设置在未输入`搜索`内容时,搜索框内容为空
 
