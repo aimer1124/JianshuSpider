@@ -7,6 +7,16 @@
 
 - 重构`用户`数据展示模板,添加`userList.jade`
 
+- 优化搜索后,返回搜索`类型`及`搜索内容`
+
+```
+select(name='searchType')
+    option(value='article', selected= searchType == 'article') 文章
+    option(value='author', selected= searchType == 'author') 作者
+```
+
+
+- 添加用户搜索的测试
 
 ## **20161018**
 - 设置在未输入`搜索`内容时,搜索框内容为空

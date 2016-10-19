@@ -4,8 +4,8 @@ block content
     include header
     form(action='/search', method='post')
         select(name='searchType')
-            option(value='article') 文章
-            option(value='author') 作者
+            option(value='article', selected= searchType == 'article') 文章
+            option(value='author', selected= searchType == 'author') 作者
         if result == null
             input(name='searchContent', value='', placeholder='请输入搜索内容')
         else

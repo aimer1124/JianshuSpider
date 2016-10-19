@@ -6,7 +6,7 @@ var user = require('../proxy/user');
 router.get('/', function(req, res, next) {
     user.getUsers(function (err, result) {
         if (err) return next(err);
-        res.render('user', {users: result});
+        res.render('user', {result: result});
     });
 });
 
