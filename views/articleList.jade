@@ -1,13 +1,17 @@
 div#article
-    table
-        thead
-            tr
-                td 文章标题
-                td 作者
-        tbody
-            each article in result
+    if result.length == 0
+        tr
+            td 没有搜索到任何内容
+    else
+        table
+            thead
                 tr
-                    td(style="text-align: left;")
-                        a(href='http://www.jianshu.com' + '#{article.articleHref}') #{article.title}
-                    td
-                        a(href='http://www.jianshu.com' + '#{article.authorHref}') #{article.author}
+                    td 文章标题
+                    td 作者
+            tbody
+                each article in result
+                    tr
+                        td(style="text-align: left;")
+                            a(href='http://www.jianshu.com' + '#{article.articleHref}') #{article.title}
+                        td
+                            a(href='http://www.jianshu.com' + '#{article.authorHref}') #{article.author}

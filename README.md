@@ -85,5 +85,5 @@
 
 - 变更记录
 
-    - [history](https://github.com/aimer1124/JianshuSpider/history.md)
+    - [history](https://github.com/aimer1124/JianshuSpider/blob/master/history.md)
     

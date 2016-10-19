@@ -8,6 +8,12 @@ exports.getUserById = function (id, callback) {
     user.find({id: id}, callback);
 };
 
+exports.findUserByName = function (name, callback) {
+    var findContent = { 'author': { $regex:  name}};
+    user.find(findContent, callback);
+};
+
+
 exports.saveUser = function (article, following, follower, callback) {
     user.create({
         id: article.authorHref,
