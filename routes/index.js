@@ -19,20 +19,20 @@ router.get('/', function(req, res, next) {
         var myInfo = [];
         var myArticle = [];
         var followerList = [];
-        var followingList = [];
+        var favoriteList = [];
         var dateList = [];
 
         result.forEach(function (info) {
             myInfo.push({
                 date: info.date,
-                following: info.following,
+                favorite: info.favorite,
                 follower: info.follower
             });
             followerList.push(info.follower);
-            followingList.push(info.following);
+            favoriteList.push(info.favorite);
             dateList.push(info.date.replace(/-/g, ''));
         });
-        getURL.getPageContent('www.jianshu.com' + myPageHref, function (err, resT) {
+        getURL.getPageContent(myPageHref, function (err, resT) {
             if (err) return next(err);
                 var $ = cheerio.load(resT.text);
                 $('.article-list li').each(function (idx, article) {
@@ -50,7 +50,7 @@ router.get('/', function(req, res, next) {
                     info: myInfo,
                     myArticle: myArticle,
                     followerList: followerList.reverse(),
-                    followingList: followingList.reverse(),
+                    favoriteList: favoriteList.reverse(),
                     dateList: dateList.reverse()
                 });
             });

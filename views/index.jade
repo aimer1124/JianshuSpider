@@ -10,13 +10,13 @@ block content
                         thead
                             tr
                                 td 日期
-                                td 关注
+                                td 收获喜欢
                                 td 粉丝
                         tbody
                             each result in info
                                 tr
                                     td #{result.date}
-                                    td #{result.following}
+                                    td #{result.favorite}
                                     td #{result.follower}
             td
                 div#container(style="float:left; min-width: 600px; height: 300px; margin: 0 auto; width: 70%")
@@ -30,7 +30,7 @@ block content
                             return result
                         };
                         var followerList = arrToMultiArr([#{followerList}]);
-                        var followingList = arrToMultiArr([#{followingList}]);
+                        var favoriteList = arrToMultiArr([#{favoriteList}]);
                         var dateList = arrToMultiArr([#{dateList}]);
                         $(function () {
                             $('#container').highcharts({
@@ -47,7 +47,7 @@ block content
                                 },
                                 yAxis: {
                                     title: {
-                                        text: '人数'
+                                        text: '数量'
                                     },
                                     plotLines: [{
                                         value: 0,
@@ -65,8 +65,8 @@ block content
                                     borderWidth: 0
                                 },
                                 series: [{
-                                    name: '关注',
-                                    data: followingList
+                                    name: '收获喜欢',
+                                    data: favoriteList
                                 }, {
                                     name: '粉丝',
                                     data: followerList

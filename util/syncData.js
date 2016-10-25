@@ -10,12 +10,13 @@ var getURL = require('../proxy/getURL');
 var articleProxy = require('../proxy/article');
 var userProxy = require('../proxy/user');
 var myInfoProxy = require('../proxy/myInfo');
+var collectionsProxy = require('../proxy/collections');
 
 function articleInfo() {
 
     var articleTitles = [];
     console.log('获取数据开始');
-    getURL.getPageContent('http://www.jianshu.com/', function (err, gres, next) {
+    getURL.getPageContent('', function (err, gres, next) {
             if (err){
                 return next(err);
             }
@@ -27,7 +28,7 @@ function articleInfo() {
                     author: $article.find('.author-name').text(),
                     authorHref: $article.find('.author-name').attr('href'),
                     articleHref: $article.find('.title a').attr('href')
-                })
+                });
             });
 
             var conCurrencyCount = 0;
@@ -35,13 +36,13 @@ function articleInfo() {
                 var delay = parseInt((Math.random() * 10000000) % 2000,10);
                 conCurrencyCount++;
                 // console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorHref + ',控制的延迟:' + delay);
-                getURL.getPageContent('http://www.jianshu.com' + article.authorHref, function (err, res, next) {
+                getURL.getPageContent(article.authorHref, function (err, res) {
                         if (err){
-                            return next(err);
+                            throw new Error('获取页面数据有误, ' + article.authorHref);
                         }
 
                         var $ = cheerio.load(res.text);
-                        var following = $('.clearfix').find('b').eq(0).text();
+                        var favorite = $('.clearfix').find('b').eq(4).text();
                         var follower = $('.clearfix').find('b').eq(1).text();
 
 
@@ -53,11 +54,11 @@ function articleInfo() {
 
                         userProxy.getUserById(article.authorHref,function (err, findAuthor) {
                             if (findAuthor.length == 0) {
-                                userProxy.saveUser(article, following, follower, function (err) {
+                                userProxy.saveUser(article, favorite, follower, function (err) {
                                     if (err) return next(err);
                                 });
                             } else {
-                                userProxy.updateUser(article, following, follower,function (err) {
+                                userProxy.updateUser(article, favorite, follower,function (err) {
                                     if (err) return next(err);
                                 })
                             }
@@ -80,18 +81,18 @@ function articleInfo() {
 
 function myInfo(){
     myInfoProxy.getToday(today, function(err, result) {
-        getURL.getPageContent('http://www.jianshu.com' + myPageHref, function (err, res) {
+        getURL.getPageContent(myPageHref, function (err, res) {
             if (err) return next(err);
             var $ = cheerio.load(res.text);
-            var following = $('.clearfix').find('b').eq(0).text();
+            var favorite = $('.clearfix').find('b').eq(4).text();
             var follower = $('.clearfix').find('b').eq(1).text();
 
             if (result.length == 0){
-                myInfoProxy.saveInfo(today, following, follower, function (err) {
+                myInfoProxy.saveInfo(today, favorite, follower, function (err) {
                     if (err) return next(err);
                 });
             } else {
-                myInfoProxy.updateInfo(today, following, follower, function (err) {
+                myInfoProxy.updateInfo(today, favorite, follower, function (err) {
                     if (err) return next(err);
                 })
             }
@@ -99,14 +100,47 @@ function myInfo(){
     });
 }
 
+function getCollections() {
+    getURL.getPageContent("/collections", function (err, res) {
+        if (err) return next(err);
+        var $ = cheerio.load(res.text);
+
+        $('#all-collections li .collections-info').each(function (idx, collectionEle) {
+            var href = $(collectionEle).find('h5 a').attr('href');
+            var articleCount = $(collectionEle).find('.blue-link').text();
+            var follower = getCollectionFollower($(collectionEle).find('p').last().text());
+            var collection = [];
+            collection.push({
+                id: href.split('/')[href.split('/').length-1].toString(),
+                title: $(collectionEle).find('h5 a').text(),
+                articleCount: articleCount.split('篇')[0],
+                follower: follower,
+                description: $(collectionEle).find('.description').text()
+            });
+            collectionsProxy.saveAndUpdateCollections(collection[0]);
+        });
+    });
+}
+
+
+function getCollectionFollower(content) {
+    var splitContent = content.split('·')[content.split('·').length-1];
+    var follower = splitContent.split('人')[0];
+    if (follower.indexOf('K')) {
+        return follower.split('K')[0]*1000;
+    }
+    return follower;
+}
+
 function syncData() {
     var rule = new schedule.RecurrenceRule();
     //10AM every day
-    rule.minute = 10;
+    rule.second = 10;
 
     schedule.scheduleJob(rule, function () {
         myInfo();
         articleInfo();
+        getCollections();
     });
 }
 

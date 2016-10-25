@@ -9,15 +9,15 @@ exports.getToday = function (today, callback) {
     myInfo.find({date: today}, callback);
 };
 
-exports.saveInfo = function (today, following, follower, callback) {
+exports.saveInfo = function (today, favorite, follower, callback) {
     myInfo.create({
         userHref: myPageHref,
         date: today,
-        following: following,
+        favorite: favorite,
         follower: follower
     }, callback);
 };
 
-exports.updateInfo = function (today, following, follower, callback) {
-    myInfo.update({date: today}, {following: following, follower: follower}, callback);
+exports.updateInfo = function (today, favorite, follower, callback) {
+    myInfo.update({date: today}, {favorite: favorite, follower: follower}, callback);
 };

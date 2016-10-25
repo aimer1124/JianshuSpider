@@ -7,7 +7,7 @@ div#user
             thead
                 tr
                     td 作者
-                    td 关注
+                    td 收获喜欢
                     td 粉丝
             tbody
                 each user in result
@@ -15,6 +15,6 @@ div#user
                         td
                             a(href='http://www.jianshu.com' + '#{user.id}') #{user.author}
                         td
-                            span #{user.following}
+                            span #{user.favorite}
                         td
                             span #{user.follower}

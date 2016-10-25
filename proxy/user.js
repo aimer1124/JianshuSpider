@@ -14,15 +14,15 @@ exports.findUserByName = function (name, callback) {
 };
 
 
-exports.saveUser = function (article, following, follower, callback) {
+exports.saveUser = function (article, favorite, follower, callback) {
     user.create({
         id: article.authorHref,
         author: article.author,
-        following: following,
+        favorite: favorite,
         follower: follower
     }, callback)
 };
 
-exports.updateUser = function (article, following, follower, callback) {
-    user.update({id: article.authorHref}, {following: following, follower: follower},callback)
+exports.updateUser = function (article, favorite, follower, callback) {
+    user.update({id: article.authorHref}, {favorite: favorite, follower: follower},callback)
 };

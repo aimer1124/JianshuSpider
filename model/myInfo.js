@@ -7,7 +7,7 @@ var Schema = mongoose.Schema;
 var myInfoScheme = new Schema({
     userHref: {type: String, required:true},
     date: {type: String, required:true},
-    following: {type: Number, required:true},
+    favorite: {type: Number, required:true},
     follower: {type: Number, required:true}
 });
 
