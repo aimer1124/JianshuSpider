@@ -15,11 +15,12 @@ var collectionsProxy = require('../proxy/collections');
 function articleInfo() {
 
     var articleTitles = [];
-    console.log('获取数据开始');
-    getURL.getPageContent('', function (err, gres, next) {
-            if (err){
-                return next(err);
-            }
+    // console.log('获取数据开始');
+    getURL.getPageContent('/', function (err, gres, next) {
+
+        if (err) {
+            console.log(err);
+        } else {
             var $ = cheerio.load(gres.text);
             $('.article-list li').each(function (idx, article) {
                 var $article = $(article);
@@ -33,68 +34,72 @@ function articleInfo() {
 
             var conCurrencyCount = 0;
             var fetchUrl = function (article, callback) {
-                var delay = parseInt((Math.random() * 10000000) % 2000,10);
+                var delay = parseInt((Math.random() * 10000000) % 2000, 10);
                 conCurrencyCount++;
                 // console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorHref + ',控制的延迟:' + delay);
                 getURL.getPageContent(article.authorHref, function (err, res) {
-                        if (err){
-                            throw new Error('获取页面数据有误, ' + article.authorHref);
-                        }
-
+                    if (err) {
+                        console.log(err);
+                    } else {
                         var $ = cheerio.load(res.text);
                         var favorite = $('.clearfix').find('b').eq(4).text();
                         var follower = $('.clearfix').find('b').eq(1).text();
 
 
-                        articleProxy.findByHref(article.articleHref,function (err, findArticle) {
+                        articleProxy.findByHref(article.articleHref, function (err, findArticle) {
                             if (findArticle.length == 0) {
                                 articleProxy.saveArticle(article);
                             }
                         });
 
-                        userProxy.getUserById(article.authorHref,function (err, findAuthor) {
+                        userProxy.getUserById(article.authorHref, function (err, findAuthor) {
                             if (findAuthor.length == 0) {
                                 userProxy.saveUser(article, favorite, follower, function (err) {
-                                    if (err) return next(err);
+                                    if (err) console.log(err);
                                 });
                             } else {
-                                userProxy.updateUser(article, favorite, follower,function (err) {
-                                    if (err) return next(err);
+                                userProxy.updateUser(article, favorite, follower, function (err) {
+                                    if (err) console.log(err);
                                 })
                             }
                         });
-                    });
+                    }
+                });
                 setTimeout(function () {
                     conCurrencyCount--;
-                    callback(null,article + ' html content');
-                },delay);
+                    callback(null, article + ' html content');
+                }, delay);
             };
 
-            async.mapLimit(articleTitles,5,function (article, callback) {
-                fetchUrl(article,callback);
-            },function (err) {
+            async.mapLimit(articleTitles, 5, function (article, callback) {
+                fetchUrl(article, callback);
+            }, function (err) {
                 if (err) return next(err);
-                console.log('获取数据结束');
+                // console.log('获取数据结束');
             });
-        });
+        }
+    });
 }
 
-function myInfo(){
-    myInfoProxy.getToday(today, function(err, result) {
+function myInfo() {
+    myInfoProxy.getToday(today, function (err, result) {
         getURL.getPageContent(myPageHref, function (err, res) {
-            if (err) return next(err);
-            var $ = cheerio.load(res.text);
-            var favorite = $('.clearfix').find('b').eq(4).text();
-            var follower = $('.clearfix').find('b').eq(1).text();
-
-            if (result.length == 0){
-                myInfoProxy.saveInfo(today, favorite, follower, function (err) {
-                    if (err) return next(err);
-                });
+            if (err) {
+                console.log(err);
             } else {
-                myInfoProxy.updateInfo(today, favorite, follower, function (err) {
-                    if (err) return next(err);
-                })
+                var $ = cheerio.load(res.text);
+                var favorite = $('.clearfix').find('b').eq(4).text();
+                var follower = $('.clearfix').find('b').eq(1).text();
+
+                if (result.length == 0) {
+                    myInfoProxy.saveInfo(today, favorite, follower, function (err) {
+                        if (err) return next(err);
+                    });
+                } else {
+                    myInfoProxy.updateInfo(today, favorite, follower, function (err) {
+                        if (err) return next(err);
+                    })
+                }
             }
         });
     });
@@ -102,46 +107,71 @@ function myInfo(){
 
 function getCollections() {
     getURL.getPageContent("/collections", function (err, res) {
-        if (err) return next(err);
-        var $ = cheerio.load(res.text);
+        if (err) {
+            console.log(err);
+        } else {
+            var $ = cheerio.load(res.text);
 
-        $('#all-collections li .collections-info').each(function (idx, collectionEle) {
-            var href = $(collectionEle).find('h5 a').attr('href');
-            var articleCount = $(collectionEle).find('.blue-link').text();
-            var follower = getCollectionFollower($(collectionEle).find('p').last().text());
-            var collection = [];
-            collection.push({
-                id: href.split('/')[href.split('/').length-1].toString(),
-                title: $(collectionEle).find('h5 a').text(),
-                articleCount: articleCount.split('篇')[0],
-                follower: follower,
-                description: $(collectionEle).find('.description').text()
+            $('#all-collections li .collections-info').each(function (idx, collectionEle) {
+                var href = $(collectionEle).find('h5 a').attr('href');
+                var articleCount = $(collectionEle).find('.blue-link').text();
+                var follower = getCollectionFollower($(collectionEle).find('p').last().text());
+                var collection = [];
+                collection.push({
+                    id: href.split('/')[href.split('/').length - 1].toString(),
+                    title: $(collectionEle).find('h5 a').text(),
+                    articleCount: articleCount.split('篇')[0],
+                    follower: follower,
+                    description: $(collectionEle).find('.description').text()
+                });
+                collectionsProxy.saveAndUpdateCollections(collection[0]);
             });
-            collectionsProxy.saveAndUpdateCollections(collection[0]);
-        });
+        }
     });
+
 }
 
 
 function getCollectionFollower(content) {
-    var splitContent = content.split('·')[content.split('·').length-1];
+    var splitContent = content.split('·')[content.split('·').length - 1];
     var follower = splitContent.split('人')[0];
     if (follower.indexOf('K')) {
-        return follower.split('K')[0]*1000;
+        return follower.split('K')[0] * 1000;
     }
     return follower;
 }
 
-function syncData() {
+function syncArticle() {
+
     var rule = new schedule.RecurrenceRule();
-    //10AM every day
+    //sync articles
     rule.second = 10;
 
     schedule.scheduleJob(rule, function () {
-        myInfo();
+        console.log('Sync article...');
         articleInfo();
+    });
+
+}
+
+function syncMyInfoAndCollections() {
+
+    var rule = new schedule.RecurrenceRule();
+    //sync collections and myInfo
+
+    rule.minute = 15;
+    schedule.scheduleJob(rule, function () {
+        console.log('Sync myInfo and collections...');
+        myInfo();
         getCollections();
     });
+}
+
+function syncData() {
+
+    syncArticle();
+
+    syncMyInfoAndCollections();
 }
 
 exports.syncData = syncData;

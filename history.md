@@ -1,6 +1,51 @@
 
 >每次修改时的变更记录。
 
+## **20161031**
+
+- 分离数据爬取:文章内容/自己信息和专题
+
+```
+function syncArticle() {
+
+    var rule = new schedule.RecurrenceRule();
+    //sync articles
+    rule.second = 10;
+
+    schedule.scheduleJob(rule, function () {
+        console.log('Sync article...');
+        articleInfo();
+    });
+
+}
+
+function syncMyInfoAndCollections() {
+
+    var rule = new schedule.RecurrenceRule();
+    //sync collections and myInfo
+
+    rule.minute = 15;
+    schedule.scheduleJob(rule, function () {
+        console.log('Sync myInfo and collections...');
+        myInfo();
+        getCollections();
+    });
+}
+
+function syncData() {
+
+    syncArticle();
+
+    syncMyInfoAndCollections();
+}
+```
+
+## **20161027**
+
+- 修复在获取网页数据时,报`503`错误后,APP崩溃问题
+
+    - 添加如果报错,则仅显示日志信息,不callback
+
 ## **20161025**
 
 - 添加获取并存储`专题`数据功能
