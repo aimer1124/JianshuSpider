@@ -5,6 +5,7 @@ var moment = require('moment');
 var today = moment(new Date()).format("YYYY-MM-DD");
 var cheerio = require('cheerio');
 var async = require('async');
+var sleep = require('sleep');
 
 var getURL = require('../proxy/getURL');
 var articleProxy = require('../proxy/article');
@@ -106,28 +107,37 @@ function myInfo() {
 }
 
 function getCollections() {
-    getURL.getPageContent("/collections", function (err, res) {
-        if (err) {
-            console.log(err);
-        } else {
-            var $ = cheerio.load(res.text);
+    var now = moment().format('x');
 
-            $('#all-collections li .collections-info').each(function (idx, collectionEle) {
-                var href = $(collectionEle).find('h5 a').attr('href');
-                var articleCount = $(collectionEle).find('.blue-link').text();
-                var follower = getCollectionFollower($(collectionEle).find('p').last().text());
-                var collection = [];
-                collection.push({
-                    id: href.split('/')[href.split('/').length - 1].toString(),
-                    title: $(collectionEle).find('h5 a').text(),
-                    articleCount: articleCount.split('篇')[0],
-                    follower: follower,
-                    description: $(collectionEle).find('.description').text()
-                });
-                collectionsProxy.saveAndUpdateCollections(collection[0]);
-            });
-        }
-    });
+    for(var count = 0; count < 50; count++){
+        sleep.sleep(1);
+        getURL.getPageContent("/collections?page=" + count + "&_=" + now, function (err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+                var $ = cheerio.load(res.text);
+                if ($('div').find('h1').text() == "您要找的页面不存在") {
+                    console.log('页面不存在');
+                    count = 50;
+                } else {
+                    $('#all-collections li .collections-info').each(function (idx, collectionEle) {
+                        var href = $(collectionEle).find('h5 a').attr('href');
+                        var articleCount = $(collectionEle).find('.blue-link').text();
+                        var follower = getCollectionFollower($(collectionEle).find('p').last().text());
+                        var collection = [];
+                        collection.push({
+                            id: href.split('/')[href.split('/').length - 1].toString(),
+                            title: $(collectionEle).find('h5 a').text(),
+                            articleCount: articleCount.split('篇')[0],
+                            follower: follower,
+                            description: $(collectionEle).find('.description').text()
+                        });
+                        collectionsProxy.saveAndUpdateCollections(collection[0]);
+                    });
+                }
+            }
+        })
+    }
 
 }
 
@@ -135,17 +145,18 @@ function getCollections() {
 function getCollectionFollower(content) {
     var splitContent = content.split('·')[content.split('·').length - 1];
     var follower = splitContent.split('人')[0];
-    if (follower.indexOf('K')) {
+    if (follower.indexOf('K') > -1) {
         return follower.split('K')[0] * 1000;
+    }else {
+        return follower;
     }
-    return follower;
 }
 
 function syncArticle() {
 
     var rule = new schedule.RecurrenceRule();
     //sync articles
-    rule.second = 10;
+    rule.minute = 10;
 
     schedule.scheduleJob(rule, function () {
         console.log('Sync article...');
@@ -162,7 +173,7 @@ function syncMyInfoAndCollections() {
     rule.minute = 15;
     schedule.scheduleJob(rule, function () {
         console.log('Sync myInfo and collections...');
-        myInfo();
+        // myInfo();
         getCollections();
     });
 }

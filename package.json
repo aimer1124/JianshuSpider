@@ -20,6 +20,7 @@
     "node-schedule": "^1.1.1",
     "nodemon": "^1.9.2",
     "serve-favicon": "~2.3.0",
+    "sleep": "^4.0.0",
     "superagent": "^2.0.0"
   },
   "devDependencies": {

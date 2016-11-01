@@ -1,6 +1,57 @@
 
 >每次修改时的变更记录。
 
+## **20161101**
+
+- 获取整个网站的专题数据
+    - 每一页的专题数据为`http://www.jianshu.com/collections`
+    - 第二页请求为`http://www.jianshu.com/collections?page=2&_=1477976894514`
+    - 后面的所有请求格式均为`http://www.jianshu.com/collections?order_by=score&page=3&_=1477976894515`
+    >尝试使用`Postman`修改统一的请求格式`/collections?order_by=score&page=3&_=1477976894515`,结果为所有请求均可使用此方式请求。
+    
+- 时间戳
+    - 使用`moment`的格式化参数`.format(''x)`
+    
+- 尝试查看整个网站有效的专题页码一共34页,使用`笨办法`:  `for`循环50次,来获取所有的专题数据
+    - 添加`sleep`模块,减少在查找时,数据不同步。添加`等待`时间
+    
+```
+function getCollections() {
+    var now = moment().format('x');
+
+    for(var count = 0; count < 50; count++){
+        sleep.sleep(1);
+        getURL.getPageContent("/collections?page=" + count + "&_=" + now, function (err, res) {
+            if (err) {
+                console.log(err);
+            } else {
+                var $ = cheerio.load(res.text);
+                if ($('div').find('h1').text() == "您要找的页面不存在") {
+                    console.log('页面不存在');
+                    count = 50;
+                } else {
+                    $('#all-collections li .collections-info').each(function (idx, collectionEle) {
+                        var href = $(collectionEle).find('h5 a').attr('href');
+                        var articleCount = $(collectionEle).find('.blue-link').text();
+                        var follower = getCollectionFollower($(collectionEle).find('p').last().text());
+                        var collection = [];
+                        collection.push({
+                            id: href.split('/')[href.split('/').length - 1].toString(),
+                            title: $(collectionEle).find('h5 a').text(),
+                            articleCount: articleCount.split('篇')[0],
+                            follower: follower,
+                            description: $(collectionEle).find('.description').text()
+                        });
+                        collectionsProxy.saveAndUpdateCollections(collection[0]);
+                    });
+                }
+            }
+        })
+    }
+
+}
+```
+    
 ## **20161031**
 
 - 分离数据爬取:文章内容/自己信息和专题

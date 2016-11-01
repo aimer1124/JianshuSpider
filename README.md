@@ -1,6 +1,6 @@
 # 简书爬虫
 
->此功能纯粹为个人**意想**功能,利用业余时间来学习Node。
+>此功能纯粹为个人**意想**功能,利用业余时间来学习Node。`所有内容`均已`开源`,欢迎各种`PR`和`Fork`。
 
 - 源代码
     
@@ -82,7 +82,9 @@
     - superagent: [http://visionmedia.github.io/superagent/](http://visionmedia.github.io/superagent/),模拟客户端`HTTP`请求
     
     - supertest: [https://github.com/visionmedia/supertest](https://github.com/visionmedia/supertest), 将`superagent-HTTP`测试简单化
-
+    
+    - sleep: [https://github.com/erikdubbelboer/node-sleep](https://github.com/erikdubbelboer/node-sleep), 添加`sleep`等待时间
+    
 - 变更记录
 
     - [history](https://github.com/aimer1124/JianshuSpider/blob/master/history.md)
