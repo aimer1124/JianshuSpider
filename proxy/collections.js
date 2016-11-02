@@ -1,7 +1,7 @@
 var collectionInfo = require('../model/collections');
 
 exports.getAllCollections = function (callback) {
-    collectionInfo.find({}).limit(20).sort({_id: -1}).exec(callback);
+    collectionInfo.find({}).limit(20).sort({follower: -1}).exec(callback);
 };
 
 exports.saveAndUpdateCollections = function (collection, callback) {

@@ -24,12 +24,14 @@ var routes = require('./routes/index');
 var user = require('./routes/user');
 var article = require('./routes/article');
 var search = require('./routes/search');
+var collections = require('./routes/collections');
 
 
 app.use('/', routes);
 app.use('/user', user);
 app.use('/article', article);
 app.use('/search', search);
+app.use('/collections', collections);
 
 
 
