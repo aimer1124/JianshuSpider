@@ -14,7 +14,9 @@
 
     - [Home](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
     - [Article](https://www.processon.com/view/link/57a2d0f1e4b0358f8ad7f03b)
-    - [Author](https://www.processon.com/diagraming/57fc77cae4b0275a9a0ac3ff)
+    - [Author](https://www.processon.com/diagraming/5819751de4b03a76e94bea6f)
+    - [Collections](https://www.processon.com/diagraming/5819746ae4b06e7dcfc9b338)
+    - [Search](https://www.processon.com/apps/58197ab8e4b03400d95e4c62)
 
 - ShowCase
 
@@ -26,7 +28,13 @@
     
     - Author 
     ![Author](http://7xq729.com1.z0.glb.clouddn.com/Blog/V0.0.3-Author.png)
-
+    
+    - Collections
+    ![Collections](http://7xq729.com1.z0.glb.clouddn.com/Blog/Collections.png)
+    
+    - Search
+    ![Search](http://7xq729.com1.z0.glb.clouddn.com/Blog/Search.png)
+    
 - 启动
 
     - DB: `sudo mongod`
