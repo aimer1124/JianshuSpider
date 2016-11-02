@@ -3,13 +3,13 @@ div#collections
         tr
             td 没有搜索到任何内容
     else
-        table
+        table(data-toggle="table")
             thead
                 tr
-                    td(style="text-align: center;width:100px") 专题名
-                    td(style="text-align: left;width:60px") 文章数
-                    td(style="text-align:center;width:100px") 关注用户
-                    td 专题描述
+                    th(style="text-align: center;width:100px") 专题名
+                    th(style="text-align: left;width:60px") 文章数
+                    th(style="text-align:center;width:100px") 关注用户
+                    th 专题描述
             tbody
                 each collections in result
                     tr

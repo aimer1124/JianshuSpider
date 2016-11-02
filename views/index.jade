@@ -5,13 +5,13 @@ block content
     table(style="width: 100%; margin: 0 auto")
         tr
             td
-                div#myInfo(style="float:left")
-                    table
+                div#myInfo
+                    table(data-toggle="table")
                         thead
                             tr
-                                td 日期
-                                td 收获喜欢
-                                td 粉丝
+                                th 日期
+                                th 收获喜欢
+                                th 粉丝
                         tbody
                             each result in info
                                 tr
@@ -76,14 +76,14 @@ block content
     div(style="height: 50px")
     div
         span#myArticle
-            table
+            table(data-toggle="table")
                 thead
                     tr
-                        td 文章标题
-                        td 发布时间
-                        td 阅读量
-                        td 评论
-                        td 喜欢
+                        th 文章标题
+                        th 发布时间
+                        th 阅读量
+                        th 评论
+                        th 喜欢
                     tbody
                         each article in myArticle
                             tr

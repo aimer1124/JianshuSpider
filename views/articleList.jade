@@ -3,11 +3,11 @@ div#article
         tr
             td 没有搜索到任何内容
     else
-        table
+        table(data-toggle="table")
             thead
                 tr
-                    td 文章标题
-                    td 作者
+                    th 文章标题
+                    th 作者
             tbody
                 each article in result
                     tr

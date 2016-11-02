@@ -93,6 +93,9 @@
     
     - sleep: [https://github.com/erikdubbelboer/node-sleep](https://github.com/erikdubbelboer/node-sleep), 添加`sleep`等待时间
     
+    - bootstrap: [http://getbootstrap.com/](http://getbootstrap.com/),前端样式处理
+    - bootstrap-table: 基于[http://getbootstrap.com/](http://getbootstrap.com/)的Table处理[http://bootstrap-table.wenzhixin.net.cn/](http://bootstrap-table.wenzhixin.net.cn/)
+    
 - 变更记录
 
     - [history](https://github.com/aimer1124/JianshuSpider/blob/master/history.md)
