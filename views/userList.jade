@@ -6,9 +6,9 @@ div#user
         table(data-toggle="table")
             thead
                 tr
-                    th 作者
-                    th 收获喜欢
-                    th 粉丝
+                    th(data-field="author", data-sortable="false") 作者
+                    th(data-field="favorite", data-sortable="true") 收获喜欢
+                    th(data-field="follower", data-sortable="true") 粉丝
             tbody
                 each user in result
                     tr

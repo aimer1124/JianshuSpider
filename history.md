@@ -1,6 +1,29 @@
 
 >每次修改时的变更记录。
 
+## **20161103**
+
+- 调整`select`样式,使用[https://silviomoreto.github.io/bootstrap-select/](https://silviomoreto.github.io/bootstrap-select/)
+
+- 添加Header中的链接ICON,使用BootStrap中的`Glyphicons`
+
+```
+a(href="/", class='glyphicon glyphicon-home') 首页
+```
+
+- 添加自己文章列表的和作者列表中的`表格`排序功能
+
+```
+table(data-toggle="table", data-sort-name="date", data-sort-order="desc")
+    thead
+        tr
+            th(data-field="title", data-sortable="false") 文章标题
+            th(data-field="date", data-sortable="true") 发布时间
+            th(data-field="reading", data-sortable="true") 阅读量
+            th(data-field="comment", data-sortable="true") 评论
+            th(data-field="favorite", data-sortable="true") 喜欢
+```
+
 ## **20161102**
 
 - 添加`专题`页面显示

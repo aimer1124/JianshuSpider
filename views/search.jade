@@ -2,17 +2,20 @@ extends layout
 
 block content
     include header
-    form(action='/search', method='post')
-        select(name='searchType')
-            option(value='article', selected= searchType == 'article') 文章
-            option(value='author', selected= searchType == 'author') 作者
-        if result == null
-            input(name='searchContent', value='', placeholder='请输入搜索内容')
-        else
-            input(name='searchContent', value='#{searchContent}')
-        button(type='submit') 搜索
+    form(action='/search', method='post', class="form-inline")
+        div(class='input-group')
+            select(name='searchType', class="selectpicker", data-width="auto")
+                option(value='article', selected= searchType == 'article', data-icon='glyphicon-list-alt') 文章
+                option(value='author', selected= searchType == 'author', data-icon='glyphicon-user') 作者
+            if result == null
+                input(name='searchContent', type='text', value='', placeholder='请输入搜索内容', class='form-control')
+            else
+                input(name='searchContent', type='text', value='#{searchContent}', class='form-control')
+            span(class='input-group-btn')
+                button(type='submit', class='btn btn-default') 搜索
     if result==null
-        p 请设置搜索内容
+        hr
+        div 请设置搜索内容
     else
         p
             if searchType == 'article'

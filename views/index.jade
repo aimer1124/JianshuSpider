@@ -76,18 +76,18 @@ block content
     div(style="height: 50px")
     div
         span#myArticle
-            table(data-toggle="table")
+            table(data-toggle="table", data-sort-name="date", data-sort-order="desc")
                 thead
                     tr
-                        th 文章标题
-                        th 发布时间
-                        th 阅读量
-                        th 评论
-                        th 喜欢
+                        th(data-field="title", data-sortable="false") 文章标题
+                        th(data-field="date", data-sortable="true") 发布时间
+                        th(data-field="reading", data-sortable="true") 阅读量
+                        th(data-field="comment", data-sortable="true") 评论
+                        th(data-field="favorite", data-sortable="true") 喜欢
                     tbody
                         each article in myArticle
                             tr
-                                td(style="text-align: left;")
+                                td
                                     a(href='http://www.jianshu.com' + '#{article.articleHref}') #{article.article}
                                 td #{article.publishDate}
                                 td #{article.reading}

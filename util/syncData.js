@@ -20,7 +20,7 @@ function articleInfo() {
     getURL.getPageContent('/', function (err, gres, next) {
 
         if (err) {
-            console.log(err);
+            console.log("访问首页失败");
         } else {
             var $ = cheerio.load(gres.text);
             $('.article-list li').each(function (idx, article) {
@@ -40,7 +40,7 @@ function articleInfo() {
                 // console.log('并发数:' + conCurrencyCount + ',访问的页面是:' + article.authorHref + ',控制的延迟:' + delay);
                 getURL.getPageContent(article.authorHref, function (err, res) {
                     if (err) {
-                        console.log(err);
+                        console.log('访问页面:' + article.authorHref + '失败');
                     } else {
                         var $ = cheerio.load(res.text);
                         var favorite = $('.clearfix').find('b').eq(4).text();
@@ -86,7 +86,7 @@ function myInfo() {
     myInfoProxy.getToday(today, function (err, result) {
         getURL.getPageContent(myPageHref, function (err, res) {
             if (err) {
-                console.log(err);
+                console.log('访问页面:' + myPageHref + '失败');
             } else {
                 var $ = cheerio.load(res.text);
                 var favorite = $('.clearfix').find('b').eq(4).text();
@@ -113,7 +113,7 @@ function getCollections() {
         sleep.sleep(1);
         getURL.getPageContent("/collections?page=" + count + "&_=" + now, function (err, res) {
             if (err) {
-                console.log(err);
+                console.log('访问页面:' + "/collections?page=" + count + "&_=" + now + '失败');
             } else {
                 var $ = cheerio.load(res.text);
                 if ($('div').find('h1').text() == "您要找的页面不存在") {
