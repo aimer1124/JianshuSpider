@@ -173,7 +173,7 @@ function syncMyInfoAndCollections() {
     rule.minute = 15;
     schedule.scheduleJob(rule, function () {
         console.log('Sync myInfo and collections...');
-        // myInfo();
+        myInfo();
         getCollections();
     });
 }
