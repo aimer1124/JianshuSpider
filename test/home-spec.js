@@ -13,7 +13,7 @@ describe('Home Page',function () {
                 if (!($("#myInfo tbody tr td").eq(0).text().split('-')[0] == "2016")) {
                     throw new Error("MyInfo date is lost, because date is not 201*Year");
                 }
-                if (!($("#myInfo tbody tr").toArray().length == 7)) {
+                if (!($("#myInfo tbody tr").toArray().length == 30)) {
                     throw new Error("There is not 7 information.");
                 }
 
