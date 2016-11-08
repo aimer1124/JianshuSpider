@@ -9,6 +9,7 @@ exports.saveAndUpdateCollections = function (collection, callback) {
     collectionInfo.find({"id": collection.id}, function (err, findCollection) {
         if (err) return next(err);
         if (findCollection.length == 0) {
+            console.log('Not find collection:' + collection.id + ', title:' + collection.title + ', save it.');
             collectionInfo.create({
                 id: collection.id,
                 title: collection.title,
@@ -17,11 +18,14 @@ exports.saveAndUpdateCollections = function (collection, callback) {
                 description: collection.description
             }, callback);
         } else {
-            collectionInfo.update({"id": collection.id}, {
-                title: collection.title,
-                articleCount: collection.articleCount,
-                follower: collection.follower,
-                description: collection.summary
+            console.log('Find collection:' + collection.id + ', title:' + collection.title + ', follower:' + collection.follower + ', articleCount:' + collection.articleCount);
+            collectionInfo.findOneAndUpdate({id: collection.id},
+                {
+                    id: collection.id,
+                    title: collection.title,
+                    articleCount: collection.articleCount,
+                    follower: collection.follower,
+                    description: collection.description
             }, callback);
         }
     });

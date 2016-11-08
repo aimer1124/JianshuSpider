@@ -1,6 +1,11 @@
 
 >每次修改时的变更记录。
 
+## **20161108**
+
+- 修复`个人信息获取`及`专题`数据获取时的数据更新,使用`findOneAndUpdate`方法,替换`update`
+
+
 ## **20161103**
 
 - 调整`select`样式,使用[https://silviomoreto.github.io/bootstrap-select/](https://silviomoreto.github.io/bootstrap-select/)

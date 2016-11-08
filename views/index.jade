@@ -6,20 +6,25 @@ block content
         tr
             td
                 div#myInfo
-                    table(data-toggle="table")
+                    //table(data-toggle="table", data-height="400")
+                    table(class="table table-striped table-bordered"
+                    data-toggle="table"
+                    data-height="300"
+                    data-show-columns="false")
                         thead
                             tr
-                                th 日期
-                                th 收获喜欢
-                                th 粉丝
+                                th(data-field="date") 日期
+                                th(data-field="favorite") 收获喜欢
+                                th(data-field="follower") 粉丝
                         tbody
                             each result in info
                                 tr
                                     td #{result.date}
                                     td #{result.favorite}
                                     td #{result.follower}
+            td(style='width: 100px')
             td
-                div#container(style="float:left; min-width: 600px; height: 300px; margin: 0 auto; width: 70%")
+                div#container(style="float:left; min-width: 650px; height: 300px; margin: 0 auto;")
                     script.
                         var arrToMultiArr = function (arr) {
                             var result = new Array()

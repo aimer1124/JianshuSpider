@@ -6,9 +6,9 @@ div#collections
         table(data-toggle="table")
             thead
                 tr
-                    th(style="text-align: center;width:100px") 专题名
-                    th(style="text-align: left;width:60px") 文章数
-                    th(style="text-align:center;width:100px") 关注用户
+                    th 专题名
+                    th(data-field="articleCount", data-sortable="true") 文章数
+                    th(data-field="follower", data-sortable="true") 关注用户
                     th 专题描述
             tbody
                 each collections in result

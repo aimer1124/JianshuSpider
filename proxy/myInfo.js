@@ -19,5 +19,5 @@ exports.saveInfo = function (today, favorite, follower, callback) {
 };
 
 exports.updateInfo = function (today, favorite, follower, callback) {
-    myInfo.update({date: today}, {favorite: favorite, follower: follower}, callback);
+    myInfo.findOneAndUpdate({date: today}, {favorite: favorite, follower: follower}, callback);
 };

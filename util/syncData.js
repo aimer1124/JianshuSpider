@@ -82,7 +82,7 @@ function articleInfo() {
     });
 }
 
-function myInfo() {
+function getMyInfo() {
     myInfoProxy.getToday(today, function (err, result) {
         getURL.getPageContent(myPageHref, function (err, res) {
             if (err) {
@@ -132,7 +132,10 @@ function getCollections() {
                             follower: follower,
                             description: $(collectionEle).find('.description').text()
                         });
-                        collectionsProxy.saveAndUpdateCollections(collection[0]);
+                        collectionsProxy.saveAndUpdateCollections(collection[0],function (err) {
+                            if (err)
+                                console.log('保存失败'+ err);
+                        });
                     });
                 }
             }
@@ -152,37 +155,36 @@ function getCollectionFollower(content) {
     }
 }
 
-function syncArticle() {
+function syncMyInfoAndArticle() {
 
     var rule = new schedule.RecurrenceRule();
-    //sync articles
-    rule.minute = 10;
+    rule.minute = 50;
 
     schedule.scheduleJob(rule, function () {
-        console.log('Sync article...');
+        console.log('Sync myInfo and article...');
         articleInfo();
+        getMyInfo();
     });
 
 }
 
-function syncMyInfoAndCollections() {
+function syncCollections() {
 
     var rule = new schedule.RecurrenceRule();
-    //sync collections and myInfo
 
     rule.minute = 15;
     schedule.scheduleJob(rule, function () {
-        console.log('Sync myInfo and collections...');
-        myInfo();
+        console.log('Sync collections...');
+
         getCollections();
     });
 }
 
 function syncData() {
 
-    syncArticle();
+    syncMyInfoAndArticle();
 
-    syncMyInfoAndCollections();
+    syncCollections();
 }
 
 exports.syncData = syncData;
