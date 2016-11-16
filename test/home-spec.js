@@ -9,12 +9,12 @@ describe('Home Page',function () {
             .expect(function (res) {
                 var $ = cheerio.load(res.text);
 
-                //myinfo
-                if (!($("#myInfo tbody tr td").eq(0).text().split('-')[0] == "2016")) {
+                // myinfo
+                if ($("#myInfo #content td").eq(0).text().split("-")[0] != "2016") {
                     throw new Error("MyInfo date is lost, because date is not 201*Year");
                 }
-                if (!($("#myInfo tbody tr").toArray().length == 30)) {
-                    throw new Error("There is not 7 information.");
+                if ($("#myInfo #content").toArray().length != 30) {
+                    throw new Error("There is not 30 information.");
                 }
 
                 //charts

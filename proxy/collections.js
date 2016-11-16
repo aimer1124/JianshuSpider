@@ -7,9 +7,9 @@ exports.getAllCollections = function (callback) {
 exports.saveAndUpdateCollections = function (collection, callback) {
 
     collectionInfo.find({"id": collection.id}, function (err, findCollection) {
-        if (err) return next(err);
+        if (err) console.log(err);
         if (findCollection.length == 0) {
-            console.log('Not find collection:' + collection.id + ', title:' + collection.title + ', save it.');
+            // console.log('Not find collection:' + collection.id + ', title:' + collection.title + ', save it.');
             collectionInfo.create({
                 id: collection.id,
                 title: collection.title,
@@ -18,7 +18,7 @@ exports.saveAndUpdateCollections = function (collection, callback) {
                 description: collection.description
             }, callback);
         } else {
-            console.log('Find collection:' + collection.id + ', title:' + collection.title + ', follower:' + collection.follower + ', articleCount:' + collection.articleCount);
+            // console.log('Find collection:' + collection.id + ', title:' + collection.title + ', follower:' + collection.follower + ', articleCount:' + collection.articleCount);
             collectionInfo.findOneAndUpdate({id: collection.id},
                 {
                     id: collection.id,

@@ -24,5 +24,5 @@ exports.saveUser = function (article, favorite, follower, callback) {
 };
 
 exports.updateUser = function (article, favorite, follower, callback) {
-    user.update({id: article.authorHref}, {favorite: favorite, follower: follower},callback)
+    user.findOneAndUpdate({id: article.authorHref}, {favorite: favorite, follower: follower},callback)
 };
