@@ -1,4 +1,4 @@
-var config = require('./config');
+var config = require('./support/config');
 var request = require('supertest')(config.baseUrl);
 var cheerio = require('cheerio');
 

@@ -1,6 +1,22 @@
 
 >每次修改时的变更记录。
 
+## **20161121**
+
+- 修复首页中`个人数据`表格中的数据重复，将`数据`的处理缩进统一调整
+```
+tbody
+    each result in info
+        tr#content
+            td #{result.date}
+            td #{result.favorite}
+            td #{result.follower}
+```
+
+- 提取测试代码
+    － 提取公共的支持脚本`support/config.js`
+    － 添加`pageObject`文件夹，存放`PO`对象
+
 
 ## **20161116**
 

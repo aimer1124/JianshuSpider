@@ -1,4 +1,4 @@
-var config = require('./config');
+var config = require('./support/config');
 var request = require('supertest')(config.baseUrl);
 var cheerio = require('cheerio');
 
@@ -13,8 +13,8 @@ describe('Home Page',function () {
                 if ($("#myInfo #content td").eq(0).text().split("-")[0] != "2016") {
                     throw new Error("MyInfo date is lost, because date is not 201*Year");
                 }
-                if ($("#myInfo #content").toArray().length != 30) {
-                    throw new Error("There is not 30 information.");
+                if ($("#myInfo #content").toArray().length < 0) {
+                    throw new Error("There is not information.");
                 }
 
                 //charts

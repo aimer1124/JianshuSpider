@@ -13,11 +13,11 @@ block content
                                 th(data-field="favorite", data-sortable="true") 收获喜欢
                                 th(data-field="follower", data-sortable="true") 粉丝
                         tbody
-                        each result in info
-                            tr#content
-                                td #{result.date}
-                                td #{result.favorite}
-                                td #{result.follower}
+                            each result in info
+                                tr#content
+                                    td #{result.date}
+                                    td #{result.favorite}
+                                    td #{result.follower}
             td(style="width: 5%")
             td(style="width: 45%")
                 div#container(style="float:left; min-width: 450px; height: 300px; margin: 0 auto;")
