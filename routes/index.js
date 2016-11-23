@@ -6,7 +6,7 @@ var syncData = require('../util/syncData');
 syncData.syncData();
 
 var convertString = require('../util/convertString');
-var myPageHref = '/users/552f687b314b';
+var myPageHref = '/users/552f687b314b/top_articles';
 
 var myInfo = require('../proxy/myInfo');
 var getURL = require('../proxy/getURL');
@@ -37,6 +37,7 @@ router.get('/', function(req, res, next) {
                 var $ = cheerio.load(resT.text);
                 $('.article-list li').each(function (idx, article) {
                     var $article = $(article);
+
                     myArticle.push({
                         article: $article.find('.title a').text(),
                         publishDate: $article.find('.time').attr('data-shared-at').split('T')[0],

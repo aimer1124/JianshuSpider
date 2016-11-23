@@ -14,7 +14,5 @@ div#user
                     tr
                         td
                             a(href='http://www.jianshu.com' + '#{user.id}') #{user.author}
-                        td
-                            span #{user.favorite}
-                        td
-                            span #{user.follower}
+                        td #{user.favorite}
+                        td #{user.follower}
