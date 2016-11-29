@@ -158,7 +158,7 @@ function getCollectionFollower(content) {
 function syncMyInfoAndArticle() {
 
     var rule = new schedule.RecurrenceRule();
-    rule.minute = 57;
+    rule.minute = 52;
 
     schedule.scheduleJob(rule, function () {
         console.log('Sync myInfo and article...');
@@ -172,7 +172,7 @@ function syncCollections() {
 
     var rule = new schedule.RecurrenceRule();
 
-    rule.minute = 53;
+    rule.minute = 48;
     schedule.scheduleJob(rule, function () {
         console.log('Sync collections...');
 

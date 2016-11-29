@@ -109,6 +109,12 @@
             
     - Test
      
+        - cucumber: [https://cucumber.io/](https://cucumber.io/),BDD测试
+        
+        - selenium-webdriver: [http://www.seleniumhq.org/projects/webdriver/](http://www.seleniumhq.org/projects/webdriver/),用于Web自动化测试
+        
+        - chromedriver: [https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/chrome/ChromeDriver.html](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/chrome/ChromeDriver.html),使用Chrome可以在本机运行的[WebDriver](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/WebDriver.html)
+        
         - should: [https://github.com/shouldjs/should.js](https://github.com/shouldjs/should.js), 断言库
     
         - SuperTest: [https://github.com/visionmedia/supertest](https://github.com/visionmedia/supertest), 将`superagent-HTTP`测试简单化
