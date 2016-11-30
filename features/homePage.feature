@@ -4,14 +4,13 @@ Feature: HomePage feature
   I open homePage
   So that I can see infoData, trendData and articleData.
 
-  Scenario: Show infoData
-    Given I am on "HomePage"
-    Then I should see "2016" in "infoData"
+  Scenario Outline: Show infoData
+    When I am on <Page>
+    Then I should see <Data> in <Area>
 
-  Scenario: Show trendData
-    Given I am on "HomePage"
-    Then I should see "2016" in "trendData"
+    Examples:
+      | Page     | Area     | Data |
+      | "HomePage" | "infoData" | "2016" |
+      | "HomePage" | "trendData" | "2016" |
+      | "HomePage" | "articleData" | "2016" |
 
-  Scenario: Show articleData
-    Given I am on "HomePage"
-    Then I should see "2016" in "articleData"

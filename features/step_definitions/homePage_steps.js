@@ -5,33 +5,22 @@ var webdriver = require('selenium-webdriver'),
 
 module.exports = function () {
 
-    this.Given(/^I am on the Cucumber.js GitHub repository$/, function() {
-        return this.driver.get('https://github.com/cucumber/cucumber-js/tree/master');
-    });
+    function combineUrl(page) {
+        var baseUrl = "http://localhost:4001/";
+        return baseUrl + page;
+    }
 
-    this.When(/^I click on "([^"]*)"$/, function (text) {
-        return this.driver.findElement({linkText: text}).then(function(element) {
-            return element.click();
-        });
-    });
-
-    this.Then(/^I should see "([^"]*)"$/, function (text) {
-        var xpath = "//*[contains(text(),'" + text + "')]";
-        var condition = webdriver.until.elementLocated({xpath: xpath});
-        return this.driver.wait(condition, 5000);
-    });
-
-    this.Given(/^I am on "([^"]*)"$/, function(pageURl) {
-        if (pageURl == 'HomePage'){
-            return this.driver.get('http://localhost:4001/');
-        }else if (pageURl == "articlePage"){
-            return this.driver.get('http://localhost:4001/' + "article");
-        }else if (pageURl == "collectionsPage"){
-            return this.driver.get('http://localhost:4001/' + "collections");
-        }else if (pageURl == "userPage") {
-            return this.driver.get('http://localhost:4001/' + "user");
-        }else {
-            return this.driver.get('http://localhost:4001/' + "search");
+    this.When(/^I am on "([^"]*)"$/, function(page) {
+        if (page == 'HomePage'){
+            return this.driver.get(combineUrl(""));
+        }else if (page == "articlePage"){
+            return this.driver.get(combineUrl("article"));
+        }else if (page == "collectionsPage"){
+            return this.driver.get(combineUrl("collections"));
+        }else if (page == "userPage") {
+            return this.driver.get(combineUrl("user"));
+        }else if (page == "searchPage") {
+            return this.driver.get(combineUrl("search"));
         }
 
     });

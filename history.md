@@ -78,6 +78,26 @@ module.exports = function () {
 };
 ```
 
+- 重构首页中BDD测试，使用`Examples`
+
+```gherkin
+# features/homePage.feature
+Feature: HomePage feature
+  As a user
+  I open homePage
+  So that I can see infoData, trendData and articleData.
+
+  Scenario Outline: Show infoData
+    When I am on <Page>
+    Then I should see <Data> in <Area>
+
+    Examples:
+      | Page     | Area     | Data |
+      | "HomePage" | "infoData" | "2016" |
+      | "HomePage" | "trendData" | "2016" |
+      | "HomePage" | "articleData" | "2016" |
+```
+
 ## **20161129**
 
 - 添加Cucumber和WebDrive，深度使用BDD的方式进行测试
