@@ -1,18 +1,20 @@
-# 简书爬虫
+# JianshuSpider
 
->此功能纯粹为个人**意想**功能,利用业余时间来学习Node。`所有内容`均已`开源`,欢迎各种`PR`和`Fork`。
+[中文文档](https://github.com/aimer1124/JianshuSpider/blob/master/README_ZH.md)
 
-## 项目
+>The function in this project is all `my self mind`, because i want to improve my `Node.js`.So it's `open source`, welcome `PR` `Fork` or `Star`.
 
-- 源代码
+## Project
+
+- Source
     
     - [https://github.com/aimer1124/JianshuSpider](https://github.com/aimer1124/JianshuSpider)
 
-- 需求
+- Demand
     
-    - [Teambition-简书爬虫](https://www.teambition.com/project/57a1802f767c4b360c918e49/tasks/scrum/57a1802f767c4b360c918e4c)
+    - [Teambition-JianshuSpider](https://www.teambition.com/project/57a1802f767c4b360c918e49/tasks/scrum/57a1802f767c4b360c918e4c)
 
-- 效果图
+- UI
 
     - [Home](https://www.processon.com/view/link/57a1c693e4b0de6d056db518)
     - [Article](https://www.processon.com/view/link/57a2d0f1e4b0358f8ad7f03b)
@@ -39,87 +41,87 @@
     <br>
     ![Search](http://7xq729.com1.z0.glb.clouddn.com/JianshuSpider/Search.png)
     
-## 代码
+## Code
     
-- 启动
+- Start
 
     - DB: `sudo mongod`
     
-    - 程序: `gulp`
+    - Project: `gulp`
     
-    - 测试: `gulp test`
+    - Test: `gulp test`
 
-- 版本
+- Version
     
     - Node: 4.4.3
     
     - Mongo: 3.0.3
 
-- 引用包列表
+- Dependencies
     
     - Backend
     
-        - express: [http://expressjs.com/](http://expressjs.com/),node web框架
+        - express: [http://expressjs.com/](http://expressjs.com/),node web framework
             
-            - body-parser: 请求数据体的转换`中间件`
+            - body-parser: Parse HTTP request body. 
             
-            - cookie-parser: 请求头的`cookie`管理
+            - cookie-parser: Parse cookie header and populate req.cookies. See also cookies and keygrip.
             
-            - debug: 调试工具
+            - debug: tiny node.js debugging utility modelled after node core's debugging technique.
              
-            - morgan: 日志中间件
+            - morgan: HTTP request logger.
             
-            - serve-favicon: favicon中间件
+            - serve-favicon: Serve a favicon.
              
-        - async: [https://github.com/caolan/async](https://github.com/caolan/async),异步框架
+        - async: [https://github.com/caolan/async](https://github.com/caolan/async),provides straight-forward, powerful functions for working with asynchronous JavaScript
         
-        - cheerio: [https://github.com/cheeriojs/cheerio](https://github.com/cheeriojs/cheerio),加载`html`元素,并可使用`jQuery`进行操作
+        - cheerio: [https://github.com/cheeriojs/cheerio](https://github.com/cheeriojs/cheerio),Fast, flexible, and lean implementation of core jQuery designed specifically for the server.
     
-        - moment: [http://momentjs.com](http://momentjs.com),轻量级的时间转换库
+        - moment: [http://momentjs.com](http://momentjs.com),Parse, validate, manipulate, and display dates in JavaScript.
             
-        - mongoose: [http://mongoosejs.com/](http://mongoosejs.com/),`mongo`的对象模型工具
+        - mongoose: [http://mongoosejs.com/](http://mongoosejs.com/),elegant mongodb object modeling for node.js
         
-        - node-schedule: [https://github.com/node-schedule/node-schedule](https://github.com/node-schedule/node-schedule),Node的任务调度
+        - node-schedule: [https://github.com/node-schedule/node-schedule](https://github.com/node-schedule/node-schedule),a flexible cron-like and not-cron-like job scheduler for Node.js.
         
-        - SuperAgent: [http://visionmedia.github.io/superagent/](http://visionmedia.github.io/superagent/),模拟客户端`HTTP`请求
+        - SuperAgent: [http://visionmedia.github.io/superagent/](http://visionmedia.github.io/superagent/),light-weight progressive ajax API crafted for flexibility, readability, and a low learning curve after being frustrated with many of the existing request APIs. 
         
-        - sleep: [https://github.com/erikdubbelboer/node-sleep](https://github.com/erikdubbelboer/node-sleep), 添加`sleep`等待时间
+        - sleep: [https://github.com/erikdubbelboer/node-sleep](https://github.com/erikdubbelboer/node-sleep), block execution of all JavaScript by halting Node.js' event loop!
         
     - FrontEnd
         
-        - HighCharts: [http://www.highcharts.com](http://www.highcharts.com),图表控件
+        - HighCharts: [http://www.highcharts.com](http://www.highcharts.com),set up interactive charts in their web pages
         
-        - jade: [http://jade-lang.com/](http://jade-lang.com/)模板引擎
+        - jade: [http://jade-lang.com/](http://jade-lang.com/), robust, elegant, feature rich template engine for Node.js
     
-        - bootstrap: [http://getbootstrap.com/](http://getbootstrap.com/),前端样式处理
+        - bootstrap: [http://getbootstrap.com/](http://getbootstrap.com/),developing responsive, mobile first projects on the web.
         
-        - bootstrap-table: 基于[http://getbootstrap.com/](http://getbootstrap.com/)的Table处理[http://bootstrap-table.wenzhixin.net.cn/](http://bootstrap-table.wenzhixin.net.cn/)
+        - bootstrap-table: An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features.
         
-        - bootstrap-select: 基于[http://getbootstrap.com/](http://getbootstrap.com/)的select处理[https://silviomoreto.github.io/bootstrap-select/](https://silviomoreto.github.io/bootstrap-select/)
+        - bootstrap-select: utilizes Bootstrap's dropdown.js to style and bring additional functionality to standard select elements.
 
     - Develop
     
-        - browser-sync: [http://browsersync.io](http://browsersync.io)浏览器数据同步框架
+        - browser-sync: [http://browsersync.io](http://browsersync.io), Time-saving synchronised browser testing.
     
-        - gulp: [http://gulpjs.com](http://gulpjs.com)构建工具
+        - gulp: [http://gulpjs.com](http://gulpjs.com),Automate and enhance your workflow
     
-            - gulp-mocha:  运行`mocha`测试
+            - gulp-mocha: [https://www.npmjs.com/package/gulp-mocha/](https://www.npmjs.com/package/gulp-mocha/),a thin wrapper around Mocha and your issue is most likely with Mocha.
             
-            - gulp-nodemon: gulp的`nodemon`工具,用于`监控` node文件变化
+            - gulp-nodemon: [https://www.npmjs.com/package/gulp-nodemon/](https://www.npmjs.com/package/gulp-nodemon/), gulp + nodemon + convenience
             
     - Test
      
-        - cucumber: [https://cucumber.io/](https://cucumber.io/),BDD测试
+        - cucumber: [https://cucumber.io/](https://cucumber.io/),Simple, human collaboration
         
-        - selenium-webdriver: [http://www.seleniumhq.org/projects/webdriver/](http://www.seleniumhq.org/projects/webdriver/),用于Web自动化测试
+        - selenium-webdriver: [http://www.seleniumhq.org/projects/webdriver/](http://www.seleniumhq.org/projects/webdriver/),Driving a browser natively as a user would either locally or on a remote machine using the Selenium Server it marks a leap forward in terms of browser automation.
         
-        - chromedriver: [https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/chrome/ChromeDriver.html](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/chrome/ChromeDriver.html),使用Chrome可以在本机运行的[WebDriver](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/WebDriver.html)
+        - chromedriver: [https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/chrome/ChromeDriver.html](https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/chrome/ChromeDriver.html),A WebDriver implementation that controls a Chrome browser running on the local machine. 
         
-        - should: [https://github.com/shouldjs/should.js](https://github.com/shouldjs/should.js), 断言库
+        - should: [https://github.com/shouldjs/should.js](https://github.com/shouldjs/should.js), BDD style assertions for node.js
     
-        - SuperTest: [https://github.com/visionmedia/supertest](https://github.com/visionmedia/supertest), 将`superagent-HTTP`测试简单化
+        - SuperTest: [https://github.com/visionmedia/supertest](https://github.com/visionmedia/supertest), Super-agent driven library for testing node.js HTTP servers using a fluent API
     
-- 变更记录
+- Change
 
-    - [history](https://github.com/aimer1124/JianshuSpider/blob/master/history.md)
+    - [History](https://github.com/aimer1124/JianshuSpider/blob/master/history.md)
     
