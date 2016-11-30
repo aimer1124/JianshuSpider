@@ -22,13 +22,35 @@ module.exports = function () {
     });
 
     this.Given(/^I am on "([^"]*)"$/, function(pageURl) {
-        return this.driver.get('http://localhost:4001/');
+        if (pageURl == 'HomePage'){
+            return this.driver.get('http://localhost:4001/');
+        }else if (pageURl == "articlePage"){
+            return this.driver.get('http://localhost:4001/' + "article");
+        }else if (pageURl == "collectionsPage"){
+            return this.driver.get('http://localhost:4001/' + "collections");
+        }else if (pageURl == "userPage") {
+            return this.driver.get('http://localhost:4001/' + "user");
+        }else {
+            return this.driver.get('http://localhost:4001/' + "search");
+        }
+
     });
 
     this.Then(/^I should see "([^"]*)" in "([^"]*)"$/, function (content, area) {
-        var xpath = "//*[@id=\"content\"]/td[1][contains(text(),'" + content + "')]";
-        var condition = webdriver.until.elementLocated({xpath: xpath});
-        return this.driver.wait(condition, 5000);
+        if (area == "infoData"){
+            var xpath = "//*[@id=\"content\"]/td[1][contains(text(),'" + content + "')]";
+            var condition = webdriver.until.elementLocated({xpath: xpath});
+            return this.driver.wait(condition, 10000);
+        } else if (area == "trendData"){
+            var css = ".highcharts-xaxis-labels";
+            var condition = webdriver.until.elementLocated({css: css});
+            return this.driver.wait(condition, 10000);
+        } else{
+            var xpath = "//*[@id=\"myArticle\"]/div[1]/div[2]/div[2]/table/tbody/tr[1]/td[2][contains(text(),'" + content + "')]";
+            var condition = webdriver.until.elementLocated({xpath: xpath});
+            return this.driver.wait(condition, 10000);
+        }
+
     });
 
 };
