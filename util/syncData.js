@@ -5,7 +5,6 @@ var moment = require('moment');
 var today = moment(new Date()).format("YYYY-MM-DD");
 var cheerio = require('cheerio');
 var async = require('async');
-var sleep = require('sleep');
 
 var getURL = require('../proxy/getURL');
 var articleProxy = require('../proxy/article');
@@ -191,8 +190,10 @@ function syncMyInfoAndArticle() {
 
 function syncCollections() {
 
+    var rule = new schedule.RecurrenceRule();
+    rule.minute = 42;
     //every 4 Hours
-    schedule.scheduleJob("*/1 * * * *", function () {
+    schedule.scheduleJob(rule, function () {
         console.log('Sync collections...');
 
         getCollections();
