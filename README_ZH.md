@@ -83,8 +83,6 @@
         
         - SuperAgent: [http://visionmedia.github.io/superagent/](http://visionmedia.github.io/superagent/),模拟客户端`HTTP`请求
         
-        - sleep: [https://github.com/erikdubbelboer/node-sleep](https://github.com/erikdubbelboer/node-sleep), 添加`sleep`等待时间
-        
     - FrontEnd
         
         - HighCharts: [http://www.highcharts.com](http://www.highcharts.com),图表控件

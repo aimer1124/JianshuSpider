@@ -1,7 +1,6 @@
 # features/homePage.feature
 Feature: HomePage feature
-  As a user
-  I open homePage
+  When I open homePage
   So that I can see infoData, trendData and articleData.
 
   Scenario Outline: Show infoData

@@ -3,23 +3,25 @@ var webdriver = require('selenium-webdriver'),
     By = webdriver.By,
     until = webdriver.until;
 
+var config = require('../support/config');
+
 module.exports = function () {
 
     function combineUrl(page) {
-        var baseUrl = "http://localhost:4001/";
+        var baseUrl = config.baseUrl;
         return baseUrl + page;
     }
 
     this.When(/^I am on "([^"]*)"$/, function(page) {
         if (page == 'HomePage'){
             return this.driver.get(combineUrl(""));
-        }else if (page == "articlePage"){
+        }else if (page == "ArticlePage"){
             return this.driver.get(combineUrl("article"));
-        }else if (page == "collectionsPage"){
+        }else if (page == "CollectionsPage"){
             return this.driver.get(combineUrl("collections"));
-        }else if (page == "userPage") {
+        }else if (page == "UserPage") {
             return this.driver.get(combineUrl("user"));
-        }else if (page == "searchPage") {
+        }else if (page == "SearchPage") {
             return this.driver.get(combineUrl("search"));
         }
 
