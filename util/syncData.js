@@ -108,12 +108,21 @@ function getMyInfo() {
 
 function getCollections() {
     var now = moment().format('x');
+    var collectionsList = [];
+    for (var i = 0; i <= 50; i++){
+        collectionsList.push({
+            url: "/collections?page=" + i + "&_=" + now
+        })
+    }
 
-    for(var count = 0; count < 50; count++){
-        sleep.sleep(1);
-        getURL.getPageContent("/collections?page=" + count + "&_=" + now, function (err, res) {
+    var conCurrencyCount = 0;
+    var fetchCollectionUrl = function (collectionUrl, callback) {
+        var delay = parseInt((Math.random() * 10000000) % 2000, 10);
+        conCurrencyCount++;
+
+        getURL.getPageContent(collectionUrl.url, function (err, res) {
             if (err) {
-                console.log('访问页面:' + "/collections?page=" + count + "&_=" + now + '失败');
+                console.log('访问页面:' + collectionUrl.url + '失败');
             } else {
                 var $ = cheerio.load(res.text);
                 if ($('div').find('h1').text() == "您要找的页面不存在") {
@@ -139,8 +148,21 @@ function getCollections() {
                     });
                 }
             }
-        })
-    }
+        });
+        setTimeout(function () {
+            conCurrencyCount--;
+            callback(null, collectionUrl + ' html content');
+        }, delay);
+
+    };
+
+
+
+    async.mapLimit(collectionsList, 5, function (collectionUrl, callback) {
+        fetchCollectionUrl(collectionUrl, callback);
+    }, function (err) {
+        if (err) return next(err);
+    });
 
 }
 
@@ -157,6 +179,7 @@ function getCollectionFollower(content) {
 
 function syncMyInfoAndArticle() {
 
+
     //every 5 Minutes
     schedule.scheduleJob("*/5 * * * *", function () {
         console.log('Sync myInfo and article...');
@@ -169,7 +192,7 @@ function syncMyInfoAndArticle() {
 function syncCollections() {
 
     //every 4 Hours
-    schedule.scheduleJob("* * */6 * *", function () {
+    schedule.scheduleJob("*/1 * * * *", function () {
         console.log('Sync collections...');
 
         getCollections();

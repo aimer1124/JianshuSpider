@@ -84,9 +84,7 @@
         - node-schedule: [https://github.com/node-schedule/node-schedule](https://github.com/node-schedule/node-schedule),a flexible cron-like and not-cron-like job scheduler for Node.js.
         
         - SuperAgent: [http://visionmedia.github.io/superagent/](http://visionmedia.github.io/superagent/),light-weight progressive ajax API crafted for flexibility, readability, and a low learning curve after being frustrated with many of the existing request APIs. 
-        
-        - sleep: [https://github.com/erikdubbelboer/node-sleep](https://github.com/erikdubbelboer/node-sleep), block execution of all JavaScript by halting Node.js' event loop!
-        
+                
     - FrontEnd
         
         - HighCharts: [http://www.highcharts.com](http://www.highcharts.com),set up interactive charts in their web pages
