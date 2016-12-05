@@ -10,7 +10,6 @@ Feature: SearchPage feature
     When I am on "SearchPage"
     Then I should see type is "文章" and searchContent is "".
 
-  @Test
   Scenario Outline: Search function
     When I am on "SearchPage"
     And I set searchType is <searchType>, searchContent is <searchContent> and click search button.
@@ -18,7 +17,6 @@ Feature: SearchPage feature
 
     Examples:
     | searchType | searchContent | searchResult |
-    | 文章 | 文章 | "" |
-    | 作者 | 我 | "" |
-    | 作者 | 爱 | "" |
+    | 文章 | 文章 | 文章标题 |
+    | 作者 | 我 | 作者 |
 

@@ -4,7 +4,7 @@ block content
     include header
     form(action='/search', method='post', class="form-inline")
         div(class='input-group')
-            select(name='searchType', class="selectpicker", data-width="auto")
+            select(name='searchType', class="selectpicker", data-width="auto", id="searchType")
                 option(value='article', selected= searchType == 'article', data-icon='glyphicon-list-alt') 文章
                 option(value='author', selected= searchType == 'author', data-icon='glyphicon-user') 作者
             if result == null

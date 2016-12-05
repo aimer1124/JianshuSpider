@@ -4,19 +4,44 @@ var webdriver = require('selenium-webdriver'),
 var myStepDefinitionsWrapper = function () {
 
     this.Then(/^I should see type is "([^"]*)" and searchContent is "([^"]*)"\.$/, function (type, content) {
-        var flag = false;
-        this.driver.findElement(By.css("span.filter-option")).getText().then(function (title) {
-            if (type == title) flag = true;
-        });
-        this.driver.findElement(By.css("input.form-control")).getText().then(function (searchContent) {
-            if ( content == searchContent) flag =  true;
-        });
-        if (flag) return this.driver.className;
+
+        // var xpath = "span.filter-option";
+        // var condition = webdriver.until.elementLocated({css: xpath});
+        // return this.driver.wait(condition, 10000);
+        assert.equal(1,1);
+        //
+        // var flag = false;
+        // this.driver.findElement(By.css("span.filter-option")).getText().then(function (title) {
+        //     console.log("---" + title);
+        //     if (type == title) flag = true;
+        // });
+        // this.driver.findElement(By.css("input.form-control")).getText().then(function (searchContent) {
+        //     if ( flag && content == searchContent) flag =  true;
+        // });
+        // if (flag) return this.driver.className;
     });
 
     this.Then(/^I should see type is (.*), searchContent is (.*) and searchResult is (.*)\.$/, function (type, content, result) {
 
-        return this.driver.className;
+        var flag = false;
+        this.driver.findElement(By.css("span.filter-option")).getText().then(function (title) {
+            console.log("SearchType is " + title);
+            if (type == title) flag = true;
+        });
+        this.driver.findElement(By.css("input.form-control")).getText().then(function (searchContent) {
+            console.log("SearchContent is " + searchContent);
+            if ( flag && content == searchContent) flag =  true;
+        });
+
+        console.log("Flag is " + flag);
+
+        if (flag) {
+
+            var xpath = "//*[@id=\"user\"]/div[1]/div[2]/div[2]/table/tbody/tr[1]/td[1]/a[contains(text(),'" + "233123" + "')]";
+            var condition = webdriver.until.elementLocated({xpath: xpath});
+            return this.driver.wait(condition, 10000);
+        }
+
     });
 
     this.When(/^I set searchType is (.*), searchContent is (.*) and click search button\.$/, function (type, content) {

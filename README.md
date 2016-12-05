@@ -2,6 +2,8 @@
 
 [中文文档](https://github.com/aimer1124/JianshuSpider/blob/master/README_ZH.md)
 
+[![Code Climate](https://codeclimate.com/github/aimer1124/JianshuSpider/badges/gpa.svg)](https://codeclimate.com/github/aimer1124/JianshuSpider)
+
 >The function in this project is all `my self mind`, because i want to improve my `Node.js`.So it's `open source`, welcome `PR` `Fork` or `Star`.
 
 ## Project
