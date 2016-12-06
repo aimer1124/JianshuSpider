@@ -5,10 +5,9 @@ var myStepDefinitionsWrapper = function () {
 
     this.Then(/^I should see type is "([^"]*)" and searchContent is "([^"]*)"\.$/, function (type, content) {
 
-        // var xpath = "span.filter-option";
-        // var condition = webdriver.until.elementLocated({css: xpath});
-        // return this.driver.wait(condition, 10000);
-        assert.equal(1,1);
+        var xpath = "span.filter-option";
+        var condition = webdriver.until.elementLocated({css: xpath});
+        return this.driver.wait(condition, 10000);
         //
         // var flag = false;
         // this.driver.findElement(By.css("span.filter-option")).getText().then(function (title) {

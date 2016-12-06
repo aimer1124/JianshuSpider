@@ -1,5 +1,7 @@
 # 简书爬虫
 
+[![Build Status](https://travis-ci.org/aimer1124/JianshuSpider.svg?branch=master)](https://travis-ci.org/aimer1124/JianshuSpider) [![Code Climate](https://codeclimate.com/github/aimer1124/JianshuSpider/badges/gpa.svg)](https://codeclimate.com/github/aimer1124/JianshuSpider) [![Test Coverage](https://codeclimate.com/github/aimer1124/JianshuSpider/badges/coverage.svg)](https://codeclimate.com/github/aimer1124/JianshuSpider/coverage) [![Issue Count](https://codeclimate.com/github/aimer1124/JianshuSpider/badges/issue_count.svg)](https://codeclimate.com/github/aimer1124/JianshuSpider)
+
 >此功能纯粹为个人**意想**功能,利用业余时间来学习Node。`所有内容`均已`开源`,欢迎各种`PR`和`Fork`。
 
 ## 项目
