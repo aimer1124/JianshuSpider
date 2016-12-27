@@ -7,9 +7,9 @@ var mocha = require('gulp-mocha');
 // our browser-sync config + nodemon chain
 gulp.task('browser-sync', ['nodemon'], function() {
     bs.init(null, {
-        proxy: "http://localhost:3000",
+        proxy: "http://localhost:9000",
         browser: "chromium-browser",
-        port: 4000
+        port: 9100
     });
 });
 

@@ -191,7 +191,7 @@ function syncMyInfoAndArticle() {
 function syncCollections() {
 
     var rule = new schedule.RecurrenceRule();
-    rule.minute = 42;
+    rule.minute = 17;
     //every 4 Hours
     schedule.scheduleJob(rule, function () {
         console.log('Sync collections...');

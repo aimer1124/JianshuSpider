@@ -3,21 +3,15 @@ var webdriver = require('selenium-webdriver'),
 
 var myStepDefinitionsWrapper = function () {
 
-    this.Then(/^I should see type is "([^"]*)" and searchContent is "([^"]*)"\.$/, function (type, content) {
+    this.Then(/^I should see type is "([^"]*)" and searchContent is "([^"]*)"\.$/, function (type, searchContent) {
+        var flag = false;
 
-        var xpath = "span.filter-option";
-        var condition = webdriver.until.elementLocated({css: xpath});
+
+        var xpath = "/html/body/form/div/div/button/span[1][contains(text(),'" + type + "')]";
+        var condition = webdriver.until.elementLocated({xpath: xpath});
         return this.driver.wait(condition, 10000);
-        //
-        // var flag = false;
-        // this.driver.findElement(By.css("span.filter-option")).getText().then(function (title) {
-        //     console.log("---" + title);
-        //     if (type == title) flag = true;
-        // });
-        // this.driver.findElement(By.css("input.form-control")).getText().then(function (searchContent) {
-        //     if ( flag && content == searchContent) flag =  true;
-        // });
-        // if (flag) return this.driver.className;
+
+
     });
 
     this.Then(/^I should see type is (.*), searchContent is (.*) and searchResult is (.*)\.$/, function (type, content, result) {
