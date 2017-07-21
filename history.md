@@ -1,6 +1,10 @@
 
 >每次修改时的变更记录。
 
+## **20170721**
+
+- 修复Search的Showcase图标显示Markdown文件配制
+
 ## **20161227**
 
 - 修改服务端端口号为`9101`，减少与本机其他应用程序`冲突`。同时修改测试代码执行端口号
@@ -119,7 +123,7 @@ Feature: HomePage feature
 
 - 添加Cucumber和WebDrive，深度使用BDD的方式进行测试
 
-    - 执行测试`./node_modules/cucumber/bin/cucumber.js` 
+    - 执行测试`./node_modules/cucumber/bin/cucumber.js`
 
 ## **20161123**
 
@@ -185,14 +189,14 @@ table(data-toggle="table", data-sort-name="date", data-sort-order="desc")
 - 添加`专题`页面显示
 
     - 按`用户关注数`倒序排列
-    
+
     - 默认仅展示前`20`条专题内容
-    
+
     - 添加`专题`页面测试
-    
+
 - 添加`bootstrap` `bootstrap-table`的样式处理    
     - 替换`Header`,`表格`样式
-    
+
 ## **20161101**
 
 - 获取整个网站的专题数据
@@ -200,13 +204,13 @@ table(data-toggle="table", data-sort-name="date", data-sort-order="desc")
     - 第二页请求为`http://www.jianshu.com/collections?page=2&_=1477976894514`
     - 后面的所有请求格式均为`http://www.jianshu.com/collections?order_by=score&page=3&_=1477976894515`
     >尝试使用`Postman`修改统一的请求格式`/collections?order_by=score&page=3&_=1477976894515`,结果为所有请求均可使用此方式请求。
-    
+
 - 时间戳
     - 使用`moment`的格式化参数`.format(''x)`
-    
+
 - 尝试查看整个网站有效的专题页码一共34页,使用`笨办法`:  `for`循环50次,来获取所有的专题数据
     - 添加`sleep`模块,减少在查找时,数据不同步。添加`等待`时间
-    
+
 ```
 function getCollections() {
     var now = moment().format('x');
@@ -243,7 +247,7 @@ function getCollections() {
 
 }
 ```
-    
+
 ## **20161031**
 
 - 分离数据爬取:文章内容/自己信息和专题
@@ -330,7 +334,7 @@ select(name='searchType')
 - 设置在未输入`搜索`内容时,搜索框内容为空
 
     - 设置`搜索`输入框的`placeholder`
-    
+
 ```
 if result == null
     input(name='searchContent', value='', placeholder='请输入搜索内容')
@@ -339,14 +343,14 @@ else
 ```
 
 - 添加搜索测试内容
-    
+
     - 默认页面
-    
+
     ```
     if ($("input").toArray().length < 1) throw new Error('There is not input_text!');
     if (!$("button")) throw new Error('There is not search_button!');
     ```
-        
+
     - 搜索结果
     ```
     request.post('/search')
@@ -376,15 +380,15 @@ select(name='searchType')
 - 添加搜索文章功能,支持搜索结束后,将`搜索内容`回显给输入框
 
     - 使用`form`表单提交搜索内容,`search.jade`
-    
+
     ```
     form(action='/search', method='post')
         input(name='searchContent')
         button(type='submit') 搜索
     ```
-        
+
     - 模糊查询标题名,`proxy/article.js`
-    
+
     ```
     exports.findByTitle = function (articleTitle, callback) {
         var findContent = { 'title': { $regex:  articleTitle}};
@@ -392,7 +396,7 @@ select(name='searchType')
     };
 
     ```
-    
+
 
 ## **20161011**
 
@@ -409,14 +413,14 @@ exports.updateInfo = function (today, following, follower, callback) {
     - [block VS include](http://stackoverflow.com/questions/14170537/difference-between-include-and-block-in-jade)
 
 - 发布Release: `V0.0.3`
-    
+
 
 ## **20161010**
 
 - 添加`作者`页面: 默认展示`粉丝量`最高的前20位作者
 
     - 添加测试代码`test/user-spec.js`
-    
+
     - 作者页面中,作者名支持可点击至`简书`官网作者的个人信息页面
 
 - 若`作者`数据已存在,则更新`作者`的`关注量`和`粉丝量`
@@ -427,7 +431,7 @@ exports.updateInfo = function (today, following, follower, callback) {
         user.update({id: article.authorHref}, {following: following, follower: follower},callback)
     };
     ```    
-    
+
     - `util/syncData.js`
     ```
     userProxy.getUserById(article.authorHref,function (err, findAuthor) {
@@ -442,7 +446,7 @@ exports.updateInfo = function (today, following, follower, callback) {
         }
     });
     ```
-    
+
 ## **20161009**
 
 - 将`变更记录`提取为单独的文件`history.md`
@@ -469,7 +473,7 @@ module.exports = {
 
     - 配制假数据,前端可使用`highcharts`控件来显示数据
         - `layout.jade`中添加`highcharts`引用
-        
+
         ```
           head
             title 简书爬虫
@@ -478,9 +482,9 @@ module.exports = {
             script(type='text/javascript', src="http://code.highcharts.com/highcharts.js")
             script(type='text/javascript', src="http://code.highcharts.com/modules/exporting.js")
         ```
-    
+
         - `index.jade`中添加静态数据展示
-        
+
         ```
         div#container(style="min-width: 500px; height: 500px; margin: 0 auto")
           script.
@@ -526,23 +530,23 @@ module.exports = {
               });
             });
         ```
-     
+
 - 使用真数据替换
 
     - 将获取的`三组`数据进行打包, 通过`render`传递给`jade`模块, 此时需要使用`sort`方法, 否则会被默认重新排序
-    
+
     ```
     res.render('index', {info: myInfo, myArticle: myArticle, followerList: followerList.sort(), followingList: followingList.sort(), dateList: dateList.sort()});
     ```
-    
+
     - 由于时间格式原来采用`2016-09-30`,在`node`获取时,会自动进行计算。因此将获取过来的数据进行格式转化: `20160930`
-    
+
     ```
     dateList.push(info.date.replace(/-/g,''));
     ```
 
     - 完整前端`index.jade`代码
-    
+
     ```
     div#container(style="min-width: 500px; height: 500px; margin: 0 auto")
       script.
@@ -557,7 +561,7 @@ module.exports = {
         var followerList = arrToMultiArr([#{followerList}]);
         var followingList = arrToMultiArr([#{followingList}]);
         var dateList = arrToMultiArr([#{dateList}]);
-    
+
         $(function () {
           $('#container').highcharts({
             title: {
@@ -603,11 +607,11 @@ module.exports = {
     ```
 
 - 样式调整
-    
+
     - 将个人数据及图表放在同一行,文章列表放在下一行
-    
+
     - 所有表格数据内容均采用`局中`对齐,文件标题采用`左对齐`
-    
+
 - 格式化所有`jade`代码: 缩进调整
 
 ## **20160930**
@@ -642,9 +646,9 @@ if ($("#myArticle tbody tr td").eq(1).text().indexOf("2016")) throw new Error("M
 - 调整`myInfo` `author`的`model`添加字段约束
 
 - 完善测试`首页`的验证内容
-    
+
     - 添加对`个人信息`中首个数据的年份验证
-    
+
     - 添加对`自己文章`中首个数据的发布时间年份验证
 ```
 if ($("#myInfo tbody tr td").eq(0).text().indexOf("2016")) throw new Error("MyInfo date is lost, because date is not 201*Year");
@@ -658,11 +662,11 @@ if ($("#myArticle tbody tr td").eq(1).text().indexOf("2016")) throw new Error("M
     - 修改`myInfoSchema.find({},cb)`方法为`myInfoSchema.find({}).sort(date:-1).exec(cb)`
 
 - 修改个人信息中数据仅显示前`7`条
-    
+
     - 调整`myInfoSchema.find({}).sort(date:-1).exec(cb)`添加`limit(7)`限制
 
 - 修改文章列表仅显示最新的20条
-    
+
     - 修改`getAllArticles`方法,排序按`_id`号排序
     ```
     exports.getAllArticles = function (callback) {
@@ -675,16 +679,16 @@ if ($("#myArticle tbody tr td").eq(1).text().indexOf("2016")) throw new Error("M
 - 时间处理方式统一
 
     - 调整时间处理格式使用[moment](http://momentjs.com/)模块处理
-    
+
     - 修复旧数据中时间格式统一将原数据格式调整为: `db.myinfos.update({'date':'Fri Aug 05 2016'},{$set:{'date':'2016-08-05'}})`
 
 - 调整首页中获取简书文章时的时间处理: 显示格式YYYY-MM-DD,将获取的时间进行`切割`
-    
+
 ```
 $article.find('.time').attr('data-shared-at').split('T')[0]
 ```    
 
-- 调整首页中个人文章列表中数据获取,提取`公共`模块`util/convertString.js`处理获取的数据: **评论数/喜欢数/阅读量** 
+- 调整首页中个人文章列表中数据获取,提取`公共`模块`util/convertString.js`处理获取的数据: **评论数/喜欢数/阅读量**
 
 ```
 function getLatestNumberWithSpace(string) {
@@ -693,7 +697,7 @@ function getLatestNumberWithSpace(string) {
 }
 
 ```
-    
+
 - 添加自动同步功能: **个人信息/新文章**,使用模块[node-schedule](https://github.com/node-schedule/node-schedule)
 
 ```
@@ -728,9 +732,9 @@ function syncData() {
 
 - `重构`获取文章列表方法
 
-    
+
     *   提取`proxy/article.js`文档操作方法，针对Mongoose中的Scheme进行操作
-    
+
     ```
     exports.getAllArticles = function (callback) {
       article.find({},callback)
@@ -739,15 +743,15 @@ function syncData() {
     ```
 
     *   调整获取文章列表数据`routes/jianshu.com`
-    
+
     ```
     article.getAllArticles(function (err, articles) {
-    
+
         if (err) return next(err);  
         res.render('jianshu', {articles: articles});
-    
+
         });
-    
+
     ```
 
 ## **20160919**
@@ -1076,7 +1080,7 @@ module.exports = mongoose.model('article', articleScheme);
 ```
 
 - 作者数据存入`author`中,存入数据:authorHref/author/following/follower
-    
+
     - `model`:author.js`
 
 ```
@@ -1143,7 +1147,7 @@ articleSchema.find({articleHref:article.articleHref},function (err, findArticle)
 ## **20160720**
 
 - 添加数据库中存储数据**作者**、**作者信息链接**
-    
+
     - 添加`scheme`配制
 
 ```
@@ -1332,7 +1336,7 @@ articleTitle.forEach(function (article) {
 ```
 
 - 添加文章列表中作者的信息链接
-    
+
     - 获取作者的信息链接
 
 ```
@@ -1355,7 +1359,7 @@ articleTitle.push({
       a(href='#{article.href}') #{article.href}
 ```
 
-## **20160714** 
+## **20160714**
 
 - 获取首页文章的作者名及文章链接
 
@@ -1415,7 +1419,7 @@ tbody
               td 0
 ```
 
-## **20160713** 
+## **20160713**
 
 - 实时爬取简书首页的文章列表 [http://localhost:3000/jianshu](http://localhost:3000/jianshu)
 
@@ -1443,7 +1447,7 @@ tbody
     - `superagent`:模拟网络请求
 
     - `nodemon`:用来实际检测`Node`文件是否有变更,有变更则自动重新部署。便于开发调度。启动命令:`./node_modules/nodemon/bin/nodemon.js jianshu`
-    
+
     - 添加`jianshu`的route和view模板,并将结果遍历出来
 
 ```
