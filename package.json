@@ -7,7 +7,7 @@
     "coverage": "istanbul cover cucumber.js"
   },
   "dependencies": {
-    "async": "^2.0.0",
+    "async": "^2.3.0",
     "body-parser": "~1.15.1",
     "cheerio": "^0.20.0",
     "cookie-parser": "~1.4.3",
@@ -22,7 +22,7 @@
     "node-schedule": "^1.1.1",
     "nodemon": "^1.9.2",
     "serve-favicon": "~2.3.0",
-    "superagent": "^3.7.0"
+    "superagent": "^3.8.3"
   },
   "devDependencies": {
     "browser-sync": "^2.14.0",

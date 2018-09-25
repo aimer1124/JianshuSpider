@@ -89,7 +89,7 @@ block content
                         each article in myArticle
                             tr
                                 td
-                                    a(href='http://www.jianshu.com' + '#{article.articleHref}') #{article.article}
+                                    a(href='http://www.jianshu.com' + '#{article.articleHref}', target='_blank') #{article.article}
                                 td #{article.publishDate}
                                 td #{article.reading}
                                 td #{article.comment}

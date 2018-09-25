@@ -57,9 +57,9 @@
 
 - Version
 
-    - Node: 4.4.3
+    - Node: `8.11.3`
 
-    - Mongo: 3.0.3
+    - Mongo: `4.0.2`
 
 - Dependencies
 

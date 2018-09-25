@@ -6,7 +6,7 @@ var syncData = require('../util/syncData');
 syncData.syncData();
 
 var convertString = require('../util/convertString');
-var myPageHref = '/users/552f687b314b/top_articles';
+var myPageHref = '/u/552f687b314b';
 
 var myInfo = require('../proxy/myInfo');
 var getURL = require('../proxy/getURL');
@@ -32,28 +32,32 @@ router.get('/', function(req, res, next) {
             favoriteList.push(info.favorite);
             dateList.push(info.date.replace(/-/g, ''));
         });
+
         getURL.getPageContent(myPageHref, function (err, resT) {
             if (err) return next(err);
-                var $ = cheerio.load(resT.text);
-                $('.article-list li').each(function (idx, article) {
-                    var $article = $(article);
+            var $ = cheerio.load(resT.text);
+            $('.note-list li').each(function (idx, article) {
+                var $article = $(article);
 
-                    myArticle.push({
-                        article: $article.find('.title a').text(),
-                        publishDate: $article.find('.time').attr('data-shared-at').split('T')[0],
-                        articleHref: $article.find('.title a').attr('href').split(' '),
-                        reading: convertString.getLatestNumberWithSpace($article.find('.list-footer a').eq(0).text()),
-                        comment: convertString.getLatestNumberWithSpace($article.find('.list-footer a').eq(1).text()),
-                        favorite: convertString.getLatestNumberWithSpace($article.find('.list-footer span').text())
-                    })
+                myArticle.push({
+                    article: $article.find('.title').text(),
+                    publishDate: $article.find('.time').attr('data-shared-at').split('T')[0],
+                    articleHref: $article.find('.title').attr('href'),
+                    reading: convertString.getLatestNumberWithSpace($article.find('.meta a').eq(0).text()),
+                    comment: convertString.getLatestNumberWithSpace($article.find('.meta a').eq(1).text()),
+                    favorite: convertString.getLatestNumberWithSpace($article.find('.meta span').text())
                 });
-                res.render('index', {
-                    info: myInfo,
-                    myArticle: myArticle,
-                    followerList: followerList.reverse(),
-                    favoriteList: favoriteList.reverse(),
-                    dateList: dateList.reverse()
-                });
+            });
+            
+            
+            
+            res.render('index', {
+                info: myInfo,
+                myArticle: myArticle,
+                followerList: followerList.reverse(),
+                favoriteList: favoriteList.reverse(),
+                dateList: dateList.reverse()
+            });
             });
     });
 });
